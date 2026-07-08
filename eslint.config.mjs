@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Third-party ChemDoodle Web Components assets
+    "public/ChemDoodleWeb-11.0.0/**",
   ]),
 ]);
 
