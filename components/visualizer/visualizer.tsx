@@ -147,10 +147,9 @@ export default function Visualizer({
                 const indexed = toIndexContent(mol)
                 const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
 
-                if (indexed.m) {
-                    const srcMolArr = indexed.m as CDMolecule[]
-                    for (let i = 0; i < srcMolArr.length && i < molecules.length; i++) {
-                        const src = srcMolArr[i]
+                if (mol.m) {
+                    for (let i = 0; i < mol.m.length && i < molecules.length; i++) {
+                        const src = mol.m[i]
                         const target = molecules[i] as {
                             atoms: Array<{ styles?: Record<string, unknown> }>
                             bonds: Array<{ styles?: Record<string, unknown> }>
