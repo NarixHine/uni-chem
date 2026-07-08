@@ -24,6 +24,7 @@ export function Markdown({ children: content, className, ...props }: MarkdownPro
                             component: Visualizer,
                         },
                     },
+                    
                 }}
             >
                 {result}

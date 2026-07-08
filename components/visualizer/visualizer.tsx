@@ -181,7 +181,7 @@ export default function Visualizer({
     }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc])
 
     return (
-        <div ref={containerRef} className={cn('w-full max-h-40', className)}>
+        <div ref={containerRef} className={cn('w-full max-h-50', className)}>
             <canvas
                 id={canvasId}
                 width={size.width}

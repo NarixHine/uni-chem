@@ -3,15 +3,16 @@ import Script from 'next/script'
 import { Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
+import localFont from 'next/font/local'
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
     subsets: ['latin'],
 })
 
-const heiti = Noto_Sans_SC({
+const heiti = localFont({
+    src: './hanyi.ttf',
     variable: '--font-noto-sans',
-    subsets: ['latin'],
 })
 
 const geistMono = Geist_Mono({
