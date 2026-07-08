@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Geist, Geist_Mono, Newsreader, Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google'
+import { DM_Sans, Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
-import localFont from 'next/font/local'
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
+const dmSans = DM_Sans({
+    variable: '--font-en-sans',
     subsets: ['latin'],
 })
 
-const heiti = Noto_Serif_SC({
+const heiti = Noto_Sans_SC({
     subsets: ['latin'],
     weight: ['500', '700'],
     variable: '--font-noto-sans',
@@ -27,9 +26,7 @@ const newsreader = Newsreader({
 })
 
 export const metadata: Metadata = {
-    title: 'Uni-Chem — Notes on Molecular Chemistry',
-    description:
-        'A blog about molecular structures, reaction mechanisms, and the chemistry that shapes everyday materials.',
+    title: '有机化学探微',
 }
 
 export default function RootLayout({
@@ -40,15 +37,10 @@ export default function RootLayout({
     return (
         <html
             lang='en'
-            className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${heiti.variable} h-full antialiased`}
+            className={`${dmSans.variable} ${geistMono.variable} ${newsreader.variable} ${heiti.variable} h-full antialiased`}
         >
             <body className='bg-background text-foreground min-h-full flex flex-col'>
                 <Providers>{children}</Providers>
-                <Script src='/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js' strategy='beforeInteractive' />
-                <Script
-                    src='/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
-                    strategy='beforeInteractive'
-                />
             </body>
         </html>
     )

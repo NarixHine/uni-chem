@@ -5,32 +5,14 @@ import Main from '@/components/main'
 
 export default function Home() {
     return (
-        <Main>
-            <header className='sticky top-0 z-50 border-b border-[var(--border)] bg-background/80 backdrop-blur-md'>
-                <div className='mx-auto flex max-w-5xl items-center justify-between px-6 py-4'>
-                    <Link href='/' className='font-mono text-sm tracking-tight'>
-                        uni-chem<span className='text-muted'>/notes</span>
-                    </Link>
-                </div>
-            </header>
-
-            <section className='py-24 md:py-32'>
-                <h1 className='mt-6 max-w-3xl font-serif text-5xl leading-[1.05] tracking-tight md:text-6xl'>
-                  Organic Chemistry
+        <Main className='max-w-none w-dvw px-0'>
+ 
+            <section className='w-dvw bg-foreground relative h-[clamp(5rem,calc(18vw),8rem)]'>
+                <h1 className='absolute font-bold text-balance pl-[clamp(1rem,calc(10vw),10rem)] md:pl-[20vw] -bottom-[clamp(1rem,calc(4vw),2.5rem)] text-[clamp(3rem,calc(12vw),5rem)] font-sans leading-[1.1] tracking-tight mix-blend-difference contrast-[1.2] text-background'>
+                  有机化学探微
                 </h1>
-                <p className='mt-8 max-w-xl text-lg leading-relaxed text-muted'>
-                  高中化学教科书的延伸
-                </p>
             </section>
 
-            <section className='pb-32'>
-                <div className='flex items-baseline justify-between border-t border-[var(--border)] py-6'>
-                    <h2 className='font-mono text-xs uppercase tracking-[0.15em] text-muted'>
-                        Index — {posts.length} essays
-                    </h2>
-                </div>
-                <PostList posts={posts} />
-            </section>
         </Main>
     )
 }

@@ -7,7 +7,7 @@
    (HeroUI styles already map background/foreground/surface/border/muted)
 --------------------------------------------------------------------------- */
 @theme inline {
-    --font-sans: var(--font-geist-sans), var(--font-noto-sans);
+    --font-sans: var(--font-en-sans), var(--font-noto-sans);
     --font-mono: var(--font-geist-mono);
     --font-serif: var(--font-newsreader);
 }
