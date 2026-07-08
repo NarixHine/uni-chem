@@ -1,7 +1,7 @@
 'use client'
 
 import cn from 'cnfast'
-import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 export interface VisualizerProps {
     mol: CDContent
@@ -146,6 +146,38 @@ export default function Visualizer({
 
                 const indexed = toIndexContent(mol)
                 const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
+
+                if (indexed.m) {
+                    const srcMolArr = indexed.m as CDMolecule[]
+                    for (let i = 0; i < srcMolArr.length && i < molecules.length; i++) {
+                        const src = srcMolArr[i]
+                        const target = molecules[i] as {
+                            atoms: Array<{ styles?: Record<string, unknown> }>
+                            bonds: Array<{ styles?: Record<string, unknown> }>
+                        }
+
+                        for (let j = 0; j < src.a.length && j < target.atoms.length; j++) {
+                            const clr = src.a[j].clr
+                            if (clr) {
+                                target.atoms[j].styles = Object.assign(
+                                    new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                    { atoms_color: clr },
+                                )
+                            }
+                        }
+                        if (src.b && target.bonds) {
+                            for (let j = 0; j < src.b.length && j < target.bonds.length; j++) {
+                                const clr = src.b[j].clr
+                                if (clr) {
+                                    target.bonds[j].styles = Object.assign(
+                                        new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                        { bonds_color: clr },
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
 
                 if (molecules.length > 0 || shapes.length > 0) {
                     if (moleculeStyle) {

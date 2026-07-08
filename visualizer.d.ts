@@ -35,6 +35,10 @@ declare global {
       }
     }
 
+    structures: {
+      Styles: new () => Record<string, unknown>
+    }
+
     readMOL(molString: string): unknown
   }
 
@@ -72,6 +76,8 @@ declare global {
     p_h?: boolean | number
     p_w?: boolean | number
     p_d?: number
+    clr?: string
+    styles?: Record<string, unknown>
   }
 
   interface CDBond {
@@ -81,6 +87,8 @@ declare global {
     o?: number
     s?: number
     q?: CDQuery
+    clr?: string
+    styles?: Record<string, unknown>
   }
 
   interface CDMolecule {
