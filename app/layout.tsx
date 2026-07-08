@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
+import { Geist, Geist_Mono, Newsreader, Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import localFont from 'next/font/local'
@@ -10,8 +10,9 @@ const geistSans = Geist({
     subsets: ['latin'],
 })
 
-const heiti = localFont({
-    src: './hanyi.ttf',
+const heiti = Noto_Serif_SC({
+    subsets: ['latin'],
+    weight: ['500', '700'],
     variable: '--font-noto-sans',
 })
 
