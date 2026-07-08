@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
@@ -41,6 +42,11 @@ export default function RootLayout({
         >
             <body className='bg-background text-foreground min-h-full flex flex-col'>
                 <Providers>{children}</Providers>
+                <Script src='/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js' strategy='beforeInteractive' />
+                <Script
+                    src='/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
+                    strategy='beforeInteractive'
+                />
             </body>
         </html>
     )

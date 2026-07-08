@@ -1,12 +1,18 @@
-@import "tailwindcss";
-@import "@heroui/styles";
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@import '@heroui/styles';
 
 /* ---------------------------------------------------------------------------
    Tailwind theme tokens — serif font + pastel tag palette
    (HeroUI styles already map background/foreground/surface/border/muted)
 --------------------------------------------------------------------------- */
 @theme inline {
-  --font-sans: var(--font-geist-sans), var(--font-noto-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-newsreader);
+    --font-sans: var(--font-geist-sans), var(--font-noto-sans);
+    --font-mono: var(--font-geist-mono);
+    --font-serif: var(--font-newsreader);
+}
+
+:root {
+  /* Override default colors */
+  --background: oklch(1 0 0);
 }

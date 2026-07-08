@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useId, useRef, type CSSProperties } from 'react'
+import cn from 'cnfast'
+import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
 
 export interface VisualizerProps {
     mol: CDContent
     id?: string
     width?: number
     height?: number
-    style?: CSSProperties
+    className?: string
     canvasStyle?: Record<string, unknown>
     moleculeStyle?: Record<string, unknown>
     scriptSrc?: string
@@ -97,9 +98,9 @@ function toIndexContent(content: CDContent): Record<string, unknown> {
 export default function Visualizer({
     mol,
     id,
-    width = 300,
-    height = 300,
-    style,
+    width = 200,
+    height = 200,
+    className,
     canvasStyle,
     moleculeStyle,
     scriptSrc = DEFAULT_SCRIPT_SRC,
@@ -108,6 +109,27 @@ export default function Visualizer({
     const autoId = useId()
     const canvasId = id ?? `cd-${autoId.replace(/[:]/g, '')}`
     const canvasRef = useRef<ChemDoodleViewer | null>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [size, setSize] = useState({ width, height })
+
+    useEffect(() => {
+        const el = containerRef.current
+        if (!el) return
+
+        const update = () => {
+            const rect = el.getBoundingClientRect()
+            setSize({
+                width: Math.max(1, Math.floor(rect.width)),
+                height: Math.max(1, Math.floor(rect.height || height)),
+            })
+        }
+
+        update()
+
+        const observer = new ResizeObserver(update)
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [height])
 
     useEffect(() => {
         let cancelled = false
@@ -116,30 +138,30 @@ export default function Visualizer({
             .then(chem => {
                 if (cancelled) return
 
-                const canvas = new chem.ViewerCanvas(canvasId, width, height)
+                const canvas = new chem.ViewerCanvas(canvasId, size.width, size.height)
 
                 if (canvasStyle) {
                     canvas.styles = { ...canvas.styles, ...canvasStyle }
                 }
 
-        const indexed = toIndexContent(mol)
-        const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
+                const indexed = toIndexContent(mol)
+                const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
 
-        if (molecules.length > 0 || shapes.length > 0) {
-          if (moleculeStyle) {
-            for (const molecule of molecules) {
-              const stylable = molecule as unknown as Record<
-                string,
-                ((value: unknown) => void) | undefined
-              >
-              for (const key in moleculeStyle) {
-                stylable[key]?.(moleculeStyle[key])
-              }
-            }
-          }
-          canvas.loadContent(molecules, shapes)
-          canvas.repaint()
-        }
+                if (molecules.length > 0 || shapes.length > 0) {
+                    if (moleculeStyle) {
+                        for (const molecule of molecules) {
+                            const stylable = molecule as unknown as Record<
+                                string,
+                                ((value: unknown) => void) | undefined
+                            >
+                            for (const key in moleculeStyle) {
+                                stylable[key]?.(moleculeStyle[key])
+                            }
+                        }
+                    }
+                    canvas.loadContent(molecules, shapes)
+                    canvas.repaint()
+                }
 
                 canvasRef.current = canvas
             })
@@ -156,7 +178,16 @@ export default function Visualizer({
             }
             canvasRef.current = null
         }
-    }, [canvasId, width, height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc])
+    }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc])
 
-    return <canvas id={canvasId} width={width} height={height} style={style} />
+    return (
+        <div ref={containerRef} className={cn('w-full max-h-40', className)}>
+            <canvas
+                id={canvasId}
+                width={size.width}
+                height={size.height}
+                className='block h-full w-full'
+            />
+        </div>
+    )
 }
