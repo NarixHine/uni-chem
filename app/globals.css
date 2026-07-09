@@ -12,6 +12,10 @@
     --font-serif: var(--font-newsreader), var(--font-songti);
 }
 
+.katex {
+  color: inherit !important;
+}
+
 :root {
   /* Override default colors */
   --background: oklch(1 0 0);

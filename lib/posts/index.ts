@@ -1,14 +1,19 @@
+import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
+import { ESTERIFICATION_TEXT } from './texts/esterification'
+
 export interface Post {
     slug: string
     title: string
     excerpt: string
+    text?: string
 }
 
 export const posts: Post[] = [
     {
         slug: 'resonance',
         title: '共振理论',
-        excerpt: '为什么苯环可以画成单双键交替的凯库勒式，也可以画成一个圈？重新建构对电子云和共价键的认知。',
+        excerpt:
+            '为什么苯环可以画成单双键交替的凯库勒式，也可以画成一个圈？重新建构对电子云和共价键的认知。',
     },
     {
         slug: 'directing-group',
@@ -35,11 +40,12 @@ export const posts: Post[] = [
         slug: 'esterification',
         title: '酯化反应',
         excerpt: '浓硫酸不仅是促进平衡正移的吸水剂，还通过增强羧基亲电性而催化亲核取代。',
+        text: ESTERIFICATION_TEXT,
     },
     {
         slug: 'aldol-condensation',
         title: '羟醛缩合',
-        excerpt:
-            '由于羰基的吸电子效应，α-氢的酸性显著增强，从而易与作为路易斯碱的醇反应。',
+        excerpt: '由于羰基的吸电子效应，α-氢的酸性显著增强，从而易与作为路易斯碱的醇反应。',
+        text: ALDOL_CONDENSATION_TEXT,
     },
 ]
