@@ -32,17 +32,15 @@ export interface PostAvatarProps extends HTMLAttributes<HTMLSpanElement> {
 
 export function PostAvatar({ seed, neutral, className, style, ...props }: PostAvatarProps) {
     const color = useMemo(
-        () => (neutral ? 'var(--background-secondary)' : PALETTE[hashString(seed) % PALETTE.length]),
+        () =>
+            neutral ? 'var(--background-secondary)' : PALETTE[hashString(seed) % PALETTE.length],
         [seed, neutral],
     )
 
     return (
         <span
             aria-hidden
-            className={cn(
-                'relative block shrink-0 overflow-hidden rounded-[6px] md:rounded-[8px] h-[1.725rem] w-[1.725rem] md:h-[2.15625rem] md:w-[2.15625rem]',
-                className,
-            )}
+            className={cn('relative block shrink-0 overflow-hidden rounded-lg', className)}
             style={{
                 ...style,
                 backgroundColor: color,
@@ -52,7 +50,7 @@ export function PostAvatar({ seed, neutral, className, style, ...props }: PostAv
             {...props}
         >
             <span
-                className='block h-full w-full rounded-[6px] md:rounded-[8px]'
+                className='block h-full w-full rounded-md md:rounded-lg'
                 style={{
                     background:
                         'linear-gradient(150deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 60%, rgba(0,0,0,0.06) 100%)',
