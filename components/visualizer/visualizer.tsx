@@ -27,6 +27,76 @@ function getChemDoodle(): ChemDoodleGlobal | undefined {
     return (globalThis as unknown as { ChemDoodle?: ChemDoodleGlobal }).ChemDoodle
 }
 
+let probeEl: HTMLDivElement | null = null
+function getProbe(): HTMLDivElement {
+    if (!probeEl) {
+        probeEl = document.createElement('div')
+        probeEl.style.position = 'absolute'
+        probeEl.style.visibility = 'hidden'
+        probeEl.style.pointerEvents = 'none'
+        document.documentElement.appendChild(probeEl)
+    }
+    return probeEl
+}
+
+/** Convert an oklch(L C H) string to an rgb() string canvas 2D can parse. */
+function oklchToRgb(oklch: string): string | undefined {
+    // L may be a percentage (0-100%) or a number (0-1). Normalize to 0-1.
+    const m = oklch.match(/oklch\(\s*([\d.]+)(%)?\s+([\d.]+)(%)?\s+([\d.]+)deg?\s*\)/)
+    if (!m) return undefined
+    const L = parseFloat(m[1]) / (m[2] ? 100 : 1)
+    const C = parseFloat(m[3]) / (m[4] ? 100 : 1)
+    const H = parseFloat(m[5])
+    const hRad = (H * Math.PI) / 180
+    const a = C * Math.cos(hRad)
+    const b = C * Math.sin(hRad)
+    const l_ = L + 0.3963377774 * a + 0.2158037573 * b
+    const m_ = L - 0.1055613458 * a - 0.0638541728 * b
+    const s_ = L - 0.0894841775 * a - 1.291485548 * b
+    const lC = l_ ** 3
+    const mC = m_ ** 3
+    const sC = s_ ** 3
+    const r = +4.0767416621 * lC - 3.3077115913 * mC + 0.2309699292 * sC
+    const g = -1.2684380046 * lC + 2.6097574011 * mC - 0.3413193965 * sC
+    const bl = -0.0041960863 * lC - 0.7034186147 * mC + 1.707614701 * sC
+    const toSrgb = (x: number) => (x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055)
+    const clamp = (x: number) => Math.max(0, Math.min(255, Math.round(toSrgb(x) * 255)))
+    return `rgb(${clamp(r)}, ${clamp(g)}, ${clamp(bl)})`
+}
+
+function readThemeColor(varName: string): string | undefined {
+    if (typeof window === 'undefined') return undefined
+    const probe = getProbe()
+    probe.style.color = `var(${varName})`
+    const resolved = getComputedStyle(probe).color
+    if (!resolved) return undefined
+    // Canvas 2D fillStyle can't parse oklch(); convert to rgb().
+    if (resolved.startsWith('oklch')) return oklchToRgb(resolved) ?? undefined
+    return resolved
+}
+
+/** Resolved theme colors; re-read whenever dark/light mode flips. */
+function useThemeColors() {
+    const [token, bump] = useState(0)
+    useEffect(() => {
+        const el = document.documentElement
+        const observer = new MutationObserver(() => bump(t => t + 1))
+        observer.observe(el, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+        const media = window.matchMedia('(prefers-color-scheme: dark)')
+        const onChange = () => bump(t => t + 1)
+        media.addEventListener('change', onChange)
+        return () => {
+            observer.disconnect()
+            media.removeEventListener('change', onChange)
+        }
+    }, [])
+    return {
+        background: readThemeColor('--background'),
+        foreground: readThemeColor('--foreground'),
+        token,
+    }
+}
+
 function ensureScript(src: string): HTMLScriptElement {
     const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`)
     if (existing) return existing
@@ -111,6 +181,7 @@ export default function Visualizer({
     const canvasRef = useRef<ChemDoodleViewer | null>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const [size, setSize] = useState({ width, height })
+    const theme = useThemeColors()
 
     useEffect(() => {
         const el = containerRef.current
@@ -140,9 +211,17 @@ export default function Visualizer({
 
                 const canvas = new chem.ViewerCanvas(canvasId, size.width, size.height)
 
-                if (canvasStyle) {
-                    canvas.styles = { ...canvas.styles, ...canvasStyle }
+                const themeDefaults: Record<string, unknown> = {}
+                if (theme.background) themeDefaults.backgroundColor = theme.background
+                if (theme.foreground) {
+                    themeDefaults.atoms_color = theme.foreground
+                    themeDefaults.atoms_HBlack_2D = false
+                    themeDefaults.bonds_color = theme.foreground
+                    themeDefaults.shapes_color = theme.foreground
+                    themeDefaults.text_color = theme.foreground
                 }
+
+                canvas.styles = { ...canvas.styles, ...themeDefaults, ...canvasStyle }
 
                 const indexed = toIndexContent(mol)
                 const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
@@ -209,7 +288,7 @@ export default function Visualizer({
             }
             canvasRef.current = null
         }
-    }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc])
+    }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc, theme.background, theme.foreground, theme.token])
 
     return (
         <div ref={containerRef} className={cn('w-full max-h-50', className)}>

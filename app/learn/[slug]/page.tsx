@@ -1,5 +1,6 @@
 import Main from '@/components/main'
 import { Markdown } from '@/components/markdown'
+import { NextArticleButton } from '@/components/next-article-button'
 import { posts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
@@ -23,6 +24,10 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
         notFound()
     }
     const { excerpt, text, title } = post
+    const index = posts.findIndex(p => p.slug === slug)
+    const next = posts
+        .slice(index + 1)
+        .find(p => p.text)
     return (
         <article>
             <div className='prose dark:prose-invert'>
@@ -30,6 +35,9 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                 <p className='text-muted text-lg font-sans'>{excerpt}</p>
             </div>
             <Markdown>{text}</Markdown>
+            {next && (
+                <NextArticleButton href={`/learn/${next.slug}`} title={next.title} />
+            )}
         </article>
     )
 }
