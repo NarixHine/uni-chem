@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { DM_Sans, Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
+import { DM_Sans, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -27,11 +27,12 @@ const geistMono = Geist_Mono({
 
 const newsreader = Newsreader({
     variable: '--font-newsreader',
+    style: ['normal', 'italic'],
     subsets: ['latin'],
 })
 
 export const metadata: Metadata = {
-    title: '有机化学探微',
+    title: '亲民反应',
 }
 
 export default function RootLayout({
