@@ -9,13 +9,13 @@ export function PostList({ posts }: { posts: Post[] }) {
         <div>
             {posts.map(post => (
                 <article key={post.slug} className='group py-8'>
-                    <div className='flex items-start gap-3 md:gap-4'>
+                    <div className='flex items-start gap-3'>
                         <PostAvatar
                             className='h-[1.725rem] w-[1.725rem] md:h-[2.15625rem] md:w-[2.15625rem]'
                             seed={post.slug}
                             neutral={!post.text}
                         />
-                        <h2 className='font-serif text-2xl leading-[1.15] tracking-tight md:text-3xl text-balance'>
+                        <h2 className='font-serif text-2xl leading-tight tracking-tight md:text-3xl text-balance'>
                             {post.text ? (
                                 <Link
                                     href={`/learn/${post.slug}`}
