@@ -31,7 +31,7 @@ export function Markdown({ children: content, className, ...props }: MarkdownPro
     })
 
     return (
-        <div className={cn('dark:prose-invert prose-lg', className)} {...props}>
+        <div className={cn('dark:prose-invert! prose-lg', className)} {...props}>
             <MarkdownToJSX
                 options={{
                     overrides: {

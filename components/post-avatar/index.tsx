@@ -27,10 +27,14 @@ function hashString(s: string): number {
 
 export interface PostAvatarProps extends HTMLAttributes<HTMLSpanElement> {
     seed: string
+    neutral?: boolean
 }
 
-export function PostAvatar({ seed, className, style, ...props }: PostAvatarProps) {
-    const color = useMemo(() => PALETTE[hashString(seed) % PALETTE.length], [seed])
+export function PostAvatar({ seed, neutral, className, style, ...props }: PostAvatarProps) {
+    const color = useMemo(
+        () => (neutral ? 'var(--background-secondary)' : PALETTE[hashString(seed) % PALETTE.length]),
+        [seed, neutral],
+    )
 
     return (
         <span

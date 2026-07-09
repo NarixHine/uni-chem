@@ -10,7 +10,7 @@ export function PostList({ posts }: { posts: Post[] }) {
             {posts.map(post => (
                 <article key={post.slug} className='group py-8'>
                     <div className='flex items-start gap-3 md:gap-4'>
-                        <PostAvatar seed={post.slug} />
+                        <PostAvatar seed={post.slug} neutral={!post.text} />
                         <h2 className='font-serif text-2xl leading-[1.15] tracking-tight md:text-3xl text-balance'>
                             {post.text ? (
                                 <Link
