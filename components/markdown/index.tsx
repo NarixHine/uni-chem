@@ -1,5 +1,3 @@
-'use client'
-
 import { Markdown as MarkdownToJSX } from 'markdown-to-jsx/react'
 import type { HTMLAttributes } from 'react'
 import cn from 'cnfast'
@@ -31,7 +29,7 @@ export function Markdown({ children: content, className, ...props }: MarkdownPro
     })
 
     return (
-        <div className={cn('dark:prose-invert! prose-lg', className)} {...props}>
+        <div className={cn('prose dark:prose-invert prose-lg', className)} {...props}>
             <MarkdownToJSX
                 options={{
                     overrides: {

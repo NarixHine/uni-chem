@@ -24,10 +24,12 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
     }
     const { excerpt, text, title } = post
     return (
-        <section className='prose'>
-            <h1 className='font-serif -mb-4 font-medium'>{title}</h1>
-            <p className='text-muted text-lg font-sans'>{excerpt}</p>
+        <article>
+            <div className='prose dark:prose-invert'>
+                <h1 className='font-serif -mb-4 font-medium'>{title}</h1>
+                <p className='text-muted text-lg font-sans'>{excerpt}</p>
+            </div>
             <Markdown>{text}</Markdown>
-        </section>
+        </article>
     )
 }
