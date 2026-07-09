@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
+import localFont from 'next/font/local'
 import { DM_Sans, Geist, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
@@ -13,6 +13,11 @@ const heiti = Noto_Sans_SC({
     subsets: ['latin'],
     weight: ['500', '700'],
     variable: '--font-noto-sans',
+})
+
+const songti = localFont({
+    src: './songti.ttf',
+    variable: '--font-songti',
 })
 
 const geistMono = Geist_Mono({
@@ -37,7 +42,7 @@ export default function RootLayout({
     return (
         <html
             lang='en'
-            className={`${dmSans.variable} ${geistMono.variable} ${newsreader.variable} ${heiti.variable} h-full antialiased`}
+            className={`${dmSans.variable} ${songti.variable} ${geistMono.variable} ${newsreader.variable} ${heiti.variable} h-full antialiased`}
         >
             <body className='bg-background text-foreground min-h-full flex flex-col'>
                 <Providers>{children}</Providers>

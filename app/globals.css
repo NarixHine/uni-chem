@@ -9,10 +9,23 @@
 @theme inline {
     --font-sans: var(--font-en-sans), var(--font-noto-sans);
     --font-mono: var(--font-geist-mono);
-    --font-serif: var(--font-newsreader);
+    --font-serif: var(--font-newsreader), var(--font-songti);
 }
 
 :root {
   /* Override default colors */
   --background: oklch(1 0 0);
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    25%  { transform: translateY(-4px); }
+    50%  { transform: translateY(2px); }
+    75%  { transform: translateY(-3px); }
+}
+
+@utility animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+
