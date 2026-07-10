@@ -299,7 +299,7 @@ export default function Visualizer({
     }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc, theme.background, theme.foreground, theme.token])
 
     return (
-        <div ref={containerRef} className={cn('w-full max-h-50', className)}>
+        <div ref={containerRef} className={cn('w-[calc(100%+2*clamp(1.25rem,calc(1.25rem+100vw-580px),4rem))] max-h-50 -mx-[clamp(1.25rem,calc(1.25rem+100vw-580px),4rem)]', className)}>
             <canvas
                 id={canvasId}
                 width={size.width}
