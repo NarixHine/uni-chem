@@ -92,7 +92,9 @@ export function Quiz({ data, className }: QuizProps) {
                 {quiz.options.map(opt => {
                     const isSelected = selected.has(opt.letter)
                     const isCorrect = answerSet.has(opt.letter)
-                    const showCorrect = submitted && isCorrect
+                    const showCorrect = submitted && isCorrect && isSelected
+                    const showMissed =
+                        submitted && quiz.mode === 'some' && isCorrect && !isSelected
                     const showWrong = submitted && isSelected && !isCorrect
 
                     return (
@@ -109,18 +111,22 @@ export function Quiz({ data, className }: QuizProps) {
                                     'flex size-6 shrink-0 items-center justify-center rounded-lg border text-xs font-semibold transition-colors',
                                     showCorrect &&
                                         'border-success bg-success text-success-foreground',
+                                    showMissed &&
+                                        'border-warning bg-warning text-warning-foreground',
                                     showWrong && 'border-danger bg-danger text-danger-foreground',
                                     !showCorrect &&
+                                        !showMissed &&
                                         !showWrong &&
                                         isSelected &&
                                         'border-accent bg-accent text-accent-foreground',
                                     !showCorrect &&
+                                        !showMissed &&
                                         !showWrong &&
                                         !isSelected &&
                                         'border-border text-muted',
                                 )}
                             >
-                                {opt.letter}
+                                {showMissed ? '漏' : opt.letter}
                             </span>
                             <div className='prose dark:prose-invert prose-sm max-w-none flex-1 text-left'>
                                 <MiniMarkdown>{opt.content}</MiniMarkdown>
