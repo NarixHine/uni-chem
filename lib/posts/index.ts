@@ -1,4 +1,5 @@
 import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
+import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
 
 export interface Post {
@@ -47,5 +48,11 @@ export const posts: Post[] = [
         title: '羟醛缩合',
         excerpt: '由于羰基的吸电子效应，α-氢的酸性显著增强，从而易与作为路易斯碱的醇反应。',
         text: ALDOL_CONDENSATION_TEXT,
-    },
+  },
+  {
+      slug: 'claisen-condensation',
+      title: 'Claisen 缩合',
+      excerpt: '与羟醛缩合类似。羧酸酯的 α-氢被强碱夺去后，先与另一羧酸酯发生亲核加成，再消去。',
+      text: CLAISEN_CONDENSATION_TEXT,
+  },
 ]
