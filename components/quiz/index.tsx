@@ -92,7 +92,10 @@ export function Quiz({ data, className }: QuizProps) {
                 {quiz.options.map(opt => {
                     const isSelected = selected.has(opt.letter)
                     const isCorrect = answerSet.has(opt.letter)
-                    const showCorrect = submitted && isCorrect && isSelected
+                    // 单选: always reveal the correct answer green after submit
+                    // 不定项: green only if the user selected it; missed ones show "漏"
+                    const showCorrect =
+                        submitted && isCorrect && (quiz.mode === 'one' || isSelected)
                     const showMissed =
                         submitted && quiz.mode === 'some' && isCorrect && !isSelected
                     const showWrong = submitted && isSelected && !isCorrect
@@ -141,6 +144,7 @@ export function Quiz({ data, className }: QuizProps) {
                     <Button
                         variant='primary'
                         size='sm'
+                        className={'rounded-lg'}
                         isDisabled={selected.size === 0}
                         onPress={() => setSubmitted(true)}
                     >
