@@ -26,8 +26,20 @@ const overrides = {
     InlineMath: { component: InlineMath },
 }
 
+const optionOverrides = {
+    Visualizer: {
+        component: Visualizer,
+        props: { canvasStyle: { backgroundColor: 'transparent' } },
+    },
+    InlineMath: { component: InlineMath },
+}
+
 function MiniMarkdown({ children }: { children: string }) {
     return <MarkdownToJSX options={{ overrides }}>{children}</MarkdownToJSX>
+}
+
+function OptionMarkdown({ children }: { children: string }) {
+    return <MarkdownToJSX options={{ overrides: optionOverrides }}>{children}</MarkdownToJSX>
 }
 
 export function Quiz({ data, className }: QuizProps) {
@@ -107,7 +119,9 @@ export function Quiz({ data, className }: QuizProps) {
                             fullWidth
                             isDisabled={submitted}
                             onPress={() => toggle(opt.letter)}
-                            className={'-mx-4 rounded-lg opacity-100'}
+                            className={
+                                '-mx-4 min-h-10 h-auto md:h-auto items-center rounded-lg opacity-100 [&_canvas]:h-32 [&_canvas]:max-h-32'
+                            }
                         >
                             <span
                                 className={cn(
@@ -132,7 +146,7 @@ export function Quiz({ data, className }: QuizProps) {
                                 {showMissed ? '漏' : opt.letter}
                             </span>
                             <div className='prose dark:prose-invert prose-sm max-w-none flex-1 text-left'>
-                                <MiniMarkdown>{opt.content}</MiniMarkdown>
+                                <OptionMarkdown>{opt.content}</OptionMarkdown>
                             </div>
                         </Button>
                     )
