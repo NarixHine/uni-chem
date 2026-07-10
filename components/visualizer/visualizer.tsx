@@ -75,6 +75,14 @@ function readThemeColor(varName: string): string | undefined {
     return resolved
 }
 
+/** Resolve a `var(--token)` color to an rgb() string canvas 2D can parse. */
+function resolveCanvasColor(value: string | undefined): string | undefined {
+    if (!value) return undefined
+    const m = value.match(/^var\(\s*(--[\w-]+)\s*\)$/)
+    if (m) return readThemeColor(m[1]) ?? value
+    return value
+}
+
 /** Resolved theme colors; re-read whenever dark/light mode flips. */
 function useThemeColors() {
     const [token, bump] = useState(0)
@@ -239,7 +247,7 @@ export default function Visualizer({
                             if (clr) {
                                 target.atoms[j].styles = Object.assign(
                                     new (chem.structures.Styles as new () => Record<string, unknown>)(),
-                                    { atoms_color: clr },
+                                    { atoms_color: resolveCanvasColor(clr) },
                                 )
                             }
                         }
@@ -249,7 +257,7 @@ export default function Visualizer({
                                 if (clr) {
                                     target.bonds[j].styles = Object.assign(
                                         new (chem.structures.Styles as new () => Record<string, unknown>)(),
-                                        { bonds_color: clr },
+                                        { bonds_color: resolveCanvasColor(clr) },
                                     )
                                 }
                             }

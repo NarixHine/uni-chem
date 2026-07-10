@@ -3,7 +3,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   
   以下使用碱催化下乙醛（$\text{CH}_3\text{CHO}$）的羟醛缩合反应为例，逐步解析其反应机理：
   
-  在碱性条件下，催化剂中的<ce style="color:#0077B6;">碱液氧原子</ce>夺取 $\text{CH}_3\text{CHO}$ 的活性 <ce style="color:#C63A00;">$α\text{-H}$</ce>，使 <ce style="color:#548C2F;">$α\text{-C}$</ce> 上带有负电荷，生成烯醇负离子中间体并释放 $\text{H}_2\text{O}$。
+  在碱性条件下，催化剂中的<ce style="color:var(--chem-blue);">碱液氧原子</ce>夺取 $\text{CH}_3\text{CHO}$ 的活性 <ce style="color:var(--chem-rust);">$α\text{-H}$</ce>，使 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 上带有负电荷，生成烯醇负离子中间体并释放 $\text{H}_2\text{O}$。
   
   :::
   {
@@ -12,10 +12,10 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 30, "y": 100, "l": "C", "i": "a0"},
           {"x": 30, "y": 50, "l": "O", "p": 2, "i": "a1"},
-          {"x": 80, "y": 130, "l": "C", "clr": "#548C2F", "i": "a2"},
-          {"x": 130, "y": 130, "l": "H", "clr": "#C63A00", "i": "a3"},
-          {"x": 180, "y": 130, "l": "O", "c": -1, "p": 3, "clr": "#0077B6", "i": "a4"},
-          {"x": 220, "y": 130, "l": "H", "clr": "#0077B6", "i": "a5"}
+          {"x": 80, "y": 130, "l": "C", "clr": "var(--chem-green)", "i": "a2"},
+          {"x": 130, "y": 130, "l": "H", "clr": "var(--chem-rust)", "i": "a3"},
+          {"x": 180, "y": 130, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-blue)", "i": "a4"},
+          {"x": 220, "y": 130, "l": "H", "clr": "var(--chem-blue)", "i": "a5"}
         ],
         "b": [
           {"b": 0, "e": 1, "o": 2, "i": "b0"},
@@ -28,10 +28,10 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 330, "y": 100, "l": "C"},
           {"x": 330, "y": 50, "l": "O", "p": 2},
-          {"x": 380, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "#548C2F"},
-          {"x": 440, "y": 130, "l": "O", "p": 2, "clr": "#0077B6"},
-          {"x": 480, "y": 130, "l": "H", "clr": "#0077B6"},
-          {"x": 440, "y": 170, "l": "H", "clr": "#C63A00"}
+          {"x": 380, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "var(--chem-green)"},
+          {"x": 440, "y": 130, "l": "O", "p": 2, "clr": "var(--chem-blue)"},
+          {"x": 480, "y": 130, "l": "H", "clr": "var(--chem-blue)"},
+          {"x": 440, "y": 170, "l": "H", "clr": "var(--chem-rust)"}
         ],
         "b": [
           {"b": 0, "e": 1, "o": 2},
@@ -49,7 +49,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  带负电荷的 <ce style="color:#548C2F;">$α\text{-C}$</ce> 作为强亲核试剂，进攻另一分子 $\text{CH}_3\text{CHO}$ 的亲电羰基<ce style="color:#fa7800;">碳原子</ce>。羰基中的 $π$ 电子发生转移，使羰基<ce style="color:#DD2D4A;">氧原子</ce>带负电荷，形成烷氧负离子中间体。
+  带负电荷的 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 作为强亲核试剂，进攻另一分子 $\text{CH}_3\text{CHO}$ 的亲电羰基<ce style="color:var(--chem-amber);">碳原子</ce>。羰基中的 $π$ 电子发生转移，使羰基<ce style="color:var(--chem-crimson);">氧原子</ce>带负电荷，形成烷氧负离子中间体。
   
   :::
   {
@@ -58,9 +58,9 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 30, "y": 100, "l": "C"},
           {"x": 30, "y": 50, "l": "O", "p": 2},
-          {"x": 80, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "#548C2F", "i": "a2"},
-          {"x": 180, "y": 130, "l": "C", "clr": "#fa7800", "i": "a3"},
-          {"x": 180, "y": 80, "l": "O", "p": 2, "clr": "#DD2D4A", "i": "a4"},
+          {"x": 80, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "var(--chem-green)", "i": "a2"},
+          {"x": 180, "y": 130, "l": "C", "clr": "var(--chem-amber)", "i": "a3"},
+          {"x": 180, "y": 80, "l": "O", "p": 2, "clr": "var(--chem-crimson)", "i": "a4"},
           {"x": 230, "y": 160, "l": "C"}
         ],
         "b": [
@@ -74,9 +74,9 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 340, "y": 100, "l": "C"},
           {"x": 340, "y": 50, "l": "O", "p": 2},
-          {"x": 390, "y": 130, "l": "C", "clr": "#548C2F"},
-          {"x": 440, "y": 100, "l": "C", "clr": "#fa7800"},
-          {"x": 440, "y": 50, "l": "O", "c": -1, "p": 3, "clr": "#DD2D4A"},
+          {"x": 390, "y": 130, "l": "C", "clr": "var(--chem-green)"},
+          {"x": 440, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
+          {"x": 440, "y": 50, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-crimson)"},
           {"x": 490, "y": 130, "l": "C"}
         ],
         "b": [
@@ -96,7 +96,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  烷氧负离子的<ce style="color:#DD2D4A;">氧阴离子</ce>从 $\text{H}_2\text{O}$ 分子中夺取一个<ce style="color:#4300fb;">质子</ce>，生成加成产物 $\beta$-羟基醛，同时使催化剂 $\text{OH}^-$ 再生。
+  烷氧负离子的<ce style="color:var(--chem-crimson);">氧阴离子</ce>从 $\text{H}_2\text{O}$ 分子中夺取一个<ce style="color:var(--chem-indigo);">质子</ce>，生成加成产物 $\beta$-羟基醛，同时使催化剂 $\text{OH}^-$ 再生。
   
   :::
   {
@@ -105,9 +105,9 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 30, "y": 100, "l": "C"},
           {"x": 30, "y": 50, "l": "O", "p": 2},
-          {"x": 80, "y": 130, "l": "C", "clr": "#548C2F"},
-          {"x": 130, "y": 100, "l": "C", "clr": "#fa7800"},
-          {"x": 130, "y": 50, "l": "O", "c": -1, "p": 3, "clr": "#DD2D4A", "i": "a4"},
+          {"x": 80, "y": 130, "l": "C", "clr": "var(--chem-green)"},
+          {"x": 130, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
+          {"x": 130, "y": 50, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-crimson)", "i": "a4"},
           {"x": 180, "y": 130, "l": "C"}
         ],
         "b": [
@@ -121,7 +121,7 @@ export const ALDOL_CONDENSATION_TEXT =`
       {
         "a": [
           {"x": 240, "y": 50, "l": "O", "p": 2, "i": "a6"},
-          {"x": 190, "y": 50, "l": "H", "clr": "#4300fb", "i": "a7"},
+          {"x": 190, "y": 50, "l": "H", "clr": "var(--chem-indigo)", "i": "a7"},
           {"x": 240, "y": 100, "l": "H"}
         ],
         "b": [
@@ -133,10 +133,10 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 330, "y": 100, "l": "C"},
           {"x": 330, "y": 50, "l": "O", "p": 2},
-          {"x": 380, "y": 130, "l": "C", "clr": "#548C2F"},
-          {"x": 430, "y": 100, "l": "C", "clr": "#fa7800"},
-          {"x": 430, "y": 50, "l": "O", "p": 2, "clr": "#DD2D4A"},
-          {"x": 480, "y": 50, "l": "H", "clr": "#4300fb"},
+          {"x": 380, "y": 130, "l": "C", "clr": "var(--chem-green)"},
+          {"x": 430, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
+          {"x": 430, "y": 50, "l": "O", "p": 2, "clr": "var(--chem-crimson)"},
+          {"x": 480, "y": 50, "l": "H", "clr": "var(--chem-indigo)"},
           {"x": 480, "y": 130, "l": "C"}
         ],
         "b": [
@@ -166,7 +166,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  在加热条件下，反应向脱水方向移动。再生出的碱中<ce style="color:#0077B6;">氧负离子</ce>重新夺取加成产物中剩余的一个活性 <ce style="color:#C63A00;">$α\text{-H}$</ce>，在相邻碳原子上形成一个较稳定的共轭阴离子。
+  在加热条件下，反应向脱水方向移动。再生出的碱中<ce style="color:var(--chem-blue);">氧负离子</ce>重新夺取加成产物中剩余的一个活性 <ce style="color:var(--chem-rust);">$α\text{-H}$</ce>，在相邻碳原子上形成一个较稳定的共轭阴离子。
   
   :::
   {
@@ -175,11 +175,11 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 30, "y": 100, "l": "C"},
           {"x": 30, "y": 50, "l": "O", "p": 2},
-          {"x": 80, "y": 130, "l": "C", "clr": "#548C2F", "i": "a2"},
-          {"x": 80, "y": 180, "l": "H", "clr": "#C63A00", "i": "a3"},
-          {"x": 130, "y": 100, "l": "C", "clr": "#fa7800"},
-          {"x": 130, "y": 50, "l": "O", "p": 2, "clr": "#DD2D4A"},
-          {"x": 180, "y": 50, "l": "H", "clr": "#4300fb"},
+          {"x": 80, "y": 130, "l": "C", "clr": "var(--chem-green)", "i": "a2"},
+          {"x": 80, "y": 180, "l": "H", "clr": "var(--chem-rust)", "i": "a3"},
+          {"x": 130, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
+          {"x": 130, "y": 50, "l": "O", "p": 2, "clr": "var(--chem-crimson)"},
+          {"x": 180, "y": 50, "l": "H", "clr": "var(--chem-indigo)"},
           {"x": 180, "y": 100, "l": "C"}
         ],
         "b": [
@@ -194,8 +194,8 @@ export const ALDOL_CONDENSATION_TEXT =`
       },
       {
         "a": [
-          {"x": 130, "y": 210, "l": "O", "c": -1, "p": 3, "clr": "#0077B6", "i": "a8"},
-          {"x": 180, "y": 210, "l": "H", "clr": "#0077B6"}
+          {"x": 130, "y": 210, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-blue)", "i": "a8"},
+          {"x": 180, "y": 210, "l": "H", "clr": "var(--chem-blue)"}
         ],
         "b": [
           {"b": 0, "e": 1}
@@ -205,10 +205,10 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 300, "y": 100, "l": "C"},
           {"x": 300, "y": 50, "l": "O", "p": 2},
-          {"x": 350, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "#548C2F"},
-          {"x": 400, "y": 100, "l": "C", "clr": "#fa7800"},
-          {"x": 400, "y": 50, "l": "O", "p": 2, "clr": "#DD2D4A"},
-          {"x": 450, "y": 50, "l": "H", "clr": "#4300fb"},
+          {"x": 350, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "var(--chem-green)"},
+          {"x": 400, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
+          {"x": 400, "y": 50, "l": "O", "p": 2, "clr": "var(--chem-crimson)"},
+          {"x": 450, "y": 50, "l": "H", "clr": "var(--chem-indigo)"},
           {"x": 450, "y": 100, "l": "C"}
         ],
         "b": [
@@ -222,9 +222,9 @@ export const ALDOL_CONDENSATION_TEXT =`
       },
       {
         "a": [
-          {"x": 350, "y": 190, "l": "O", "p": 2, "clr": "#0077B6"},
-          {"x": 400, "y": 190, "l": "H", "clr": "#0077B6"},
-          {"x": 350, "y": 240, "l": "H", "clr": "#C63A00"}
+          {"x": 350, "y": 190, "l": "O", "p": 2, "clr": "var(--chem-blue)"},
+          {"x": 400, "y": 190, "l": "H", "clr": "var(--chem-blue)"},
+          {"x": 350, "y": 240, "l": "H", "clr": "var(--chem-rust)"}
         ],
         "b": [
           {"b": 0, "e": 1},
@@ -240,7 +240,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  共轭碱中的 <ce style="color:#548C2F;">$α\text{-C}$</ce> 孤对电子向相邻的 <ce style="color:#fa7800;">$β\text{-C}$</ce> 偏移形成双键，并协同促使带电的<ce style="color:#DD2D4A;">羟基氧</ce>与<ce style="color:#4300fb;">质子</ce>作为离去基团以 $\text{OH}^-$ 的形式脱去，产生更稳定的 $α,β$-不饱和醛。
+  共轭碱中的 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 孤对电子向相邻的 <ce style="color:var(--chem-amber);">$β\text{-C}$</ce> 偏移形成双键，并协同促使带电的<ce style="color:var(--chem-crimson);">羟基氧</ce>与<ce style="color:var(--chem-indigo);">质子</ce>作为离去基团以 $\text{OH}^-$ 的形式脱去，产生更稳定的 $α,β$-不饱和醛。
   
   :::
   {
@@ -249,10 +249,10 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 30, "y": 100, "l": "C"},
           {"x": 30, "y": 50, "l": "O", "p": 2},
-          {"x": 80, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "#548C2F", "i": "a2"},
-          {"x": 130, "y": 100, "l": "C", "clr": "#fa7800", "i": "a3"},
-          {"x": 130, "y": 50, "l": "O", "p": 2, "clr": "#DD2D4A", "i": "a4"},
-          {"x": 180, "y": 50, "l": "H", "clr": "#4300fb"},
+          {"x": 80, "y": 130, "l": "C", "c": -1, "p": 1, "clr": "var(--chem-green)", "i": "a2"},
+          {"x": 130, "y": 100, "l": "C", "clr": "var(--chem-amber)", "i": "a3"},
+          {"x": 130, "y": 50, "l": "O", "p": 2, "clr": "var(--chem-crimson)", "i": "a4"},
+          {"x": 180, "y": 50, "l": "H", "clr": "var(--chem-indigo)"},
           {"x": 180, "y": 100, "l": "C"}
         ],
         "b": [
@@ -268,8 +268,8 @@ export const ALDOL_CONDENSATION_TEXT =`
         "a": [
           {"x": 280, "y": 100, "l": "C"},
           {"x": 280, "y": 50, "l": "O", "p": 2},
-          {"x": 330, "y": 130, "l": "C", "clr": "#548C2F"},
-          {"x": 380, "y": 100, "l": "C", "clr": "#fa7800"},
+          {"x": 330, "y": 130, "l": "C", "clr": "var(--chem-green)"},
+          {"x": 380, "y": 100, "l": "C", "clr": "var(--chem-amber)"},
           {"x": 430, "y": 130, "l": "C"}
         ],
         "b": [
@@ -281,8 +281,8 @@ export const ALDOL_CONDENSATION_TEXT =`
       },
       {
         "a": [
-          {"x": 380, "y": 200, "l": "O", "c": -1, "p": 3, "clr": "#DD2D4A"},
-          {"x": 430, "y": 200, "l": "H", "clr": "#4300fb"}
+          {"x": 380, "y": 200, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-crimson)"},
+          {"x": 430, "y": 200, "l": "H", "clr": "var(--chem-indigo)"}
         ],
         "b": [
           {"b": 0, "e": 1}

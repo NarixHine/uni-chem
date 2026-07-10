@@ -97,6 +97,14 @@
     --focus: var(--accent);
     --link: var(--foreground);
 
+    /* Chemistry mechanism highlight colors (light) */
+    --chem-blue: #0077B6;
+    --chem-rust: #C63A00;
+    --chem-green: #548C2F;
+    --chem-amber: #fa7800;
+    --chem-crimson: #DD2D4A;
+    --chem-indigo: #4300fb;
+
     /* Backdrop */
     --backdrop: rgba(0, 0, 0, 0.5);
 
@@ -160,6 +168,14 @@
     --separator: oklch(22% 0.006 286.033);
     --focus: var(--accent);
     --link: var(--foreground);
+
+    /* Chemistry mechanism highlight colors (brighter for dark mode) */
+    --chem-blue: #4DB8E6;
+    --chem-rust: #FF8A5C;
+    --chem-green: #8FD14F;
+    --chem-amber: #FFB45E;
+    --chem-crimson: #FF6B7A;
+    --chem-indigo: #8A7BFF;
 
     /* Backdrop */
     --backdrop: rgba(0, 0, 0, 0.6);

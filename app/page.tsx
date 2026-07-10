@@ -9,7 +9,8 @@ export default function Home() {
                 亲<span className='text-blue-400'>民</span>反应
             </h1>
             <p className='text-[clamp(1.125rem,3vw,1.5rem)] italic tracking-tight px-2 leading-tight text-balance font-serif'>
-                A <span className='text-blue-400'>student-friendly</span> introduction to Organic Chemistry beyong high school textbooks.
+                A <span className='text-blue-400'>student-friendly</span> introduction to Organic
+                Chemistry beyond high school textbooks.
             </p>
             <div className='max-w-xl px-2 mx-auto pt-4 md:pt-6'>
                 <PostList posts={posts} />
