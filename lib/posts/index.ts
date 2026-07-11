@@ -1,3 +1,4 @@
+import { ACTIVATING_GROUP } from './texts/activating-group'
 import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
 import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
@@ -31,7 +32,8 @@ const POSTS_LEVEL_EXAM: Post[] = [
     {
         slug: 'activating-group',
         title: '苯环取代基活化、钝化效应',
-        excerpt: '苯环取代基的诱导效应影响苯环电子云密度，进而改变苯环发生反应的活性。',
+        excerpt: '苯环取代基的诱导效应及共振效应影响苯环电子云密度，进而改变苯环发生反应的活性。',
+        text: ACTIVATING_GROUP,
     },
     {
         slug: 'lewis-theory',
@@ -48,13 +50,15 @@ const POSTS_LEVEL_EXAM: Post[] = [
     {
         slug: 'aldol-condensation',
         title: '羟醛缩合',
-        excerpt: '由于羰基的吸电子效应，$α\\text{-H}$ 的酸性显著增强，从而易与作为路易斯碱的醇反应。',
+        excerpt:
+            '由于羰基的吸电子效应，$α\\text{-H}$ 的酸性显著增强，从而易与作为路易斯碱的醇反应。',
         text: ALDOL_CONDENSATION_TEXT,
     },
     {
         slug: 'claisen-condensation',
         title: 'Claisen 缩合',
-        excerpt: '与羟醛缩合类似。羧酸酯的 $α\\text{-H}$ 被强碱夺去后，先与另一羧酸酯发生亲核加成，再消去。',
+        excerpt:
+            '与羟醛缩合类似。羧酸酯的 $α\\text{-H}$ 被强碱夺去后，先与另一羧酸酯发生亲核加成，再消去。',
         text: CLAISEN_CONDENSATION_TEXT,
     },
     {

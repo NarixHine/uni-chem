@@ -12,7 +12,7 @@ export interface GlossaryEntry {
 export const glossary: GlossaryEntry[] = [
     {
         term: '亲电反应',
-        aliases: ['亲电试剂'],
+        aliases: ['亲电试剂', '亲电'],
         definition:
             '**亲电反应**\n\n' +
             '亲电反应是一类由亲电试剂进攻底物富电子部位而发生的反应。\n\n' +
@@ -23,8 +23,8 @@ export const glossary: GlossaryEntry[] = [
         aliases: ['部分正电荷', '部分负电荷'],
         definition:
             '**部分电荷**\n\n' +
-            '部分电荷是由于分子内电子云密度分布不均，导致共价键中各个原子上出现的、数值上小于一个基本电荷的正或负电荷。'
-    }
+            '部分电荷是由于分子内电子云密度分布不均，导致共价键中各个原子上出现的、数值上小于一个基本电荷的正或负电荷。',
+    },
 ]
 
 const REGEXP_SPECIAL = /[.*+?^${}()|[\]\\]/g
