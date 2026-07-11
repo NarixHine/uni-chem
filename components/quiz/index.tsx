@@ -90,7 +90,7 @@ export function Quiz({ data, className }: QuizProps) {
         >
             <Card.Header className='flex-row items-center gap-2'>
                 <Chip variant='secondary' className='rounded-lg'>
-                    {quiz.mode === 'one' ? '单选题' : '不定项题'}
+                    {quiz.mode === 'one' ? '单选题' : '不定项（至少一个正确）'}
                 </Chip>
             </Card.Header>
 
@@ -108,8 +108,7 @@ export function Quiz({ data, className }: QuizProps) {
                     // 不定项: green only if the user selected it; missed ones show "漏"
                     const showCorrect =
                         submitted && isCorrect && (quiz.mode === 'one' || isSelected)
-                    const showMissed =
-                        submitted && quiz.mode === 'some' && isCorrect && !isSelected
+                    const showMissed = submitted && quiz.mode === 'some' && isCorrect && !isSelected
                     const showWrong = submitted && isSelected && !isCorrect
 
                     return (
@@ -145,7 +144,7 @@ export function Quiz({ data, className }: QuizProps) {
                             >
                                 {showMissed ? '漏' : opt.letter}
                             </span>
-                            <div className='prose dark:prose-invert prose-sm max-w-none flex-1 text-left'>
+                            <div className='prose dark:prose-invert text-wrap prose-sm max-w-none flex-1 text-left'>
                                 <OptionMarkdown>{opt.content}</OptionMarkdown>
                             </div>
                         </Button>

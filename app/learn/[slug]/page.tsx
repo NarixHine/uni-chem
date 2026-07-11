@@ -24,12 +24,12 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
     if (!post || !post.text) {
         notFound()
     }
-    const { excerpt, text, title } = post
+    const { text, title } = post
     const index = posts.findIndex(p => p.slug === slug)
     const next = posts.slice(index + 1).find(p => p.text)
     return (
         <article>
-            <div className='prose dark:prose-invert'>
+            <div className='prose dark:prose-invert pb-3'>
                 <div className='flex gap-3 items-start'>
                     <PostAvatar
                         seed={post.slug}
@@ -37,11 +37,6 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                         className='h-[2.15625rem] w-[2.15625rem]'
                     />
                     <h1 className='font-serif -mb-4 font-medium text-balance'>{title}</h1>
-                </div>
-                <div className='mt-3'>
-                    <Markdown glossary={false} className='leading-normal text-muted font-sans '>
-                        {excerpt}
-                    </Markdown>
                 </div>
             </div>
             <Markdown>{text}</Markdown>
