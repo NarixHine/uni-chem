@@ -1,5 +1,6 @@
 'use client'
 
+import cn from 'cnfast'
 import { InlineMath } from '../markdown/inline-math'
 
 export type GlanceTermProps = {
@@ -23,7 +24,7 @@ const MATH_DELIMITER = '$'
 export function GlanceTerm({ term, className }: GlanceTermProps) {
     const parts = term.split(MATH_DELIMITER)
     return (
-        <span className={className}>
+        <span className={cn(className, '[text-decoration:inherit]')}>
             {parts.map((part, i) =>
                 i % 2 === 1 ? <InlineMath key={i} expr={part} /> : part,
             )}

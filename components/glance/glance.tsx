@@ -56,7 +56,7 @@ export function Glance({ data, className }: GlanceProps) {
                     <GlanceTerm term={term} />
                 </Tooltip.Trigger>
                 <Tooltip.Content className={'px-5 py-1 shadow-sm'}>
-                        <FlavoredMarkdown>{entry.definition}</FlavoredMarkdown>
+                    <FlavoredMarkdown>{entry.definition}</FlavoredMarkdown>
                 </Tooltip.Content>
             </Tooltip>
         )
@@ -67,12 +67,9 @@ export function Glance({ data, className }: GlanceProps) {
             <Popover.Trigger render={spanRender} className={cn(TRIGGER_CLASS, className)}>
                 <GlanceTerm term={term} />
             </Popover.Trigger>
-            <Popover.Content className='max-w-xs'>
+            <Popover.Content className={'px-5 py-1 shadow-sm max-w-xs'}>
                 <Popover.Dialog>
-                    <Popover.Arrow />
-                    <div className='px-5'>
-                        <FlavoredMarkdown>{entry.definition}</FlavoredMarkdown>
-                    </div>
+                    <FlavoredMarkdown>{entry.definition}</FlavoredMarkdown>
                 </Popover.Dialog>
             </Popover.Content>
         </Popover>
