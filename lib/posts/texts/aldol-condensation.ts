@@ -1,7 +1,7 @@
 export const ALDOL_CONDENSATION_TEXT =`
-  羟醛缩合是含有活性氢的醛或酮在催化剂作用下进行亲核加成，并常伴随脱水生成 $α,β$-不饱和羰基化合物的反应。该反应通常以碱（如 $\text{NaOH}$）催化为主。
+  羟醛缩合是含有活性氢的醛或酮在催化剂作用下进行亲核加成，并常伴随脱水生成 $α,β$-不饱和羰基化合物的反应。该反应通常以碱（如 $\\text{NaOH}$）催化为主。
 
-  以碱（如 $\text{NaOH}$）催化两分子乙醛（$\text{CH}_3\text{CHO}$）脱水生成丁烯醛（$\text{CH}_3\text{CH}=\text{CHCHO}$）的总反应如下：
+  以碱（如 $\\text{NaOH}$）催化两分子乙醛（$\\text{CH}_3\\text{CHO}$）脱水生成丁烯醛（$\\text{CH}_3\\text{CH}=\\text{CHCHO}$）的总反应如下：
   
   :::
   {
@@ -63,7 +63,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   
   以下逐步解析其反应机理：
   
-  在碱性条件下，催化剂中的<ce style="color:var(--chem-blue);">碱液氧原子</ce>夺取 $\text{CH}_3\text{CHO}$ 的活性 <ce style="color:var(--chem-rust);">$α\text{-H}$</ce>，使 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 上带有负电荷，生成烯醇负离子中间体并释放 $\text{H}_2\text{O}$。
+  在碱性条件下，催化剂中的<ce style="color:var(--chem-blue);">碱液氧原子</ce>夺取 $\\text{CH}_3\\text{CHO}$ 的活性 <ce style="color:var(--chem-rust);">$α\\text{-H}$</ce>，使 <ce style="color:var(--chem-green);">$α\\text{-C}$</ce> 上带有负电荷，生成烯醇负离子中间体并释放 $\\text{H}_2\\text{O}$。
   
   :::
   {
@@ -109,7 +109,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  带负电荷的 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 作为强亲核试剂，进攻另一分子 $\text{CH}_3\text{CHO}$ 的亲电羰基<ce style="color:var(--chem-amber);">碳原子</ce>。羰基中的 $π$ 电子发生转移，使羰基<ce style="color:var(--chem-crimson);">氧原子</ce>带负电。
+  带负电荷的 <ce style="color:var(--chem-green);">$α\\text{-C}$</ce> 作为强亲核试剂，进攻另一分子 $\\text{CH}_3\\text{CHO}$ 的亲电羰基<ce style="color:var(--chem-amber);">碳原子</ce>。羰基中的 $π$ 电子发生转移，使羰基<ce style="color:var(--chem-crimson);">氧原子</ce>带负电。
   
   :::
   {
@@ -156,7 +156,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  烷氧负离子的<ce style="color:var(--chem-crimson);">氧阴离子</ce>从 $\text{H}_2\text{O}$ 分子中夺取一个<ce style="color:var(--chem-indigo);">质子</ce>，生成加成产物 $\beta$-羟基醛，同时使催化剂 $\text{OH}^-$ 再生。
+  烷氧负离子的<ce style="color:var(--chem-crimson);">氧阴离子</ce>从 $\\text{H}_2\\text{O}$ 分子中夺取一个<ce style="color:var(--chem-indigo);">质子</ce>，生成加成产物 $\beta$-羟基醛，同时使催化剂 $\\text{OH}^-$ 再生。
   
   :::
   {
@@ -226,7 +226,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  再生出的碱中<ce style="color:var(--chem-blue);">氧负离子</ce>重新夺取加成产物中剩余的一个活性 <ce style="color:var(--chem-rust);">$α\text{-H}$</ce>，在相邻碳原子上形成一个较稳定的共轭阴离子。
+  再生出的碱中<ce style="color:var(--chem-blue);">氧负离子</ce>重新夺取加成产物中剩余的一个活性 <ce style="color:var(--chem-rust);">$α\\text{-H}$</ce>，在相邻碳原子上形成一个较稳定的共轭阴离子。
   
   :::
   {
@@ -300,7 +300,7 @@ export const ALDOL_CONDENSATION_TEXT =`
   }
   :::
   
-  共轭碱中的 <ce style="color:var(--chem-green);">$α\text{-C}$</ce> 孤对电子向相邻的 <ce style="color:var(--chem-amber);">$β\text{-C}$</ce> 偏移形成双键，并协同促使带电的<ce style="color:var(--chem-crimson);">羟基氧</ce>与<ce style="color:var(--chem-indigo);">质子</ce>作为离去基团以 $\text{OH}^-$ 的形式脱去。
+  共轭碱中的 <ce style="color:var(--chem-green);">$α\\text{-C}$</ce> 孤对电子向相邻的 <ce style="color:var(--chem-amber);">$β\\text{-C}$</ce> 偏移形成双键，并协同促使带电的<ce style="color:var(--chem-crimson);">羟基氧</ce>与<ce style="color:var(--chem-indigo);">质子</ce>作为离去基团以 $\\text{OH}^-$ 的形式脱去。
   
   :::
   {

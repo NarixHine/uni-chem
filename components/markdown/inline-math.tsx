@@ -9,5 +9,5 @@ export type InlineMathProps = {
 }
 
 export function InlineMath({ expr, className }: InlineMathProps) {
-    return <TeX math={expr} className={className} />
+    return <TeX math={expr.replaceAll('\\\\', '\\')} className={className} />
 }

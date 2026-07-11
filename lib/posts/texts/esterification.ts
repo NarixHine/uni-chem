@@ -1,8 +1,8 @@
 export const ESTERIFICATION_TEXT = `
-  酯化反应（以乙酸与 $\text{CH}_3\text{OH}$ 为例）属典型的**亲核酰基取代反应**。
+  酯化反应（以乙酸与 $\\text{CH}_3\\text{OH}$ 为例）属典型的**亲核酰基取代反应**。
 
-  * **反应条件**：酸催化（常为浓 $\text{H}_2\text{SO}_4$），加热。
-  * **反应动力**：此反应为可逆反应，浓 $\text{H}_2\text{SO}_4$ 兼具催化与吸水作用，可促进平衡正向移动。
+  * **反应条件**：酸催化（常为浓 $\\text{H}_2\\text{SO}_4$），加热。
+  * **反应动力**：此反应为可逆反应，浓 $\\text{H}_2\\text{SO}_4$ 兼具催化与吸水作用，可促进平衡正向移动。
 
   <n class="color" style="color:var(--chem-blue)">羰基氧</n>具有路易斯碱性，首先接受催化剂提供的质子。此步增强了<n class="color" style="color:var(--chem-rust)">羰基碳</n>的亲电性，使其更易受亲核试剂攻击。
 
@@ -50,7 +50,7 @@ export const ESTERIFICATION_TEXT = `
   }
   :::
 
-  <n class="color" style="color:var(--chem-green)">$\text{CH}_3\text{OH}$ 的氧原子</n>作为亲核试剂，以孤对电子进攻活化的<n class="color" style="color:var(--chem-rust)">羰基碳</n>，促使 <n class="color" style="color:var(--chem-indigo)">$\text{C}{=}\text{O}$ 的 $π$ 键</n>断裂，形成四面体中间体。
+  <n class="color" style="color:var(--chem-green)">$\\text{CH}_3\\text{OH}$ 的氧原子</n>作为亲核试剂，以孤对电子进攻活化的<n class="color" style="color:var(--chem-rust)">羰基碳</n>，促使 <n class="color" style="color:var(--chem-indigo)">$\\text{C}{=}\\text{O}$ 的 $π$ 键</n>断裂，形成四面体中间体。
 
   :::
   {
@@ -113,20 +113,20 @@ export const ESTERIFICATION_TEXT = `
   }
   :::
 
-  四面体中间体内发生质子转移。原<n class="color" style="color:var(--chem-green)">醇氧</n>上的质子转移至原<n class="color" style="color:var(--chem-amber)">羧基羟基氧</n>上，将其转化为带正电荷、极易离去的水分子结构（<n class="color" style="color:var(--chem-amber)">$-\text{OH}_2^+$</n>）。
+  四面体中间体内发生质子转移。原<n class="color" style="color:var(--chem-green)">醇氧</n>上的质子转移至原<n class="color" style="color:var(--chem-amber)">羧基羟基氧</n>上，将其转化为带正电荷、极易离去的水分子结构（<n class="color" style="color:var(--chem-amber)">$-\\text{OH}_2^+$</n>）。
 
   :::
   {
   "m":[{"a":[{"x":50,"y":100,"l":"C"},{"x":100,"y":100,"l":"C"},{"x":100,"y":50,"l":"O","p":2},{"x":150,"y":50,"l":"H"},{"x":150,"y":100,"l":"O","p":2,"i":"o_right","clr":"var(--chem-amber)"},{"x":200,"y":100,"l":"H"},{"x":100,"y":150,"l":"O","c":1,"p":1,"i":"o_bot","clr":"var(--chem-green)"},{"x":100,"y":200,"l":"C"},{"x":150,"y":150,"l":"H","i":"h_bot"}],"b":[{"b":0,"e":1},{"b":1,"e":2},{"b":2,"e":3},{"b":1,"e":4},{"b":4,"e":5},{"b":1,"e":6},{"b":6,"e":7},{"b":6,"e":8,"i":"b_oh"}]},{"a":[{"x":330,"y":100,"l":"C"},{"x":380,"y":100,"l":"C"},{"x":380,"y":50,"l":"O","p":2},{"x":430,"y":50,"l":"H"},{"x":430,"y":100,"l":"O","c":1,"p":1,"clr":"var(--chem-amber)"},{"x":480,"y":100,"l":"H"},{"x":430,"y":150,"l":"H"},{"x":380,"y":150,"l":"O","p":2,"clr":"var(--chem-green)"},{"x":380,"y":200,"l":"C"}],"b":[{"b":0,"e":1},{"b":1,"e":2},{"b":2,"e":3},{"b":1,"e":4},{"b":4,"e":5},{"b":4,"e":6},{"b":1,"e":7},{"b":7,"e":8}]}],"s":[{"t":"Pusher","o1":"o_right","o2":"h_bot","e":2},{"t":"Pusher","o1":"b_oh","o2":"o_bot","e":2},{"t":"Line","x1":230,"y1":100,"x2":280,"y2":100,"a":"equilibrium"}]}
   :::
 
-  未质子化的<n class="color" style="color:var(--chem-blue)">氧原子</n>推下孤对电子，重新建立 <n class="color" style="color:var(--chem-indigo)"> $\text{C}=\text{O}$ 双键</n>；与此同时，<n class="color" style="color:var(--chem-amber)">$\text{C}-\text{OH}_2^+$ 键</n>断裂并脱去一分子 $\text{H}_2\text{O}$，生成质子化的酯。
+  未质子化的<n class="color" style="color:var(--chem-blue)">氧原子</n>推下孤对电子，重新建立 <n class="color" style="color:var(--chem-indigo)"> $\\text{C}=\\text{O}$ 双键</n>；与此同时，<n class="color" style="color:var(--chem-amber)">$\\text{C}-\\text{OH}_2^+$ 键</n>断裂并脱去一分子 $\\text{H}_2\\text{O}$，生成质子化的酯。
 
   :::
   {"m":[{"a":[{"x":50,"y":100,"l":"C"},{"x":100,"y":100,"l":"C","i":"c_center"},{"x":100,"y":50,"l":"O","p":2,"i":"o_top","clr":"var(--chem-blue)"},{"x":150,"y":50,"l":"H"},{"x":150,"y":100,"l":"O","c":1,"p":1,"i":"o_right","clr":"var(--chem-amber)"},{"x":200,"y":100,"l":"H"},{"x":150,"y":150,"l":"H"},{"x":100,"y":150,"l":"O","p":2},{"x":100,"y":200,"l":"C"}],"b":[{"b":0,"e":1},{"b":1,"e":2,"i":"b_co_top","clr":"var(--chem-indigo)"},{"b":2,"e":3},{"b":1,"e":4,"i":"b_leave","clr":"var(--chem-amber)"},{"b":4,"e":5},{"b":4,"e":6},{"b":1,"e":7},{"b":7,"e":8}]},{"a":[{"x":330,"y":100,"l":"C"},{"x":380,"y":100,"l":"C"},{"x":380,"y":50,"l":"O","c":1,"p":1},{"x":430,"y":50,"l":"H"},{"x":380,"y":150,"l":"O","p":2},{"x":380,"y":200,"l":"C"}],"b":[{"b":0,"e":1},{"b":1,"e":2,"o":2},{"b":2,"e":3},{"b":1,"e":4},{"b":4,"e":5}]},{"a":[{"x":450,"y":100,"l":"O","p":2},{"x":500,"y":100,"l":"H"},{"x":450,"y":150,"l":"H"}],"b":[{"b":0,"e":1},{"b":0,"e":2}]}],"s":[{"t":"Pusher","o1":"o_top","o2":"b_co_top","e":2},{"t":"Pusher","o1":"b_leave","o2":"o_right","e":2},{"t":"Line","x1":230,"y1":100,"x2":280,"y2":100,"a":"equilibrium"}]}
   :::
 
-  质子化的酯分子将<n class="color" style="color:var(--chem-blue)">质子化氧原子</n>上的质子转移给体系中的 <n class="color" style="color:var(--chem-green)">$\text{H}_2\text{O}$</n>，分子恢复电中性，得到最终的酯产物，同时再生催化剂质子。
+  质子化的酯分子将<n class="color" style="color:var(--chem-blue)">质子化氧原子</n>上的质子转移给体系中的 <n class="color" style="color:var(--chem-green)">$\\text{H}_2\\text{O}$</n>，分子恢复电中性，得到最终的酯产物，同时再生催化剂质子。
 
   :::
   {"m":[{"a":[{"x":50,"y":100,"l":"C"},{"x":100,"y":100,"l":"C"},{"x":100,"y":50,"l":"O","c":1,"p":1,"i":"o_top","clr":"var(--chem-blue)"},{"x":150,"y":50,"l":"H","i":"h_top"},{"x":100,"y":150,"l":"O","p":2},{"x":100,"y":200,"l":"C"}],"b":[{"b":0,"e":1},{"b":1,"e":2,"o":2},{"b":2,"e":3,"i":"b_oh_top"},{"b":1,"e":4},{"b":4,"e":5}]},{"a":[{"x":200,"y":100,"l":"O","p":2,"i":"o_base","clr":"var(--chem-green)"},{"x":250,"y":100,"l":"H"},{"x":200,"y":150,"l":"H"}],"b":[{"b":0,"e":1},{"b":0,"e":2}]},{"a":[{"x":350,"y":100,"l":"C"},{"x":400,"y":100,"l":"C"},{"x":400,"y":50,"l":"O","p":2},{"x":400,"y":150,"l":"O","p":2},{"x":400,"y":200,"l":"C"}],"b":[{"b":0,"e":1},{"b":1,"e":2,"o":2},{"b":1,"e":3},{"b":3,"e":4}]}],"s":[{"t":"Pusher","o1":"o_base","o2":"h_top","e":2},{"t":"Pusher","o1":"b_oh_top","o2":"o_top","e":2},{"t":"Line","x1":260,"y1":100,"x2":310,"y2":100,"a":"equilibrium"}]}

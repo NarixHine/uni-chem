@@ -1,5 +1,5 @@
 export const CLAISEN_CONDENSATION_TEXT = `
-  克莱森缩合是含有 $α$-氢的酯在强碱（如 $\text{MeO}^-$）催化下，与另一分子酯发生缩合产生 $β$-酮酸酯的反应。总反应表现为亲核取代。
+  克莱森缩合是含有 $α$-氢的酯在强碱（如 $\\text{MeO}^-$）催化下，与另一分子酯发生缩合产生 $β$-酮酸酯的反应。总反应表现为亲核取代。
 
   以以下反应为例：
 
@@ -58,7 +58,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α-\text{H}$</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
+  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α-\\text{H}$</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
 
   :::
   {
@@ -336,19 +336,19 @@ export const CLAISEN_CONDENSATION_TEXT = `
 
   ||| one B
   Q
-  $2\text{ mol}$ $\text{CH}_3\text{COOC}_2\text{H}_5$ 发生 $\text{Claisen}$ 缩合反应（乙醇钠催化）生成 $\text{CH}_3\text{COCH}_2\text{COOC}_2\text{H}_5$ 需要加入（ &nbsp; &nbsp; ）$\text{C}_2\text{H}_5\text{ONa}$。
+  $2\\text{ mol}$ $\\text{CH}_3\\text{COOC}_2\\text{H}_5$ 发生 $\\text{Claisen}$ 缩合反应（乙醇钠催化）生成 $\\text{CH}_3\\text{COCH}_2\\text{COOC}_2\\text{H}_5$ 需要加入（ &nbsp; &nbsp; ）$\\text{C}_2\\text{H}_5\\text{ONa}$。
 
   Sol
-  在碱性介质中，生成的 $1\text{ mol}$ $\text{CH}_3\text{COCH}_2\text{COOC}_2\text{H}_5$ 会立即夺取 $1\text{ mol}$ $\text{C}_2\text{H}_5\text{ONa}$ 的质子。这一强放热步骤是推动平衡右移的主要因素。
+  在碱性介质中，生成的 $1\\text{ mol}$ $\\text{CH}_3\\text{COCH}_2\\text{COOC}_2\\text{H}_5$ 会立即夺取 $1\\text{ mol}$ $\\text{C}_2\\text{H}_5\\text{ONa}$ 的质子。这一强放热步骤是推动平衡右移的主要因素。
 
-  因此，要使乙酸乙酯完全转化为产物，必须消耗稍多于 $1\text{ mol}$ 的乙醇钠。
+  因此，要使乙酸乙酯完全转化为产物，必须消耗稍多于 $1\\text{ mol}$ 的乙醇钠。
   A
   催化量
   B
-  大于 $1\text{ mol}$
+  大于 $1\\text{ mol}$
   C
-  大于 $2\text{ mol}$
+  大于 $2\\text{ mol}$
   D
-  大于 $3\text{ mol}$
+  大于 $3\\text{ mol}$
   |||
   `

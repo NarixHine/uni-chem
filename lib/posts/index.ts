@@ -61,7 +61,7 @@ const POSTS_LEVEL_EXAM: Post[] = [
         slug: 'grignard-reagent',
         title: '格氏试剂',
         excerpt:
-            '格氏试剂 $\text{RMgX}$ 中烃基带负电性，是强亲核试剂，可与醛、酮等羰基化合物发生加成反应。',
+            '格氏试剂 $\\text{RMgX}$ 中烃基带负电性，是强亲核试剂，可与醛、酮等羰基化合物发生加成反应。',
     },
     {
         slug: 'markovnikov-rule',
