@@ -27,7 +27,7 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
         )
     }
     return (
-        <Link href={href} {...rest} className={cn(className, 'underline-offset-5')}>
+        <Link href={href} {...rest} className={cn(className, 'underline-offset-5 decoration-[0.5px]')}>
             {children}
         </Link>
     )
