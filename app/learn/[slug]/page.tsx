@@ -38,7 +38,9 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                     />
                     <h1 className='font-serif -mb-4 font-medium text-balance'>{title}</h1>
                 </div>
-                <p className='text-muted text-lg font-sans'>{excerpt}</p>
+                <div className='text-muted text-lg font-sans mt-3'>
+                  <Markdown className='leading-normal'>{excerpt}</Markdown>
+                </div>
             </div>
             <Markdown>{text}</Markdown>
             {next && <NextArticleButton href={`/learn/${next.slug}`} title={next.title} />}

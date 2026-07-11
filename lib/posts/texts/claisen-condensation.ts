@@ -58,7 +58,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α$-氢质子</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
+  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α$-氢</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
 
   :::
   {
@@ -214,7 +214,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  夹在两个羰基中间的<ce style="color: var(--chem-amber);">氢</ce>酸性很强。碱性<ce style="color: var(--chem-green);">烷氧负离子</ce>会不可逆地夺取该<ce style="color: var(--chem-blue);">$α$-碳原子</ce>上的另一个<ce style="color: var(--chem-amber);">质子</ce>，生成稳定的共轭烯醇负离子。
+  羰基是吸电子基团，夹在两个羰基中间的<ce style="color: var(--chem-amber);">氢</ce>酸性很强。碱性<ce style="color: var(--chem-green);">烷氧负离子</ce>会不可逆地夺取该 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上的另一个<ce style="color: var(--chem-amber);">质子</ce>，生成稳定的共轭烯醇负离子。
 
   :::
   {
@@ -272,7 +272,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  在反应后处理中加入稀酸，使共轭烯醇负离子的<ce style="color: var(--chem-blue);">$α$-碳原子</ce>重新结合一个<ce style="color: var(--chem-amber);">质子</ce>，酸化中和后最终获得目标 $β$-酮酸酯产物。
+  在反应后处理中加入稀酸，使共轭烯醇负离子的 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>重新结合一个<ce style="color: var(--chem-amber);">质子</ce>，酸化中和后最终获得目标 $β$-酮酸酯产物。
 
   :::
   {

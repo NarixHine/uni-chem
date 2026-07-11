@@ -9,7 +9,7 @@ export interface Post {
     text?: string
 }
 
-export const posts: Post[] = [
+const POSTS_LEVEL_EXAM: Post[] = [
     {
         slug: 'resonance',
         title: '共振理论',
@@ -48,11 +48,88 @@ export const posts: Post[] = [
         title: '羟醛缩合',
         excerpt: '由于羰基的吸电子效应，α-氢的酸性显著增强，从而易与作为路易斯碱的醇反应。',
         text: ALDOL_CONDENSATION_TEXT,
-  },
-  {
-      slug: 'claisen-condensation',
-      title: 'Claisen 缩合',
-      excerpt: '与羟醛缩合类似。羧酸酯的 α-氢被强碱夺去后，先与另一羧酸酯发生亲核加成，再消去。',
-      text: CLAISEN_CONDENSATION_TEXT,
-  },
+    },
+    {
+        slug: 'claisen-condensation',
+        title: 'Claisen 缩合',
+        excerpt: '与羟醛缩合类似。羧酸酯的 α-氢被强碱夺去后，先与另一羧酸酯发生亲核加成，再消去。',
+        text: CLAISEN_CONDENSATION_TEXT,
+    },
+    {
+        slug: 'grignard-reagent',
+        title: '格氏试剂',
+        excerpt:
+            '格氏试剂 $\text{RMgX}$ 中烃基带负电性，是强亲核试剂，可与醛、酮等羰基化合物发生加成反应。',
+    },
+    {
+        slug: 'markovnikov-rule',
+        title: '马氏规则',
+        excerpt: '不对称烯烃与卤化氢加成时，氢加在含氢较多的碳上，卤素加在含氢较少的碳上。',
+    },
+    {
+        slug: 'zaitsev-rule',
+        title: '扎伊采夫规则',
+        excerpt: '卤代烃消除时，产物倾向于生成取代基较多、更稳定的烯烃。',
+    },
+]
+
+const POSTS_BEYOND_GAOKAO: Post[] = [
+    {
+        slug: 'hyperconjugation',
+        title: '超共轭效应',
+        excerpt: '$σ$ 键电子与相邻的空 $p$ 轨道或 $π$ 键发生部分重叠，使体系能量降低。',
+    },
+    {
+        slug: 'chair-conformation',
+        title: '环己烷优势构象',
+        excerpt: '椅式构象中所有键处于交叉位，能量最低；大基团优先占据平伏键。',
+    },
+    {
+        slug: 'chirality',
+        title: '手性',
+        excerpt: '手性分子与其镜像不能重合，存在对映异构体，又称旋光异构体。',
+    },
+    {
+        slug: 'bond-order',
+        title: '键级',
+        excerpt: '键级反映两原子间共享电子对的数目，单键、双键、三键的键级分别为 1、2、3。',
+    },
+    {
+        slug: 'aromaticity',
+        title: '芳香性',
+        excerpt:
+            '满足 $4n+2$ 个 $π$ 电子且呈平面闭合共轭体系的环状分子，具有特殊稳定性，称芳香性。',
+    },
+    {
+        slug: 'carbanion-carbocation-stability',
+        title: '碳正离子与碳负离子的稳定性',
+        excerpt: '碳正离子与碳负离子的稳定性受取代基的诱导效应与共振效应共同影响。',
+    },
+    {
+        slug: 'acidity-basicity',
+        title: '酸碱性强弱的比较',
+        excerpt: '诱导与共振效应、共轭碱/酸的稳定性是判断酸/碱性强弱的关键依据。',
+    },
+    {
+        slug: 'sn1-sn2-e1-e2',
+        title: 'SN1/SN2/E1/E2 反应机理',
+        excerpt: '亲核取代与消除反应的四种机理，受底物结构、试剂与溶剂等因素影响。',
+    },
+    {
+        slug: 'radical-reactions',
+        title: '自由基反应',
+        excerpt: '自由基反应通过链引发、链增长、链终止三步进行，常见于烷烃卤代等反应。',
+    },
+]
+
+export const posts: Post[] = [...POSTS_LEVEL_EXAM, ...POSTS_BEYOND_GAOKAO]
+
+export interface PostSection {
+    subtitle: string
+    posts: Post[]
+}
+
+export const postSections: PostSection[] = [
+    { subtitle: '等级考探微', posts: POSTS_LEVEL_EXAM },
+    { subtitle: '走向大学', posts: POSTS_BEYOND_GAOKAO },
 ]

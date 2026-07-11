@@ -1,4 +1,4 @@
-import { posts } from '@/lib/posts'
+import { postSections } from '@/lib/posts'
 import { PostList } from './components/post-list'
 import Main from '@/components/main'
 
@@ -13,7 +13,7 @@ export default function Home() {
                 Chemistry beyond high school textbooks.
             </p>
             <div className='max-w-xl px-2 mx-auto pt-4 md:pt-6'>
-                <PostList posts={posts} />
+                <PostList sections={postSections} />
             </div>
         </Main>
     )
