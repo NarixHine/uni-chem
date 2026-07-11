@@ -1,6 +1,7 @@
 import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
 import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
+import { INDUCTIVE_EFFECT_TEXT } from './texts/inductive-effect'
 
 export interface Post {
     slug: string
@@ -25,6 +26,7 @@ const POSTS_LEVEL_EXAM: Post[] = [
         slug: 'inductive-effect',
         title: '诱导效应',
         excerpt: '除共振外，电负性差异是显著驱动电子偏移的另一重要因素。',
+        text: INDUCTIVE_EFFECT_TEXT,
     },
     {
         slug: 'activating-group',

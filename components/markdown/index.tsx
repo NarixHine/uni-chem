@@ -1,9 +1,37 @@
+import Link from 'next/link'
 import { Markdown as MarkdownToJSX } from 'markdown-to-jsx/react'
-import type { HTMLAttributes } from 'react'
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react'
 import cn from 'cnfast'
 import Visualizer from '../visualizer'
 import { Quiz } from '../quiz'
 import { InlineMath } from './inline-math'
+
+type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+    children?: ReactNode
+}
+
+const EXTERNAL_HREF = /^(https?:|mailto:|tel:|#)/i
+
+function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
+    if (!href || EXTERNAL_HREF.test(href)) {
+        return (
+            <a
+                href={href}
+                {...rest}
+                className={cn(className, 'underline-offset-5')}
+                target='_blank'
+                rel='noreferrer'
+            >
+                {children}
+            </a>
+        )
+    }
+    return (
+        <Link href={href} {...rest} className={cn(className, 'underline-offset-5')}>
+            {children}
+        </Link>
+    )
+}
 
 export type MarkdownProps = {
     children: string
@@ -52,8 +80,7 @@ function parseQuizBody(body: string) {
     }
 
     const question = (sections.get('Q') ?? []).join('\n').trim()
-    const explanation =
-        (sections.get('Sol') ?? []).join('\n').trim() || undefined
+    const explanation = (sections.get('Sol') ?? []).join('\n').trim() || undefined
     const options = OPTION_MARKERS.filter(l => sections.has(l)).map(l => ({
         letter: l,
         content: (sections.get(l) ?? []).join('\n').trim(),
@@ -96,6 +123,9 @@ export function Markdown({ children: content, className, ...props }: MarkdownPro
             <MarkdownToJSX
                 options={{
                     overrides: {
+                        a: {
+                            component: MarkdownLink,
+                        },
                         Visualizer: {
                             component: Visualizer,
                         },

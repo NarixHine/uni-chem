@@ -120,7 +120,7 @@ export function Quiz({ data, className }: QuizProps) {
                             isDisabled={submitted}
                             onPress={() => toggle(opt.letter)}
                             className={
-                                '-mx-4 min-h-10 h-auto md:h-auto items-center rounded-lg opacity-100 [&_canvas]:h-32 [&_canvas]:max-h-32'
+                                '-mx-4 w-[calc(100%+2rem)] min-h-10 h-auto md:h-auto items-center rounded-lg opacity-100 [&_canvas]:h-32 [&_canvas]:max-h-32'
                             }
                         >
                             <span

@@ -38,8 +38,8 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                     />
                     <h1 className='font-serif -mb-4 font-medium text-balance'>{title}</h1>
                 </div>
-                <div className='text-muted text-lg font-sans mt-3'>
-                  <Markdown className='leading-normal'>{excerpt}</Markdown>
+                <div className='mt-3'>
+                  <Markdown className='leading-normal text-muted font-sans '>{excerpt}</Markdown>
                 </div>
             </div>
             <Markdown>{text}</Markdown>

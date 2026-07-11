@@ -5,3 +5,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 Always use bun as the package manager.
+
+Always use HeroUI v3 components where possible instead of HTML primitives.

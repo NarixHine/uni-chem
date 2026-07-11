@@ -58,7 +58,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α$-氢</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
+  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α-\text{H}$</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
 
   :::
   {
