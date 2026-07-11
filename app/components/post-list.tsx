@@ -29,7 +29,9 @@ function PostEntry({ post }: { post: Post }) {
             </div>
 
             <div className='mt-3 max-w-2xl text-lg text-muted'>
-                <Markdown className='leading-relaxed'>{post.excerpt}</Markdown>
+                <Markdown className='leading-relaxed' glossary={false}>
+                    {post.excerpt}
+                </Markdown>
             </div>
         </article>
     )
