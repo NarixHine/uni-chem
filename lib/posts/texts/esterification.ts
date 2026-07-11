@@ -1,8 +1,5 @@
 export const ESTERIFICATION_TEXT = `
-  酯化反应（以乙酸与 $\\text{CH}_3\\text{OH}$ 为例）属典型的**亲核酰基取代反应**。
-
-  * **反应条件**：酸催化（常为浓 $\\text{H}_2\\text{SO}_4$），加热。
-  * **反应动力**：此反应为可逆反应，浓 $\\text{H}_2\\text{SO}_4$ 兼具催化与吸水作用，可促进平衡正向移动。
+  酯化反应（以乙酸与 $\\text{CH}_3\\text{OH}$ 为例）是亲核取代反应。条件为酸催化（常为浓 $\\text{H}_2\\text{SO}_4$），加热。浓 $\\text{H}_2\\text{SO}_4$ 兼具催化与吸水作用，可促进平衡正向移动。
 
   <n class="color" style="color:var(--chem-blue)">羰基氧</n>具有路易斯碱性，首先接受催化剂提供的质子。此步增强了<n class="color" style="color:var(--chem-rust)">羰基碳</n>的亲电性，使其更易受亲核试剂攻击。
 

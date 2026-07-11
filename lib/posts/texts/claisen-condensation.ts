@@ -1,5 +1,5 @@
 export const CLAISEN_CONDENSATION_TEXT = `
-  克莱森缩合是含有 $α-\\text{H}$ 的酯在强碱（如 $\\text{MeO}^-$）催化下，与另一分子酯发生缩合产生 $β$-酮酸酯的反应。总反应表现为亲核取代。
+  克莱森缩合是含有 $α\\text{-H}$ 的酯在强碱（如 $\\text{MeO}^-$）催化下，与另一分子酯发生缩合产生 $β$-酮酸酯的反应。总反应表现为亲核取代。
 
   以以下反应为例：
 
@@ -58,7 +58,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
   }
   :::
 
-  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α-\\text{H}$</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
+  碱性催化剂<ce style="color: var(--chem-green);">烷氧负离子</ce>夺取酯分子的酸性 <ce style="color: var(--chem-amber);">$α\\text{-H}$</ce>，释放出醇分子，并在 <ce style="color: var(--chem-blue);">$α$-碳原子</ce>上生成亲核性的碳负离子。
 
   :::
   {

@@ -21,7 +21,7 @@ export const INDUCTIVE_EFFECT_TEXT = `
 
   在 $\\text{CH}_3\\text{CH}_2\\text{Cl}$ 中，<ce style="color: var(--chem-crimson);">$\\text{Cl}$ 原子</ce>的电负性显著大于碳。因此，<ce style="color: var(--chem-crimson);">$\\text{C}-\\text{Cl}$ 键</ce>的电子云明显偏向 <ce style="color: var(--chem-crimson);">$\\text{Cl}$</ce>（带有部分负电荷 $δ^-$），导致<ce style="color: var(--chem-blue);">相邻碳原子</ce>电子云密度降低（带有部分正电荷 $δ^+$）。受此影响，该碳原子通过 <ce style="color: var(--chem-indigo);">$\\text{C}-\\text{C}$ 键</ce>较弱地牵引更远端碳原子的电子，使整个碳链的电子云发生同向偏移。
 
-  常见吸电子基团按 $-I$ 效应由强到弱的顺序为：$-\\text{NO}_2 > -\\text{CN} > \\text{C}=\\text{O} > -\\text{F} > -\\text{Cl} > -\\text{Br} > -\\text{I}$ > $-\\text{NH}_2$。
+  常见吸电子基团按 $-I$ 效应由强到弱的顺序为：$-\\text{NO}_2 > -\\text{CN} > \\text{C}{=}\\text{O} > -\\text{F} > -\\text{Cl} > -\\text{Br} > -\\text{I}$ > $-\\text{NH}_2$。
 
   与吸电子诱导效应相对应地，**给电子诱导效应**（用 $+I$ 表示）中，由于碳链连接电负性较弱的基团，共用电子对会被推向碳链。以乙基锂 $\\text{CH}_3\\text{CH}_2\\text{Li}$ 为例：
 
@@ -53,5 +53,5 @@ export const INDUCTIVE_EFFECT_TEXT = `
 
   酸性键（$\\text{C}-\\text{H}$ 键、$\\text{O}-\\text{H}$ 键等共价键）的极性越强，即电子云越远离 $\\text{H}$，越容易电离出质子，详见[「酸碱性强弱比较」](/learn/acidity-basicity)。
 
-  羰基是强吸电子基团，许多反应依靠碱夺取羰基的 $α-\\text{H}$ 进行，详见[「羟醛缩合」](/learn/aldol-condensation) [「$\\text{Claisen}$ 缩合」](/learn/claisen-condensation)。
+  羰基是强吸电子基团，许多反应依靠碱夺取羰基的 $α\\text{-H}$ 进行，详见[「羟醛缩合」](/learn/aldol-condensation) [「$\\text{Claisen}$ 缩合」](/learn/claisen-condensation)。
   `
