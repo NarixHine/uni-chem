@@ -23,7 +23,7 @@ export interface QuizProps {
 
 const overrides = {
     Visualizer: { component: Visualizer },
-    InlineMath: { component: InlineMath },
+    inlinemath: { component: InlineMath },
 }
 
 const optionOverrides = {
@@ -31,7 +31,7 @@ const optionOverrides = {
         component: Visualizer,
         props: { canvasStyle: { backgroundColor: 'transparent' } },
     },
-    InlineMath: { component: InlineMath },
+    inlinemath: { component: InlineMath },
 }
 
 function MiniMarkdown({ children }: { children: string }) {

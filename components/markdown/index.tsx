@@ -9,7 +9,7 @@ export type MarkdownProps = {
     children: string
     /**
      * When `true` (default), glossary terms in the raw source are wrapped with
-     * `<Glance>` components. Disable for contexts that should not produce
+     * `<glance>` components. Disable for contexts that should not produce
      * glossary overlays (e.g. already-extracted definitions).
      */
     glossary?: boolean
@@ -30,7 +30,7 @@ export function Markdown({
                 options={{
                     overrides: {
                         ...FLAVOR_OVERRIDES,
-                        Glance: { component: Glance },
+                        glance: { component: Glance },
                     },
                 }}
             >

@@ -37,7 +37,7 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
 export const FLAVOR_OVERRIDES = {
     a: { component: MarkdownLink },
     Visualizer: { component: Visualizer },
-    InlineMath: { component: InlineMath },
+    inlinemath: { component: InlineMath },
     Quiz: { component: Quiz },
 } as const
 
@@ -48,7 +48,13 @@ function preprocessMath(source: string): string {
         .replace(/\\\$/g, ESCAPED_DOLLAR)
         .replace(/(?<!\\)\$(?!\$)(.*?)(?<!\\)\$(?!\$)/gs, (_, expr) => {
             const safe = JSON.stringify(expr)
-            return `<InlineMath expr=${safe} />`
+            // Lowercase tag: a PascalCase `<InlineMath />` at the start of a
+            // block line is parsed by markdown-to-jsx as an HTML block opening
+            // tag, swallowing the rest of the paragraph as (dropped) children.
+            // Lowercase custom tags are never treated as HTML blocks, so they
+            // stay inline and self-close. The override is registered lowercase
+            // in FLAVOR_OVERRIDES to match.
+            return `<inlinemath expr=${safe} />`
         })
         .replace(new RegExp(ESCAPED_DOLLAR.replace(/\$/g, '\\$'), 'g'), '$')
 }

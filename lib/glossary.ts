@@ -48,12 +48,20 @@ const glossaryPattern = (() => {
 })()
 
 /**
- * Wraps the first appearance of each glossary term with `<Glance data="…" />`.
+ * Wraps the first appearance of each glossary term with `<glance data="…" />`.
  * Subsequent occurrences of the same term are left as plain text.
  *
  * MUST run before math/visualizer/quiz preprocessing: once `$…$` is converted
- * to `<InlineMath>` tags, a KaTeX-wrapped term (e.g. `$α\\text{-H}$`) would no
+ * to `<inlinemath>` tags, a KaTeX-wrapped term (e.g. `$α\\text{-H}$`) would no
  * longer exist as a contiguous substring and could not be matched.
+ *
+ * The tag is lowercase because markdown-to-jsx treats a PascalCase custom tag
+ * at the start of a block line as an HTML block: a self-closing `<Glance … />`
+ * is misread as an opening tag, so everything trailing it on the paragraph is
+ * captured as its children and dropped (Glance renders no children). Lowercase
+ * custom tags are not recognized as HTML blocks, so they stay inline and
+ * self-close correctly. See components/markdown/flavor.tsx for the matching
+ * override registration.
  */
 export function preprocessGlossary(source: string): string {
     if (!glossaryPattern) return source
@@ -62,7 +70,7 @@ export function preprocessGlossary(source: string): string {
     return source.replace(glossaryPattern, match => {
         if (seen.has(match)) return match
         seen.add(match)
-        return `<Glance data="${encodeURIComponent(JSON.stringify(match))}" />`
+        return `<glance data="${encodeURIComponent(JSON.stringify(match))}" />`
     })
 }
 
