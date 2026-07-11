@@ -18,7 +18,7 @@ function PostEntry({ post }: { post: Post }) {
                     {post.text ? (
                         <Link
                             href={`/learn/${post.slug}`}
-                            className={'decoration-1 underline-offset-4 hover:underline'}
+                            className={'underline-offset-4 hover:underline'}
                         >
                             {post.title}
                         </Link>

@@ -18,7 +18,7 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
             <a
                 href={href}
                 {...rest}
-                className={cn(className, 'underline-offset-5')}
+                className={cn(className, 'underline-offset-5 decoration-[0.5px]')}
                 target='_blank'
                 rel='noreferrer'
             >

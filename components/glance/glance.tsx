@@ -67,8 +67,8 @@ export function Glance({ data, className }: GlanceProps) {
             <Popover.Trigger render={spanRender} className={cn(TRIGGER_CLASS, className)}>
                 <GlanceTerm term={term} />
             </Popover.Trigger>
-            <Popover.Content className={'px-5 py-1 shadow-sm max-w-xs'}>
-                <Popover.Dialog>
+            <Popover.Content className={'shadow-sm max-w-xs'}>
+                <Popover.Dialog className='py-0'>
                     <FlavoredMarkdown>{entry.definition}</FlavoredMarkdown>
                 </Popover.Dialog>
             </Popover.Content>
