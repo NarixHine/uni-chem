@@ -1,14 +1,17 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import cn from 'cnfast'
 import { VISUALIZER_SHELL_CLASS } from './visualizer'
 
-// Blank placeholder that mirrors the canvas shell (responsive width +
-// negative margins, 200px tall) so the client-only component mounts into a
-// reserved footprint — preventing layout shift without a visible skeleton.
+// Mirrors the real component's shell + canvas structure (same classes,
+// same default 200×200 intrinsic size) so parent `[&_canvas]` height
+// overrides, e.g. quiz options force `h-32`, apply identically to the placeholder.
 function VisualizerPlaceholder() {
-    return <div aria-hidden className={cn(VISUALIZER_SHELL_CLASS, 'h-50')} />
+    return (
+        <div aria-hidden className={VISUALIZER_SHELL_CLASS}>
+            <canvas width={200} height={200} className='block h-full w-full' />
+        </div>
+    )
 }
 
 // Dynamic import with SSR disabled — CWC needs the browser.
