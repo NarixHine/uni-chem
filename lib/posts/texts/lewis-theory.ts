@@ -11,17 +11,52 @@ export const LEWIS_THEORY = `
 
   而 $\text{HCO}_3^-$ 表现为两性物质：
   
-  $$\text{HCO}_3^- + \text{H}_2\text{O} \rightleftharpoons \text{CO}_3^{2-} + \text{H}_3\text{O}^+$$
+  $$\text{HCO}_3^- + \text{H}_2\text{O} \rightleftharpoons \text{H}_2\text{CO}_3 + \text{OH}^-$$
   
   $$\text{HCO}_3^- \rightleftharpoons \text{CO}_3^{2-} + \text{H}^+$$
   
   然而，该理论仍受限于质子转移。
 
-  路易斯酸碱理论则彻底摆脱了质子的束缚，定义**接受电子对的物质为酸，给出电子对的物质为碱**。例如，在 $\text{CO}_3^{2-}$ 的无质子合成反应中，$\text{CO}_2$ 接受 $\text{O}^{2-}$ 的孤对电子：
+  路易斯酸碱理论则彻底摆脱了质子的束缚，定义**接受电子对的物质为酸，给出电子对的物质为碱**。例如，在 $\text{CO}_3^{2-}$ 的无质子合成反应中，<ce style="color:var(--chem-green)">$\text{CO}_2$</ce> 接受<ce style="color:var(--chem-amber)">氧离子 $\text{O}^{2-}$</ce> 的孤对电子：
 
-  $$\text{CO}_2 + \text{O}^{2-} \rightarrow \text{CO}_3^{2-}$$
-
-  此时，$\text{O}^{2-}$ 作为路易斯碱，孤对电子进入作为路易斯酸的 $\text{CO}_2$ 中心碳原子空轨道，形成配位键。
+  :::
+  {
+    "m": [
+      {
+        "a": [
+          {"x": 110, "y": 140, "i": "O0", "l": "O", "c": -2, "p": 4, "clr": "var(--chem-amber)"},
+          {"x": 110, "y": 100, "i": "C0", "l": "C", "clr": "var(--chem-green)"},
+          {"x": 70, "y": 100, "i": "O1", "l": "O", "p": 2},
+          {"x": 150, "y": 100, "i": "O2", "l": "O", "p": 2}
+        ],
+        "b": [
+          {"b": 1, "e": 2, "o": 2, "i": "b1"},
+          {"b": 1, "e": 3, "o": 2}
+        ]
+      },
+      {
+        "a": [
+          {"x": 265, "y": 100, "l": "C", "clr": "var(--chem-green)"},
+          {"x": 265, "y": 140, "l": "O", "c": -1, "p": 3, "clr": "var(--chem-amber)"},
+          {"x": 225, "y": 100, "l": "O", "c": -1, "p": 3},
+          {"x": 305, "y": 100, "l": "O", "p": 2}
+        ],
+        "b": [
+          {"b": 0, "e": 1},
+          {"b": 0, "e": 2},
+          {"b": 0, "e": 3, "o": 2}
+        ]
+      }
+    ],
+    "s": [
+      {"t": "Pusher", "o1": "O0", "o2": "C0", "e": 2},
+      {"t": "Pusher", "o1": "b1", "o2": "O1", "e": 2},
+      {"t": "Line", "x1": 170, "y1": 100, "x2": 210, "y2": 100, "a": "synthetic"}
+    ]
+  }
+  :::
+  
+  此时，<ce style="color:var(--chem-amber)">$\text{O}^{2-}$</ce> 作为路易斯碱，孤对电子进入作为路易斯酸的 <ce style="color:var(--chem-green)">$\text{CO}_2$ 中心碳原子</ce>空轨道，形成配位键。
 
   许多反应的本质都是路易斯碱提供孤对电子，输入至路易斯酸的空轨道中，从而形成共价键。例如，在 $\text{NH}_3$ 与 $\text{BF}_3$ 的反应中，拥有孤对电子的 <ce style="color:var(--chem-blue)">$\text{N}$ 原子</ce>作为路易斯碱，将电子对注入拥有空轨道的 <ce style="color:var(--chem-rust)">$\text{B}$ 原子</ce>（路易斯酸）。
 
@@ -137,7 +172,7 @@ export const LEWIS_THEORY = `
 
   $$\text{Cu}^{2+} + 4\text{H}_2\text{O} \rightarrow [\text{Cu}(\text{H}_2\text{O})_4]^{2+}$$
 
-  无机化学中，许多反应都可以视为“酸碱中和”，只是生成的不是“盐和水”，而仍是路易斯酸碱。向溶液中加入氨水时，配位能力更强的路易斯碱 $\text{NH}_3$ 会进攻路易斯酸 $\text{Cu}^{2+}$，将配位能力较弱的路易斯碱 $\text{H}_2\text{O}$ 替换出，生成更稳定（失去接受孤电子对能力，酸性更弱）的深蓝色铜氨络离子：
+  无机化学中，许多反应都可以视为“酸碱中和”，只是生成的不是“盐和水”，而仍是路易斯酸碱。向溶液中加入氨水时，配位能力更强的路易斯碱 $\text{NH}_3$ 会进攻路易斯酸 $\text{Cu}^{2+}$，将配位能力较弱的路易斯碱 $\text{H}_2\text{O}$ 替换出，生成更稳定（失去接受孤电子对能力，即酸性更弱）的深蓝色铜氨络离子：
 
   $$[\text{Cu}(\text{H}_2\text{O})_4]^{2+} + 4\text{NH}_3 \rightarrow [\text{Cu}(\text{NH}_3)_4]^{2+} + 4\text{H}_2\text{O}$$
 
