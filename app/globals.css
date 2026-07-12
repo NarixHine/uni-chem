@@ -35,6 +35,23 @@
     text-decoration-thickness: 0.5px !important;
 }
 
+/*
+  Block math ($$…$$) renders inside a `.katex-display` > `.katex`. KaTeX's own
+  stylesheet sets `white-space: nowrap` on `.katex-display > .katex`, so wide
+  equations overflow the viewport on small screens instead of wrapping. Since
+  katex.min.css is imported from the component (loading after globals.css),
+  we need `!important` to win the cascade.
+
+  We let the inner `.katex` wrap between its atomic glyph boxes (`.base`
+  inline-blocks) so a long equation flows onto multiple lines instead of
+  clipping. `overflow-wrap: anywhere` keeps stray long tokens from sticking
+  out.
+*/
+.katex-display > .katex {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+
 @layer base {
     /* HeroUI Default Theme */
     :root {
