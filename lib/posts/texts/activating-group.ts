@@ -1,7 +1,7 @@
 export const ACTIVATING_GROUP = `
   苯环亲电取代反应（$\text{S}_\text{E}\text{Ar}$）的活性由苯环电子云密度决定。取代基通过**诱导效应**和**共振效应**影响电子分布，从而活化或钝化苯环。
 
-  在甲苯中，<ce style="color: var(--chem-amber);">$-\text{CH}_3$</ce> 仅具有给电子诱导效应（$+I$），它将电子推向苯环，使<ce style="color: var(--chem-blue);">邻、对位碳原子</ce>电子云密度升高，从而活化苯环。
+  在甲苯中，<ce style="color: var(--chem-amber);">$-\text{CH}_3$</ce> 仅具有给电子诱导效应（$+I$），它将电子推向苯环来活化苯环。
 
   :::
   {
@@ -28,7 +28,7 @@ export const ACTIVATING_GROUP = `
   }
   :::
 
-  在硝基苯中，$-\text{NO}_2$ 具有强吸电子诱导效应（$-I$）和共振吸电子效应（$-M$）。两效应方向一致，苯环中的 $π$ 电子向 <ce style="color: var(--chem-indigo);">$\text{C}{-}\text{N}$</ce> 键和 <ce style="color: var(--chem-amber);">$\text{N}{=}\text{O}$</ce> 键转移，强烈降低环上的电子密度，使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带正电荷，从而钝化苯环。
+  在硝基苯中，$-\text{NO}_2$ 具有强吸电子诱导效应（$-I$）和共振吸电子效应（$-M$），两效应方向一致。诱导效应下，苯环 $\\sigma$ 电子云被吸向硝基。共振效应下，苯环中的 $π$ 电子向 <ce style="color: var(--chem-indigo);">$\text{C}{-}\text{N}$</ce> 键和 <ce style="color: var(--chem-amber);">$\text{N}{=}\text{O}$</ce> 键转移，大幅降低环上的电子云密度，且使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带正电（正电荷在邻、对位间离域），因而钝化了苯环。
 
   :::
   {
