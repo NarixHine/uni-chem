@@ -1,24 +1,24 @@
 export const LEWIS_THEORY = `
   传统酸碱观中，阿伦尼乌斯理论定义在水溶液中电离出 $\text{H}^+$ 的为酸，电离出 $\text{OH}^-$ 的为碱。例如，$\text{H}_2\text{CO}_3$ 溶于水表现为酸：
-  
+
   $$\text{H}_2\text{CO}_3 \rightleftharpoons \text{H}^+ + \text{HCO}_3^-$$
-  
+
   勃朗斯特理论突破了“水溶液”和“电离”限制，将酸碱定义为质子（$\text{H}^+$）的给予体（酸）与接受体（碱）。在此理论下，$\text{CO}_3^{2-}$ 通过接受质子表现为碱，而 $\text{HCO}_3^-$ 为两性物质：
-  
+
   $$\text{CO}_3^{2-} + \text{H}^+ \rightleftharpoons \text{HCO}_3^-$$
-  
+
   $$\text{HCO}_3^- + \text{OH}^- \rightleftharpoons \text{CO}_3^{2-} + \text{H}_2\text{O}$$
-  
+
   然而，该理论仍受限于质子转移。
-  
+
   路易斯酸碱理论则彻底摆脱了质子的束缚，定义接受电子对的物质为酸，给出电子对的物质为碱。例如，在 $\text{CO}_3^{2-}$ 的无质子合成反应中，$\text{CO}_2$ 接受 $\text{O}^{2-}$ 的孤对电子：
-  
+
   $$\text{CO}_2 + \text{O}^{2-} \rightarrow \text{CO}_3^{2-}$$
-  
+
   此时，$\text{O}^{2-}$ 作为路易斯碱，孤对电子进入作为路易斯酸的 $\text{CO}_2$ 中心碳原子空轨道，形成配位键。
-  
+
   许多反应的本质都是路易斯碱提供孤对电子，输入至路易斯酸的空轨道中，从而形成共价键。例如，在 $\text{NH}_3$ 与 $\text{BF}_3$ 的反应中，拥有孤对电子的 <ce style="color:var(--chem-blue)">$\text{N}$ 原子</ce>作为路易斯碱，将电子对注入拥有空轨道的 <ce style="color:var(--chem-rust)">$\text{B}$ 原子</ce>（路易斯酸）。
-  
+
   :::
   {
   "m": [
@@ -70,11 +70,11 @@ export const LEWIS_THEORY = `
   ]
   }
   :::
-  
+
   路易斯酸碱观统一了有机反应。有机化学中的亲电试剂可视作路易斯酸，亲核试剂可视作路易斯碱。
-  
+
   $\\text{CH}_3\\text{Cl}$ 在 $\\text{NaOH}$ 水溶液的取代反应中，作为路易斯碱的 <ce style="color:var(--chem-amber)">$\text{O}$ 原子</ce> 提供电子对进攻作为路易斯酸中心的 <ce style="color:var(--chem-green)">$\text{C}$ 原子</ce>，促使 <ce style="color:var(--chem-indigo)">$\text{Cl}$ 原子</ce>离去。
-  
+
   :::
   {
   "m": [
@@ -126,26 +126,73 @@ export const LEWIS_THEORY = `
   ]
   }
   :::
-  
-  无机化学中，许多反应都可以视为“酸碱中和”，只是生成的不是“盐和水”，而仍是路易斯酸碱。例如在铜氨溶液的制备中，向硫酸铜溶液中加入氨水，可以认为路易斯碱 $\text{NH}_3$ 夺取了路易斯酸 $\text{Cu}^{2+}$，将弱路易斯碱 $\text{H}_2\text{O}$ 顶替出来：
-  
-  $$\text{Cu}(\text{H}_2\text{O})_4^{2+} + 4\text{NH}_3 \rightarrow \text{Cu}(\text{NH}_3)_4^{2+} + 4\text{H}_2\text{O}$$
-  
+
+  在路易斯酸碱理论中，过渡金属离子是典型的酸。过渡金属离子 $\text{Cu}^{2+}$ 拥有空 $d$ 轨道，作为路易斯酸；水分子 $\text{H}_2\text{O}$ 的氧原子拥有孤对电子，作为路易斯碱。在水溶液中，二者结合，铜的存在形式为四水合铜离子：
+
+  $$\text{Cu}^{2+} + 4\text{H}_2\text{O} \rightarrow [\text{Cu}(\text{H}_2\text{O})_4]^{2+}$$
+
+  无机化学中，许多反应都可以视为“酸碱中和”，只是生成的不是“盐和水”，而仍是路易斯酸碱。向溶液中加入氨水时，配位能力更强的路易斯碱 $\text{NH}_3$ 会进攻路易斯酸 $\text{Cu}^{2+}$，将较弱的路易斯碱 $\text{H}_2\text{O}$ 替换出，生成更稳定（失去接受孤电子对能力，酸性更弱）的深蓝色铜氨络离子：
+
+  $$[\text{Cu}(\text{H}_2\text{O})_4]^{2+} + 4\text{NH}_3 \rightarrow [\text{Cu}(\text{NH}_3)_4]^{2+} + 4\text{H}_2\text{O}$$
+
   为了预测酸碱加合物的稳定性，软硬酸碱（HSAB）理论将路易斯酸和碱分为“硬”与“软”两类，并经验性地指出硬酸与硬碱、软酸与软碱结合更稳定。
-  
+
   电荷多、半径小的阳离子为硬酸（如 $\text{H}^+$、$\text{Na}^+$、$\text{Al}^{3+}$）；电荷少、半径大、易变形的阳离子为软酸（如 $\text{Ag}^+$、$\text{Hg}^{2+}$）。
-  
+
   电负性高、半径小、难氧化的阴离子为硬碱（如 $\text{F}^-$、$\text{OH}^-$、$\text{H}_2\text{O}$）；电负性低、半径大、易氧化的阴离子为软碱（如 $\text{I}^-$、$\text{S}^{2-}$、$\text{CO}$）。
-  
+
   该理论的核心规则是“硬亲硬，软亲软”。“硬—硬”结合偏向离子性，“软—软”结合偏向共价性，形成的化合物均更稳定。
-  
-  该模型可以解释卤化银的溶解度趋势。从 $\text{AgF}$ 到 $\text{AgI}$，溶解度（$S$）顺序为：
-  
+
+  该模型可以解释卤化银的溶解度趋势。从 $\text{AgF}$ 到 $\text{AgI}$，溶解度顺序为：
+
   $$S(\text{AgF}) \\gg S(\text{AgCl}) > S(\text{AgBr}) > S(\text{AgI})$$
-  
+
   这是因为 $\text{Ag}^+$（软酸）与 $\text{F}^-$（硬碱）不匹配，结合较弱，$\text{AgF}$ 极易溶；而它与 $\text{I}^-$（软碱）满足“软亲软”，形成的 $\text{AgI}$ 共价性极强，极难溶，从而发生置换：
-  
+
   $$\text{AgF} + \text{I}^- \rightarrow \text{AgI} + \text{F}^-$$
-  
-  在地球化学中，硬酸如 $\text{Mg}^{2+}$、$\text{Ca}^{2+}$ 只与硬碱 $\text{O}^{2-}$、$\text{CO}_3^{2-}$ 结合成矿（如 $\text{CaCO}_3$）；而软酸如 $\text{Cu}^+$、$\text{Hg}^{2+}$ 则专属地与软碱 $\text{S}^{2-}$ 结合成矿（如 $\text{Cu}_2\text{S}$、$\text{HgS}$）。
-`
+
+  在地球化学中，硬酸如 $\text{Mg}^{2+}$、$\text{Ca}^{2+}$ 只与硬碱 $\text{O}^{2-}$、$\text{CO}_3^{2-}$ 结合成矿（如 $\text{CaCO}_3$）；而软酸如 $\text{Cu}^+$、$\text{Hg}^{2+}$ 则大多与软碱 $\text{S}^{2-}$ 结合成矿（如 $\text{Cu}_2\text{S}$、$\text{HgS}$）。
+
+
+  ||| some AB
+  Q
+  以下不属于 Lewis 碱的有：
+
+  Sol
+  * **A项（$\text{H}_2$）符合题意**：氢分子中仅含一个共价 $\\sigma$ 键，没有可以捐献的孤对电子或易极化的 $\\pi$ 电子对，常规条件下不属于 Lewis 碱。
+  * **B项（$\text{Ca}^{2+}$）符合题意**：金属阳离子 $\text{Ca}^{2+}$ 拥有空轨道，能够接受电子对，属于典型的 Lewis 酸。
+  * **C项（$\text{NH}_3$）不符合题意**：氨气分子中的氮原子含有一对孤对电子，可以作为电子对给予体，是经典的 Lewis 碱。
+  * **D项（$\text{CN}^-$）不符合题意**：氰根离子中的碳原子和氮原子均含有孤对电子，带负电荷，容易捐献电子对，是优良的 Lewis 碱。
+
+  因此，不属于 Lewis 碱的是 **A** 和 **B**。
+
+  A
+  $\text{H}_2$
+  B
+  $\text{Ca}^{2+}$
+  C
+  $\text{NH}_3$
+  D
+  $\text{CN}^-$
+  |||
+
+  ||| some C
+  Q
+  常见的硬酸有 $\text{Li}^+$、$\text{Be}^{2+}$、$\text{Fe}^{3+}$ 等，硬碱有 $\text{F}^-$、$\text{NH}_3$ 等；常见的软酸有 $\text{Ag}^+$、$\text{Hg}^{2+}$ 等，软碱有 $\text{S}^{2-}$、$\text{CN}^-$ 等。根据 HSAB 理论，下列说法不正确的是：
+
+  Sol
+  * **A项正确**：根据“硬亲硬”原则，硬酸 $\text{Be}^{2+}$ 与硬碱 $\text{F}^-$ 结合形成的 $\text{BeF}_2$ 较与软碱结合的 $\text{BeI}_2$ 更加稳定。
+  * **B项正确**：根据“软亲软”原则，软酸 $\text{Ag}^+$ 与软碱 $\text{CN}^-$ 的结合比与硬碱 $\text{NH}_3$ 的结合更稳定，因此稳定常数/稳定性大小为 $[\text{Ag}(\text{NH}_3)_2]^+ < [\text{Ag}(\text{CN})_2]^- $。
+  * **C项错误**：该反应中，反应物均属于不稳定的软硬结合；而产物 $\text{LiF}$（硬亲硬）和 $\text{CsI}$（软亲软）都是非常稳定的结合形式。因此该反应在热力学上倾向于向右进行。
+  * **D项正确**：$\text{Fe}^{3+}$ 为典型的硬酸，加入 $\text{F}^-$ 后，由于 $\text{F}^-$ 结合 $\text{Fe}^{3+}$ 的能力强于 $\text{SCN}^-$，发生配体置换生成更稳定的无色配离子 $[\text{FeF}_6]^{3-}$ 使溶液褪色。这表明 $\text{F}^-$ 的是更硬的碱。
+
+  A
+  稳定性大小：$\text{BeF}_2 > \text{BeI}_2$
+  B
+  稳定性大小：$[\text{Ag}(\text{NH}_3)_2]^+ < [\text{Ag}(\text{CN})_2]^-$
+  C
+  反应 $\text{LiI} + \text{CsF} = \text{LiF} + \text{CsI}$ 难以向右进行
+  D
+  含 $[\text{Fe}(\text{SCN})_6]^{3-}$ 的溶液中加入适量 $\text{NaF}$ 后溶液褪色，说明碱的“硬度”：$\text{F}^- > \text{SCN}^-$
+  |||
+  `
