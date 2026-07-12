@@ -1,14 +1,20 @@
 export const LEWIS_THEORY = `
-  传统酸碱观中，阿伦尼乌斯理论定义在水溶液中电离出 $\text{H}^+$ 的为酸，电离出 $\text{OH}^-$ 的为碱。例如，$\text{H}_2\text{CO}_3$ 溶于水表现为酸：
+  传统酸碱观中，阿伦尼乌斯理论定义在水溶液中电离出 $\text{H}^+$ 的为酸，电离出 $\text{OH}^-$ 的为碱。例如 $\text{H}_2\text{CO}_3$ 溶于水表现为酸，$\text{HCO}_3^{-}$ 也为酸，$\text{CO}_3^{2-}$ 既非酸又非碱：
 
   $$\text{H}_2\text{CO}_3 \rightleftharpoons \text{H}^+ + \text{HCO}_3^-$$
+  
+  $$\text{HCO}_3^- \rightleftharpoons \text{CO}_3^{2-} + \text{H}^+$$
 
-  勃朗斯特理论突破了“水溶液”和“电离”限制，将酸碱定义为质子 $\text{H}^+$ 的给予体（酸）与接受体（碱）。在此理论下，$\text{CO}_3^{2-}$ 通过接受质子表现为碱，而 $\text{HCO}_3^-$ 为两性物质：
+  勃朗斯特理论突破了“水溶液”和“电离”限制，将酸碱定义为质子 $\text{H}^+$ 的给予体（酸）与接受体（碱）。在此理论下，$\text{CO}_3^{2-}$ 通过接受质子表现为碱：
 
-  $$\text{CO}_3^{2-} + \text{H}^+ \rightleftharpoons \text{HCO}_3^-$$
+  $$\text{CO}_3^{2-} + \text{H}_2\text{O} \rightleftharpoons \text{HCO}_3^- + \text{OH}^-$$
 
-  $$\text{HCO}_3^- + \text{OH}^- \rightleftharpoons \text{CO}_3^{2-} + \text{H}_2\text{O}$$
-
+  而 $\text{HCO}_3^-$ 表现为两性物质：
+  
+  $$\text{HCO}_3^- + \text{H}_2\text{O} \rightleftharpoons \text{CO}_3^{2-} + \text{H}_3\text{O}^+$$
+  
+  $$\text{HCO}_3^- \rightleftharpoons \text{CO}_3^{2-} + \text{H}^+$$
+  
   然而，该理论仍受限于质子转移。
 
   路易斯酸碱理论则彻底摆脱了质子的束缚，定义**接受电子对的物质为酸，给出电子对的物质为碱**。例如，在 $\text{CO}_3^{2-}$ 的无质子合成反应中，$\text{CO}_2$ 接受 $\text{O}^{2-}$ 的孤对电子：
@@ -137,9 +143,9 @@ export const LEWIS_THEORY = `
 
   为了预测酸碱加合物的稳定性，软硬酸碱（HSAB）理论将路易斯酸和碱分为“硬”与“软”两类，并经验性地指出**硬酸与硬碱、软酸与软碱结合更稳定**。
 
-  电荷多、半径小、外加电场难变形的阳离子为硬酸，如 $\text{H}^+$、$\text{Na}^+$、$\text{Al}^{3+}$；电荷少、半径大、易变形的阳离子为软酸，如 $\text{Ag}^+$、$\text{Hg}^{2+}$。
+  电荷多、半径小（外加电场下电子云难变形）的阳离子为硬酸，如 $\text{H}^+$、$\text{Na}^+$、$\text{Al}^{3+}$；电荷少、半径大（外加电场下电子云易变形）的阳离子为软酸，如 $\text{Ag}^+$、$\text{Hg}^{2+}$。
 
-  电负性高、半径小、外加电场难变形的阴离子为硬碱，如 $\text{F}^-$、$\text{OH}^-$、$\text{H}_2\text{O}$；电负性低、半径大、易变形的阴离子为软碱，如 $\text{I}^-$、$\text{S}^{2-}$、$\text{CO}$。
+  电负性高、半径小（外加电场下电子云难变形）的阴离子为硬碱，如 $\text{F}^-$、$\text{OH}^-$、$\text{H}_2\text{O}$；电负性低、半径大（外加电场下电子云易变形）的阴离子为软碱，如 $\text{I}^-$、$\text{S}^{2-}$、$\text{CO}$。
 
   该理论的核心规则是“硬亲硬，软亲软”。“硬—硬”结合偏向离子性，“软—软”结合偏向共价性，形成的化合物均更稳定。
 
