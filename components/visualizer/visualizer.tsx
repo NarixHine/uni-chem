@@ -21,6 +21,16 @@ type ChemDoodleViewer = InstanceType<typeof ChemDoodle.ViewerCanvas>
 const DEFAULT_SCRIPT_SRC = '/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js'
 const DEFAULT_BRIDGE_SRC = '/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
 
+/**
+ * Shell layout shared by the canvas and its loading placeholder: a
+ * full-bleed strip that extends past the prose gutters (negative margins
+ * matched to the positive width calc), capped at 200px (`max-h-50`) tall.
+ * Keeping the placeholder in sync with this prevents layout shift when the
+ * client-only canvas mounts.
+ */
+export const VISUALIZER_SHELL_CLASS =
+    'w-[calc(100%+2*clamp(1.25rem,calc(1.25rem+100vw-580px),4rem))] max-h-50 -mx-[clamp(1.25rem,calc(1.25rem+100vw-580px),4rem)]'
+
 const chemPromises = new Map<string, Promise<ChemDoodleGlobal>>()
 
 function getChemDoodle(): ChemDoodleGlobal | undefined {
@@ -299,7 +309,7 @@ export default function Visualizer({
     }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc, theme.background, theme.foreground, theme.token])
 
     return (
-        <div ref={containerRef} className={cn('w-[calc(100%+2*clamp(1.25rem,calc(1.25rem+100vw-580px),4rem))] max-h-50 -mx-[clamp(1.25rem,calc(1.25rem+100vw-580px),4rem)]', className)}>
+        <div ref={containerRef} className={cn(VISUALIZER_SHELL_CLASS, className)}>
             <canvas
                 id={canvasId}
                 width={size.width}
