@@ -1,10 +1,10 @@
 'use client'
 
-import { Button, Card, Chip, Separator } from '@heroui/react'
+import { Button, Card, Chip } from '@heroui/react'
 import { Markdown as MarkdownToJSX } from 'markdown-to-jsx/react'
 import cn from 'cnfast'
 import { useMemo, useState } from 'react'
-import { InlineMath } from '../markdown/inline-math'
+import { Math } from '../markdown/math'
 import Visualizer from '../visualizer'
 import { PaperPlaneRightIcon } from '@phosphor-icons/react'
 
@@ -23,7 +23,8 @@ export interface QuizProps {
 
 const overrides = {
     Visualizer: { component: Visualizer },
-    inlinemath: { component: InlineMath },
+    inlinemath: { component: Math },
+    blockmath: { component: Math, props: { block: true } },
 }
 
 const optionOverrides = {
@@ -31,7 +32,8 @@ const optionOverrides = {
         component: Visualizer,
         props: { canvasStyle: { backgroundColor: 'transparent' } },
     },
-    inlinemath: { component: InlineMath },
+    inlinemath: { component: Math },
+    blockmath: { component: Math, props: { block: true } },
 }
 
 function MiniMarkdown({ children }: { children: string }) {

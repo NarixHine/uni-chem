@@ -1,7 +1,7 @@
 'use client'
 
 import cn from 'cnfast'
-import { InlineMath } from '../markdown/inline-math'
+import { InlineMath } from '../markdown/math'
 
 export type GlanceTermProps = {
     /** Raw term exactly as stored in the glossary. */

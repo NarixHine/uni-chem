@@ -3,6 +3,7 @@ import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
 import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
 import { INDUCTIVE_EFFECT_TEXT } from './texts/inductive-effect'
+import { LEWIS_THEORY } from './texts/lewis-theory'
 
 export interface Post {
     slug: string
@@ -40,6 +41,7 @@ const POSTS_LEVEL_EXAM: Post[] = [
         title: 'Arrhenius · Brønsted · Lewis 酸碱理论',
         excerpt:
             '如何定义酸碱？将酸碱的概念由电离氢离子、氢氧根离子的物质，扩展为电子对的供体与受体。',
+        text: LEWIS_THEORY,
     },
     {
         slug: 'esterification',

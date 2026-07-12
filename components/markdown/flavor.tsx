@@ -4,7 +4,7 @@ import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react'
 import cn from 'cnfast'
 import Visualizer from '../visualizer'
 import { Quiz } from '../quiz'
-import { InlineMath } from './inline-math'
+import { Math } from './math'
 
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
     children?: ReactNode
@@ -37,25 +37,33 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
 export const FLAVOR_OVERRIDES = {
     a: { component: MarkdownLink },
     Visualizer: { component: Visualizer },
-    inlinemath: { component: InlineMath },
+    inlinemath: { component: Math },
+    blockmath: { component: Math, props: { block: true } },
     Quiz: { component: Quiz },
 } as const
 
 const ESCAPED_DOLLAR = '\0$'
 
+/** Emits a self-closing lowercase `<${tag} expr="…" />` custom element. */
+function toMathTag(tag: 'inlinemath' | 'blockmath', expr: string): string {
+    // Lowercase tag: a PascalCase `<InlineMath />` at the start of a block
+    // line is parsed by markdown-to-jsx as an HTML block opening tag,
+    // swallowing the rest of the paragraph as (dropped) children. Lowercase
+    // custom tags are never treated as HTML blocks, so they stay inline and
+    // self-close. The override is registered lowercase in FLAVOR_OVERRIDES.
+    return `<${tag} expr=${JSON.stringify(expr)} />`
+}
+
 function preprocessMath(source: string): string {
     return source
         .replace(/\\\$/g, ESCAPED_DOLLAR)
-        .replace(/(?<!\\)\$(?!\$)(.*?)(?<!\\)\$(?!\$)/gs, (_, expr) => {
-            const safe = JSON.stringify(expr)
-            // Lowercase tag: a PascalCase `<InlineMath />` at the start of a
-            // block line is parsed by markdown-to-jsx as an HTML block opening
-            // tag, swallowing the rest of the paragraph as (dropped) children.
-            // Lowercase custom tags are never treated as HTML blocks, so they
-            // stay inline and self-close. The override is registered lowercase
-            // in FLAVOR_OVERRIDES to match.
-            return `<inlinemath expr=${safe} />`
-        })
+        // Block math ($$…$$) first so it isn't shadowed by the inline rule.
+        .replace(/(?<!\\)\$\$([\s\S]*?)(?<!\\)\$\$/g, (_, expr) =>
+            toMathTag('blockmath', expr),
+        )
+        .replace(/(?<!\\)\$(?!\$)(.*?)(?<!\\)\$(?!\$)/gs, (_, expr) =>
+            toMathTag('inlinemath', expr),
+        )
         .replace(new RegExp(ESCAPED_DOLLAR.replace(/\$/g, '\\$'), 'g'), '$')
 }
 
