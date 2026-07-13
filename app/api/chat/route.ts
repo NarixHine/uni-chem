@@ -8,8 +8,6 @@ import {
 import { CHAT_MODEL } from '@/lib/chat/model'
 import { CONVERSE_SYSTEM_PROMPT } from '@/lib/prompts/converse'
 
-export const maxDuration = 30
-
 export async function POST(req: Request) {
     const { messages }: { messages: UIMessage[] } = await req.json()
 
