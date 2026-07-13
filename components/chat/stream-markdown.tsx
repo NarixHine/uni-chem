@@ -15,7 +15,7 @@ import { repairStreamingMarkdown } from '@/lib/chat/stream-repair'
  * and synthesizes the closing `:::` — yielding a live `<Visualizer>` that
  * grows as tokens arrive, without ever throwing on a half-written value.
  */
-export function StreamMarkdown({ text, className }: { text: string; className: string }) {
+export function StreamMarkdown({ text, className }: { text: string; className?: string }) {
     const source = useMemo(() => repairStreamingMarkdown(text), [text])
     return <Markdown className={className}>{source}</Markdown>
 }
