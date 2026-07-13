@@ -48,19 +48,19 @@ const prisma = new PrismaClient({ adapter })
 
 // Create
 const user = await prisma.user.create({
-  data: { email: 'alice@example.com', name: 'Alice' },
+    data: { email: 'alice@example.com', name: 'Alice' },
 })
 
 // Read with relations
 const posts = await prisma.post.findMany({
-  where: { published: true },
-  include: { author: true },
+    where: { published: true },
+    include: { author: true },
 })
 
 // Update
 await prisma.post.update({
-  where: { id: 1 },
-  data: { published: true },
+    where: { id: 1 },
+    data: { published: true },
 })
 
 // Delete
@@ -73,10 +73,10 @@ await pool.end()
 
 ## Common mistakes
 
-| Mistake | Error | Fix |
-|---|---|---|
-| `import { PrismaClient } from './generated/prisma'` | `Cannot find module` | Use `./generated/prisma/client.js` |
-| `new PrismaClient()` | `PrismaClient needs non-empty options` | Pass `{ adapter }` |
-| `new PrismaClient({ datasourceUrl: url })` | `Unknown property datasourceUrl` | Use adapter pattern instead |
-| Missing `"type": "module"` in package.json | ESM import errors | Add `"type": "module"` |
-| `import { PrismaClient } from '@prisma/client'` | Wrong export | Use `./generated/prisma/client.js` |
+| Mistake                                             | Error                                  | Fix                                |
+| --------------------------------------------------- | -------------------------------------- | ---------------------------------- |
+| `import { PrismaClient } from './generated/prisma'` | `Cannot find module`                   | Use `./generated/prisma/client.js` |
+| `new PrismaClient()`                                | `PrismaClient needs non-empty options` | Pass `{ adapter }`                 |
+| `new PrismaClient({ datasourceUrl: url })`          | `Unknown property datasourceUrl`       | Use adapter pattern instead        |
+| Missing `"type": "module"` in package.json          | ESM import errors                      | Add `"type": "module"`             |
+| `import { PrismaClient } from '@prisma/client'`     | Wrong export                           | Use `./generated/prisma/client.js` |

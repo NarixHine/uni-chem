@@ -31,15 +31,17 @@ const { data: workspaces } = await client.GET('/v1/workspaces')
 import { createManagementApiSdk, type TokenStorage } from '@prisma/management-api-sdk'
 
 const tokenStorage: TokenStorage = {
-  async getTokens() { return null },
-  async setTokens(tokens) {},
-  async clearTokens() {},
+    async getTokens() {
+        return null
+    },
+    async setTokens(tokens) {},
+    async clearTokens() {},
 }
 
 const api = createManagementApiSdk({
-  clientId: process.env.PRISMA_CLIENT_ID!,
-  redirectUri: 'https://your-app.com/auth/callback',
-  tokenStorage,
+    clientId: process.env.PRISMA_CLIENT_ID!,
+    redirectUri: 'https://your-app.com/auth/callback',
+    tokenStorage,
 })
 ```
 

@@ -21,7 +21,9 @@ export function MessageList() {
                 <ChatMessage
                     key={message.id}
                     message={message}
-                    streaming={streaming && i === messages.length - 1 && message.role === 'assistant'}
+                    streaming={
+                        streaming && i === messages.length - 1 && message.role === 'assistant'
+                    }
                 />
             ))}
             <div ref={endRef} />

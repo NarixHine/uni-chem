@@ -27,7 +27,11 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
         )
     }
     return (
-        <Link href={href} {...rest} className={cn(className, 'underline-offset-5 decoration-[0.5px]')}>
+        <Link
+            href={href}
+            {...rest}
+            className={cn(className, 'underline-offset-5 decoration-[0.5px]')}
+        >
             {children}
         </Link>
     )
@@ -55,16 +59,16 @@ function toMathTag(tag: 'inlinemath' | 'blockmath', expr: string): string {
 }
 
 function preprocessMath(source: string): string {
-    return source
-        .replace(/\\\$/g, ESCAPED_DOLLAR)
-        // Block math ($$…$$) first so it isn't shadowed by the inline rule.
-        .replace(/(?<!\\)\$\$([\s\S]*?)(?<!\\)\$\$/g, (_, expr) =>
-            toMathTag('blockmath', expr),
-        )
-        .replace(/(?<!\\)\$(?!\$)(.*?)(?<!\\)\$(?!\$)/gs, (_, expr) =>
-            toMathTag('inlinemath', expr),
-        )
-        .replace(new RegExp(ESCAPED_DOLLAR.replace(/\$/g, '\\$'), 'g'), '$')
+    return (
+        source
+            .replace(/\\\$/g, ESCAPED_DOLLAR)
+            // Block math ($$…$$) first so it isn't shadowed by the inline rule.
+            .replace(/(?<!\\)\$\$([\s\S]*?)(?<!\\)\$\$/g, (_, expr) => toMathTag('blockmath', expr))
+            .replace(/(?<!\\)\$(?!\$)(.*?)(?<!\\)\$(?!\$)/gs, (_, expr) =>
+                toMathTag('inlinemath', expr),
+            )
+            .replace(new RegExp(ESCAPED_DOLLAR.replace(/\$/g, '\\$'), 'g'), '$')
+    )
 }
 
 const OPTION_MARKERS = ['A', 'B', 'C', 'D', 'E'] as const
@@ -157,7 +161,9 @@ export function FlavoredMarkdown({
 }: FlavoredMarkdownProps) {
     return (
         <div className={cn('prose dark:prose-invert prose-sm', className)} {...props}>
-            <MarkdownToJSX options={{ overrides: FLAVOR_OVERRIDES }}>{preprocessFlavor(content)}</MarkdownToJSX>
+            <MarkdownToJSX options={{ overrides: FLAVOR_OVERRIDES }}>
+                {preprocessFlavor(content)}
+            </MarkdownToJSX>
         </div>
     )
 }

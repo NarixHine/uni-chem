@@ -5,11 +5,7 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
-        <NextThemesProvider
-            attribute='class'
-            enableSystem
-            enableColorScheme
-        >
+        <NextThemesProvider attribute='class' enableSystem enableColorScheme>
             {children}
         </NextThemesProvider>
     )

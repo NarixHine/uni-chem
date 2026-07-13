@@ -23,10 +23,11 @@ export type MathProps = {
  */
 export function Math({ expr, block, className }: MathProps) {
     const html = useMemo(
-        () => katex.renderToString(expr.replaceAll('\\\\', '\\'), {
-            displayMode: !!block,
-            throwOnError: false,
-        }),
+        () =>
+            katex.renderToString(expr.replaceAll('\\\\', '\\'), {
+                displayMode: !!block,
+                throwOnError: false,
+            }),
         [expr, block],
     )
 

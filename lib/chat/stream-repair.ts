@@ -127,7 +127,7 @@ export function repairStreamingMarkdown(source: string): string {
     const repaired = repairPartialJson(inner)
     if (repaired === null) {
         // Can't safely complete — drop the open fence from the preview.
-        return head.slice(0, (last.index ?? 0))
+        return head.slice(0, last.index ?? 0)
     }
 
     return `${head}\n${repaired}\n:::`

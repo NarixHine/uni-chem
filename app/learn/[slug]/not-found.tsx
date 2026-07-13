@@ -13,7 +13,9 @@ export default function NotFound() {
                     404
                 </h1>
 
-                <p className='text-[clamp(1.2rem,4vw,2rem)] text-balance mt-4'>本文不存在，或暂未写就。</p>
+                <p className='text-[clamp(1.2rem,4vw,2rem)] text-balance mt-4'>
+                    本文不存在，或暂未写就。
+                </p>
 
                 <Button
                     render={props => <Link href='/' {...(props as object)} />}

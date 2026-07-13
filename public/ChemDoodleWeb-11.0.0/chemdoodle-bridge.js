@@ -1,1 +1,1 @@
-window.ChemDoodle = ChemDoodle;
+window.ChemDoodle = ChemDoodle

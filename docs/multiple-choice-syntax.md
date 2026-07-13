@@ -17,15 +17,15 @@ B
 
 ## 规则
 
-| 元素             | 说明                                                            |
-| -------------- | ------------------------------------------------------------- |
-| \|\|\|         | 起始/结束分隔符，各占独立行                                                |
-| `one` / `some` | `one` = 单选题（仅一个正确选项）；`some` = 不定项题（一个或多个正确选项）                 |
-| 答案选项           | 紧跟模式后的字母组合，如 `A`、`BC`、`ACD`（大小写不敏感，自动转大写）                     |
-| `Q`            | 题目标记，**必须**在独立行                                               |
+| 元素           | 说明                                                                                                         |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
+| \|\|\|         | 起始/结束分隔符，各占独立行                                                                                  |
+| `one` / `some` | `one` = 单选题（仅一个正确选项）；`some` = 不定项题（一个或多个正确选项）                                    |
+| 答案选项       | 紧跟模式后的字母组合，如 `A`、`BC`、`ACD`（大小写不敏感，自动转大写）                                        |
+| `Q`            | 题目标记，**必须**在独立行                                                                                   |
 | `Sol`          | 解析标记，**可选**，位于 `Q` 与 `A` 之间，在独立行；提交后显示；多使用化学图示，尽可能简洁地用文字，惜字如金 |
-| `A`–`E`        | 选项标记，**必须**在独立行，按 A→B→C→D→E 顺序出现                              |
-| 选项数量           | 2–5 个（A 到 E）                                                  |
+| `A`–`E`        | 选项标记，**必须**在独立行，按 A→B→C→D→E 顺序出现                                                            |
+| 选项数量       | 2–5 个（A 到 E）                                                                                             |
 
 ## 标记顺序
 
@@ -40,6 +40,7 @@ Q → Sol → A → B → C → D → E
 ## 示例
 
 **单选题（无解析）：**
+
 ```
 ||| one B
 Q
@@ -55,6 +56,7 @@ $\text{CH}_4$（正四面体）
 ```
 
 **不定项题（带解析）：**
+
 ```
 ||| some ACD
 Q
@@ -91,28 +93,28 @@ $\text{NaCl}$
 
 ### 1. Molecular Geometry & Chain Layout
 
-* **Standard Zig-Zag Backbone:** Draw acyclic carbon chains in a continuous, rhythmic zig-zag pattern with uniform bond lengths. Vertices should alternate pointing up and down cleanly.
-* **Bond Angles:** Maintain uniform standard angles ($120^\circ$ for $sp^2$ systems like carbonyls; $120^\circ$ approximations in 2D for $sp^3$ chains). Avoid flat, overly squashed, or vertically elongated bonds.
-* **Heteroatoms and Substituents:** Substituents at a vertex pointing "up" should point vertically upwards or symmetrically outwards.
-    * Carbonyl ($\text{C=O}$) groups should cleanly bisect the interior angle of the chain backbone or point directly away from the vertex to maximize space.
+- **Standard Zig-Zag Backbone:** Draw acyclic carbon chains in a continuous, rhythmic zig-zag pattern with uniform bond lengths. Vertices should alternate pointing up and down cleanly.
+- **Bond Angles:** Maintain uniform standard angles ($120^\circ$ for $sp^2$ systems like carbonyls; $120^\circ$ approximations in 2D for $sp^3$ chains). Avoid flat, overly squashed, or vertically elongated bonds.
+- **Heteroatoms and Substituents:** Substituents at a vertex pointing "up" should point vertically upwards or symmetrically outwards.
+    - Carbonyl ($\text{C=O}$) groups should cleanly bisect the interior angle of the chain backbone or point directly away from the vertex to maximize space.
 
 ### 2. Explicit Hydrogens in Mechanisms
 
-* When a hydrogen must be explicitly drawn for a mechanism (e.g., deprotonation):
-    * Extend the $\text{C-H}$ bond outward from the vertex, preserving the molecule's overall tetrahedral shape.
-    * Ensure the $\text{H}$ label does not overlap with adjacent functional groups or lone pairs.
+- When a hydrogen must be explicitly drawn for a mechanism (e.g., deprotonation):
+    - Extend the $\text{C-H}$ bond outward from the vertex, preserving the molecule's overall tetrahedral shape.
+    - Ensure the $\text{H}$ label does not overlap with adjacent functional groups or lone pairs.
 
 ### 3. Lewis/Formal Charges & Lone Pairs
 
-* **Formal Charges:** Place formal charges (e.g., $+$, $-$) where existing.
-* **Lone Pairs:** Add lone pairs to assist explanation of, for example, reaction mechanisms and chemical qualities. Omit lone pairs if they are irrelevant to the context.
+- **Formal Charges:** Place formal charges (e.g., $+$, $-$) where existing.
+- **Lone Pairs:** Add lone pairs to assist explanation of, for example, reaction mechanisms and chemical qualities. Omit lone pairs if they are irrelevant to the context.
 
 ### 4. Curved Arrow Formalism (Electron Pushing)
 
-* **Strict Origin:** Every curved arrow representing electron movement *must* originate exactly from a source of electrons: either the center of a lone pair or the exact midpoint of a covalent bond.
-* **Strict Destination:** * If a bond is forming between two atoms, the arrowhead must point directly to the target atom.
-    * If a new $\pi$-bond is forming adjacent to an existing single bond, the arrowhead must point directly to the center of the existing bond line.
-    * If electrons are moving onto an atom as a lone pair, the arrowhead must point directly to that atom's nucleus/symbol.
+- **Strict Origin:** Every curved arrow representing electron movement _must_ originate exactly from a source of electrons: either the center of a lone pair or the exact midpoint of a covalent bond.
+- **Strict Destination:** \* If a bond is forming between two atoms, the arrowhead must point directly to the target atom.
+    - If a new $\pi$-bond is forming adjacent to an existing single bond, the arrowhead must point directly to the center of the existing bond line.
+    - If electrons are moving onto an atom as a lone pair, the arrowhead must point directly to that atom's nucleus/symbol.
 
 ### 5. Reaction Annotation
 
@@ -120,22 +122,22 @@ $\text{NaCl}$
 
 ## JSON Schema Reference
 
-The format is (a flavored) **ChemDoodle JSON**, the native data format for *ChemDoodle Web Components*.
+The format is (a flavored) **ChemDoodle JSON**, the native data format for _ChemDoodle Web Components_.
 
 ### Root Object (`Content`)
 
-| Key | Type | Required | Description |
-|-----|------|----------|-------------|
-| `m` | Array of Molecule | no | All molecules on the canvas. Omit if empty. |
-| `s` | Array of Shape | no | All shapes: arrows, pushers, brackets. Omit if empty. |
+| Key | Type              | Required | Description                                           |
+| --- | ----------------- | -------- | ----------------------------------------------------- |
+| `m` | Array of Molecule | no       | All molecules on the canvas. Omit if empty.           |
+| `s` | Array of Shape    | no       | All shapes: arrows, pushers, brackets. Omit if empty. |
 
 ### Molecule (`m[i]`)
 
-| Key | Type | Required | Description |
-|-----|------|----------|-------------|
-| `a` | Array of Atom | yes | Atoms in this molecule. |
-| `b` | Array of Bond | no | Bonds in this molecule. Omit if empty. |
-| `i` | String | no | Unique molecule ID (needed if referenced by shapes). |
+| Key | Type          | Required | Description                                          |
+| --- | ------------- | -------- | ---------------------------------------------------- |
+| `a` | Array of Atom | yes      | Atoms in this molecule.                              |
+| `b` | Array of Bond | no       | Bonds in this molecule. Omit if empty.               |
+| `i` | String        | no       | Unique molecule ID (needed if referenced by shapes). |
 
 ### Atom (`a[i]`)
 
@@ -170,13 +172,13 @@ The format is (a flavored) **ChemDoodle JSON**, the native data format for *Chem
 
 For mechanism arrows showing electron movement. **Every arrow must originate from a lone pair or bond, and point to an atom or bond.**
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `t` | String | **required** | Must be `"Pusher"`. |
-| `o1` | String | **required** | **Source:** ID of the atom (lone pair) or bond where electrons come from. |
-| `o2` | String | **required** | **Destination:** ID of the atom or bond where electrons go to. |
-| `e` | Number | `1` | Number of electrons: `1` (radical/single electron), `2` (electron pair). Use `-1` for a **bond-forming** pusher (electrons moving from an atom to form a new bond). |
-| `i` | String | — | Unique shape ID. |
+| Key  | Type   | Default      | Description                                                                                                                                                         |
+| ---- | ------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `t`  | String | **required** | Must be `"Pusher"`.                                                                                                                                                 |
+| `o1` | String | **required** | **Source:** ID of the atom (lone pair) or bond where electrons come from.                                                                                           |
+| `o2` | String | **required** | **Destination:** ID of the atom or bond where electrons go to.                                                                                                      |
+| `e`  | Number | `1`          | Number of electrons: `1` (radical/single electron), `2` (electron pair). Use `-1` for a **bond-forming** pusher (electrons moving from an atom to form a new bond). |
+| `i`  | String | —            | Unique shape ID.                                                                                                                                                    |
 
 ### Line — Reaction Arrow (`s[i]`)
 
@@ -194,34 +196,36 @@ For mechanism arrows showing electron movement. **Every arrow must originate fro
 
 ```json
 {
-  "m": [{
-    "a": [
-      {"x": 50,  "y": 100, "i": "a0", "l": "O", "c": -1, "p": 3, "clr": "#E63946"},
-      {"x": 120, "y": 70,  "i": "a1", "l": "C"},
-      {"x": 120, "y": 130, "i": "a2", "l": "O", "p": 2},
-      {"x": 180, "y": 100, "i": "a3", "l": "Cl"}
+    "m": [
+        {
+            "a": [
+                { "x": 50, "y": 100, "i": "a0", "l": "O", "c": -1, "p": 3, "clr": "#E63946" },
+                { "x": 120, "y": 70, "i": "a1", "l": "C" },
+                { "x": 120, "y": 130, "i": "a2", "l": "O", "p": 2 },
+                { "x": 180, "y": 100, "i": "a3", "l": "Cl" }
+            ],
+            "b": [
+                { "b": 0, "e": 1, "i": "b0" },
+                { "b": 1, "e": 2, "o": 2, "i": "b1", "clr": "#457B9D" },
+                { "b": 1, "e": 3, "i": "b2" }
+            ]
+        }
     ],
-    "b": [
-      {"b": 0, "e": 1, "i": "b0"},
-      {"b": 1, "e": 2, "o": 2, "i": "b1", "clr": "#457B9D"},
-      {"b": 1, "e": 3, "i": "b2"}
+    "s": [
+        { "t": "Pusher", "o1": "a0", "o2": "a1", "e": 2 },
+        { "t": "Pusher", "o1": "b1", "o2": "a2", "e": 2 }
     ]
-  }],
-  "s": [
-    {"t": "Pusher", "o1": "a0", "o2": "a1", "e": 2},
-    {"t": "Pusher", "o1": "b1", "o2": "a2", "e": 2}
-  ]
 }
 ```
 
 **What this represents:**
 
-| Element | ID | Meaning |
-|---------|-----|---------|
-| Atom `a0` | O⁻, 3 lone pairs | Nucleophile attacking the carbonyl carbon |
-| Atom `a1` | C | Carbonyl carbon (electrophilic center) |
-| Atom `a2` | O, 2 lone pairs | Carbonyl oxygen accepting electrons from the π bond |
-| Atom `a3` | Cl | Leaving group |
-| Bond `b1` | C=O (order 2) | The carbonyl π bond |
-| Pusher 1 | `a0→a1`, `e=2` | O⁻ lone pair attacks C, forming a new C–O bond |
-| Pusher 2 | `b1→a2`, `e=2` | π electrons move onto O, becoming a lone pair |
+| Element   | ID               | Meaning                                             |
+| --------- | ---------------- | --------------------------------------------------- |
+| Atom `a0` | O⁻, 3 lone pairs | Nucleophile attacking the carbonyl carbon           |
+| Atom `a1` | C                | Carbonyl carbon (electrophilic center)              |
+| Atom `a2` | O, 2 lone pairs  | Carbonyl oxygen accepting electrons from the π bond |
+| Atom `a3` | Cl               | Leaving group                                       |
+| Bond `b1` | C=O (order 2)    | The carbonyl π bond                                 |
+| Pusher 1  | `a0→a1`, `e=2`   | O⁻ lone pair attacks C, forming a new C–O bond      |
+| Pusher 2  | `b1→a2`, `e=2`   | π electrons move onto O, becoming a lone pair       |

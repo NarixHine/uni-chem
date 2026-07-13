@@ -50,10 +50,7 @@ export function Reasoning({ message, className }: ReasoningProps) {
             </Disclosure.Heading>
             <Disclosure.Content>
                 <Disclosure.Body className='mt-1 border-l-2 border-border pl-3'>
-                    <StreamMarkdown
-                        text={text}
-                        className='prose-sm text-muted'
-                    />
+                    <StreamMarkdown text={text} className='prose-sm text-muted' />
                 </Disclosure.Body>
             </Disclosure.Content>
         </Disclosure>

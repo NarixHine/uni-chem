@@ -1,4 +1,4 @@
-export const ALDOL_CONDENSATION_TEXT =`
+export const ALDOL_CONDENSATION_TEXT = `
   羟醛缩合是含有活性氢的醛或酮在催化剂作用下进行亲核加成，并常伴随脱水生成 $α,β$-不饱和羰基化合物的反应。该反应通常以碱（如 $\\text{NaOH}$）催化为主。
 
   以碱（如 $\\text{NaOH}$）催化两分子乙醛（$\\text{CH}_3\\text{CHO}$）脱水生成丁烯醛（$\\text{CH}_3\\text{CH}=\\text{CHCHO}$）的总反应如下：

@@ -69,7 +69,8 @@ function oklchToRgb(oklch: string): string | undefined {
     const r = +4.0767416621 * lC - 3.3077115913 * mC + 0.2309699292 * sC
     const g = -1.2684380046 * lC + 2.6097574011 * mC - 0.3413193965 * sC
     const bl = -0.0041960863 * lC - 0.7034186147 * mC + 1.707614701 * sC
-    const toSrgb = (x: number) => (x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055)
+    const toSrgb = (x: number) =>
+        x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055
     const clamp = (x: number) => Math.max(0, Math.min(255, Math.round(toSrgb(x) * 255)))
     return `rgb(${clamp(r)}, ${clamp(g)}, ${clamp(bl)})`
 }
@@ -256,7 +257,10 @@ export default function Visualizer({
                             const clr = src.a[j].clr
                             if (clr) {
                                 target.atoms[j].styles = Object.assign(
-                                    new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                    new (chem.structures.Styles as new () => Record<
+                                        string,
+                                        unknown
+                                    >)(),
                                     { atoms_color: resolveCanvasColor(clr) },
                                 )
                             }
@@ -266,7 +270,10 @@ export default function Visualizer({
                                 const clr = src.b[j].clr
                                 if (clr) {
                                     target.bonds[j].styles = Object.assign(
-                                        new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                        new (chem.structures.Styles as new () => Record<
+                                            string,
+                                            unknown
+                                        >)(),
                                         { bonds_color: resolveCanvasColor(clr) },
                                     )
                                 }
@@ -306,7 +313,19 @@ export default function Visualizer({
             }
             canvasRef.current = null
         }
-    }, [canvasId, size.width, size.height, canvasStyle, mol, moleculeStyle, scriptSrc, bridgeSrc, theme.background, theme.foreground, theme.token])
+    }, [
+        canvasId,
+        size.width,
+        size.height,
+        canvasStyle,
+        mol,
+        moleculeStyle,
+        scriptSrc,
+        bridgeSrc,
+        theme.background,
+        theme.foreground,
+        theme.token,
+    ])
 
     return (
         <div ref={containerRef} className={cn(VISUALIZER_SHELL_CLASS, className)}>

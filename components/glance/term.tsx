@@ -25,9 +25,7 @@ export function GlanceTerm({ term, className }: GlanceTermProps) {
     const parts = term.split(MATH_DELIMITER)
     return (
         <span className={cn(className, '[text-decoration:inherit]')}>
-            {parts.map((part, i) =>
-                i % 2 === 1 ? <InlineMath key={i} expr={part} /> : part,
-            )}
+            {parts.map((part, i) => (i % 2 === 1 ? <InlineMath key={i} expr={part} /> : part))}
         </span>
     )
 }
