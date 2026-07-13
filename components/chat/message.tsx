@@ -4,6 +4,7 @@ import type { UIMessage } from 'ai'
 import { motion } from 'motion/react'
 import { Spinner } from '@heroui/react'
 import { StreamMarkdown } from './stream-markdown'
+import { Reasoning } from './reasoning'
 import { MessageImages, imageFileParts } from './attachments'
 
 export interface ChatMessageProps {
@@ -16,6 +17,14 @@ export interface ChatMessageProps {
 function textOf(message: UIMessage): string {
     return message.parts
         .filter((p): p is Extract<typeof p, { type: 'text' }> => p.type === 'text')
+        .map(p => p.text)
+        .join('')
+}
+
+/** Concatenate every reasoning part of a message into one string. */
+function reasoningText(message: UIMessage): string {
+    return message.parts
+        .filter((p): p is Extract<typeof p, { type: 'reasoning' }> => p.type === 'reasoning')
         .map(p => p.text)
         .join('')
 }
@@ -45,9 +54,9 @@ export function ChatMessage({ message, streaming }: ChatMessageProps) {
         )
     }
 
-    // The assistant has connected but no text has arrived yet — show a quiet
-    // typing indicator instead of an empty, centered prose block.
-    if (streaming && text.length === 0 && images.length === 0) {
+    // The assistant has connected but no text or reasoning has arrived yet —
+    // show a quiet typing indicator instead of an empty, centered prose block.
+    if (streaming && text.length === 0 && images.length === 0 && reasoningText(message) === '') {
         return (
             <div className='flex justify-center py-2'>
                 <Spinner size='sm' />
@@ -62,6 +71,7 @@ export function ChatMessage({ message, streaming }: ChatMessageProps) {
                     <MessageImages parts={images} />
                 </div>
             )}
+            <Reasoning message={message} className='mb-4' />
             <StreamMarkdown text={text} />
             {streaming && (
                 <span

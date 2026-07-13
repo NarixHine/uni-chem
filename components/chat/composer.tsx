@@ -76,7 +76,7 @@ export function Composer() {
                     rows={3}
                     className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
                 />
-                <div className='flex items-center justify-end px-3 pb-2 pt-1 gap-2'>
+                <div className='flex items-center justify-end px-3 pb-3 pt-1 gap-2'>
                     <Button
                         type='button'
                         isIconOnly
