@@ -3,10 +3,13 @@
 import { cn } from 'cnfast'
 import { Button } from '@heroui/react'
 import { Dock, DockIcon } from '@/components/ui/dock'
-import { HouseSimpleIcon } from '@phosphor-icons/react/ssr'
 import { useRouter } from 'next/navigation'
+import { ChatTeardropIcon, HouseSimpleIcon } from '@phosphor-icons/react'
 
-const DOCK_ITEMS = [{ label: 'Home', icon: HouseSimpleIcon, href: '/' }]
+const DOCK_ITEMS = [
+    { label: 'Home', icon: HouseSimpleIcon, href: '/' },
+    { label: 'Ask', icon: ChatTeardropIcon, href: '/engage' },
+]
 
 export function NavDock() {
     const router = useRouter()
