@@ -2,6 +2,7 @@
 
 import { Disclosure } from '@heroui/react'
 import type { UIMessage } from 'ai'
+import { motion } from 'motion/react'
 import cn from 'cnfast'
 import { StreamMarkdown } from './stream-markdown'
 
@@ -14,7 +15,7 @@ function reasoningText(message: UIMessage): string {
 }
 
 /** True if any reasoning part is still streaming. */
-function isReasoningStreaming(message: UIMessage): boolean {
+export function isReasoningStreaming(message: UIMessage): boolean {
     return message.parts.some(p => p.type === 'reasoning' && p.state === 'streaming')
 }
 
@@ -23,10 +24,15 @@ export interface ReasoningProps {
     className?: string
 }
 
+const WAVE_ANIMATE = { opacity: [0.35, 1, 0.35] }
+const WAVE_TRANSITION = { duration: 1.8, repeat: Infinity, ease: 'easeInOut' as const }
+
 /**
  * Minimalist, collapsible reasoning surface. A quiet, muted block rendered
  * above the assistant's answer — expanded by default while the model thinks,
- * collapsible to a single labelled line once it's done.
+ * collapsible to a single labelled line once it's done. While thinking, a
+ * soft brightness wave travels left-to-right through the dot, the label and
+ * the chevron.
  */
 export function Reasoning({ message, className }: ReasoningProps) {
     const text = reasoningText(message)
@@ -37,15 +43,24 @@ export function Reasoning({ message, className }: ReasoningProps) {
         <Disclosure className={cn(className)}>
             <Disclosure.Heading>
                 <Disclosure.Trigger className='inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-muted transition-colors hover:text-foreground'>
-                    <span
+                    <motion.span
                         aria-hidden
-                        className={cn(
-                            'size-1.5 rounded-full bg-current',
-                            streaming && 'animate-pulse',
-                        )}
+                        className='size-1.5 rounded-full bg-current'
+                        animate={true ? WAVE_ANIMATE : undefined}
+                        transition={true ? { ...WAVE_TRANSITION, delay: 0 } : undefined}
                     />
-                    {streaming ? 'Thinking' : 'Thoughts'}
-                    <Disclosure.Indicator />
+                    <motion.span
+                        animate={true ? WAVE_ANIMATE : undefined}
+                        transition={true ? { ...WAVE_TRANSITION, delay: 0.18 } : undefined}
+                    >
+                        {streaming ? 'Thinking' : 'Thoughts'}
+                    </motion.span>
+                    <motion.span
+                        animate={true ? WAVE_ANIMATE : undefined}
+                        transition={true ? { ...WAVE_TRANSITION, delay: 0.36 } : undefined}
+                    >
+                        <Disclosure.Indicator />
+                    </motion.span>
                 </Disclosure.Trigger>
             </Disclosure.Heading>
             <Disclosure.Content>

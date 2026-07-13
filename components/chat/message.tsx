@@ -4,7 +4,7 @@ import type { UIMessage } from 'ai'
 import { motion } from 'motion/react'
 import { Spinner } from '@heroui/react'
 import { StreamMarkdown } from './stream-markdown'
-import { Reasoning } from './reasoning'
+import { Reasoning, isReasoningStreaming } from './reasoning'
 import { MessageImages, imageFileParts } from './attachments'
 
 export interface ChatMessageProps {
@@ -73,10 +73,10 @@ export function ChatMessage({ message, streaming }: ChatMessageProps) {
             )}
             <Reasoning message={message} className='mb-4' />
             <StreamMarkdown text={text} />
-            {streaming && (
+            {streaming && text.length > 0 && !isReasoningStreaming(message) && (
                 <span
                     aria-hidden
-                    className='ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-foreground/60'
+                    className='ml-0.5 inline-block h-4 w-0.5 translate-y-0.5 animate-pulse bg-foreground/60'
                 />
             )}
         </div>
