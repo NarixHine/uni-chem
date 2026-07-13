@@ -3,10 +3,10 @@
 import type { FileUIPart, UIMessage } from 'ai'
 import { XIcon } from '@phosphor-icons/react/ssr'
 
-/** Convert a browser `FileList` (image-only) into `FileUIPart`s as data URLs. */
-export async function filesToParts(fileList: FileList): Promise<FileUIPart[]> {
+/** Convert browser files (image-only) into `FileUIPart`s as data URLs. */
+export async function filesToParts(files: FileList | File[]): Promise<FileUIPart[]> {
     return Promise.all(
-        Array.from(fileList).map(
+        Array.from(files).map(
             file =>
                 new Promise<FileUIPart>((resolve, reject) => {
                     const reader = new FileReader()

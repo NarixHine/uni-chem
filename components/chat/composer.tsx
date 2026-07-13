@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
+import { useRef, useState, type ClipboardEvent, type FormEvent, type KeyboardEvent } from 'react'
 import { TextArea, Button } from '@heroui/react'
 import { ArrowUpIcon, ImageIcon, StopIcon } from '@phosphor-icons/react/ssr'
 import { useChat } from './chat-provider'
@@ -50,6 +50,17 @@ export function Composer() {
     const removeAttachment = (index: number) =>
         setAttachments(prev => prev.filter((_, i) => i !== index))
 
+    const onPaste = async (e: ClipboardEvent<HTMLTextAreaElement>) => {
+        const files = Array.from(e.clipboardData.items)
+            .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
+            .map(item => item.getAsFile())
+            .filter((f): f is File => f !== null)
+        if (files.length === 0) return
+        e.preventDefault()
+        const parts = await filesToParts(files)
+        setAttachments(prev => [...prev, ...parts])
+    }
+
     return (
         <form onSubmit={onSubmit} className='pointer-events-auto mx-auto w-full max-w-2xl px-1'>
             <AttachmentTray parts={attachments} onRemove={removeAttachment} />
@@ -59,12 +70,13 @@ export function Composer() {
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     onKeyDown={onKeyDown}
-                    placeholder='What&apos;s the resonance theory?'
+                    onPaste={onPaste}
+                    placeholder="What's the resonance theory?"
                     disabled={!ready}
                     rows={3}
                     className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
                 />
-                <div className='flex items-center justify-end px-3 pb-3 pt-1 gap-2'>
+                <div className='flex items-center justify-end px-3 pb-2 pt-1 gap-2'>
                     <Button
                         type='button'
                         isIconOnly
@@ -73,6 +85,7 @@ export function Composer() {
                         aria-label='Attach images'
                         size='lg'
                         onPress={() => fileInputRef.current?.click()}
+                        className='size-9 rounded-full'
                     >
                         <ImageIcon className='size-5' />
                     </Button>
@@ -84,6 +97,7 @@ export function Composer() {
                             aria-label='Stop streaming'
                             onPress={() => stop()}
                             size='lg'
+                            className='size-9 rounded-full'
                         >
                             <StopIcon className='size-4' weight='fill' />
                         </Button>
