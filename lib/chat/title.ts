@@ -2,7 +2,7 @@ import { convertToModelMessages, generateText, type UIMessage } from 'ai'
 import { TITLE_MODEL } from './model'
 
 const TITLE_INSTRUCTIONS = `
-You generate a concise conversation title (max 6 words) from a chemistry-student chat.
+You generate a concise conversation title (max 6 words; max 11 Chinese characters) from a chemistry-student chat.
 Rules:
 - Reply with ONLY the title text. No quotes, no trailing punctuation, no explanation.
 - Use the same language as the user's message (Chinese if they wrote Chinese).
