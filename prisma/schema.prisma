@@ -22,6 +22,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posts         Post[]
+  conversations Conversation[]
 }
 
 model Session {
@@ -79,4 +80,17 @@ model Post {
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  title     String
+  /// Opening prompt / transcript payload (JSON-encoded messages).
+  content   Json?
+  creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([creatorId])
 }

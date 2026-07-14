@@ -2,6 +2,99 @@
 @plugin "@tailwindcss/typography";
 @import '@heroui/styles';
 
+@utility scrollbar-none {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   View Transitions — shared-element morph (composer), content exit/reveal
+   --------------------------------------------------------------------------- */
+:root {
+    --vt-duration-exit: 150ms;
+    --vt-duration-enter: 220ms;
+}
+
+/* Composer morph: persists from hub → conversation */
+::view-transition-group(engage-composer) {
+    animation-duration: 360ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+::view-transition-old(engage-composer) {
+    animation: none;
+}
+::view-transition-new(engage-composer) {
+    animation: none;
+}
+
+/* Hero / loading exit: fade + drift down quickly */
+::view-transition-old(.content-exit) {
+    animation:
+        var(--vt-duration-exit) ease-out both fade reverse,
+        var(--vt-duration-exit) ease-out both slide-y reverse;
+}
+
+/* Conversation enter: fade + rise in after exit completes */
+::view-transition-new(.content-enter) {
+    animation:
+        var(--vt-duration-enter) ease-in var(--vt-duration-exit) both fade,
+        400ms ease-in var(--vt-duration-exit) both slide-y;
+}
+
+/* Directional navigation (hub → conversation) */
+::view-transition-old(.nav-forward) {
+    --slide-offset: -60px;
+    animation:
+        var(--vt-duration-exit) ease-in both fade reverse,
+        400ms ease-in-out both slide reverse;
+}
+::view-transition-new(.nav-forward) {
+    --slide-offset: 60px;
+    animation:
+        var(--vt-duration-enter) ease-out var(--vt-duration-exit) both fade,
+        400ms ease-in-out both slide;
+}
+
+@keyframes slide {
+    from {
+        translate: var(--slide-offset, 0);
+    }
+    to {
+        translate: 0;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        filter: blur(3px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes slide-y {
+    from {
+        translate: 0 12px;
+    }
+    to {
+        translate: 0 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+    }
+}
+
 /* ---------------------------------------------------------------------------
    Tailwind theme tokens — serif font + pastel tag palette
    (HeroUI styles already map background/foreground/surface/border/muted)

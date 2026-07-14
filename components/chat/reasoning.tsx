@@ -46,18 +46,18 @@ export function Reasoning({ message, className }: ReasoningProps) {
                     <motion.span
                         aria-hidden
                         className='size-1.5 rounded-full bg-current'
-                        animate={true ? WAVE_ANIMATE : undefined}
-                        transition={true ? { ...WAVE_TRANSITION, delay: 0 } : undefined}
+                        animate={streaming ? WAVE_ANIMATE : undefined}
+                        transition={streaming ? { ...WAVE_TRANSITION, delay: 0 } : undefined}
                     />
                     <motion.span
-                        animate={true ? WAVE_ANIMATE : undefined}
-                        transition={true ? { ...WAVE_TRANSITION, delay: 0.18 } : undefined}
+                        animate={streaming ? WAVE_ANIMATE : undefined}
+                        transition={streaming ? { ...WAVE_TRANSITION, delay: 0.18 } : undefined}
                     >
                         {streaming ? 'Thinking' : 'Thoughts'}
                     </motion.span>
                     <motion.span
-                        animate={true ? WAVE_ANIMATE : undefined}
-                        transition={true ? { ...WAVE_TRANSITION, delay: 0.36 } : undefined}
+                        animate={streaming ? WAVE_ANIMATE : undefined}
+                        transition={streaming ? { ...WAVE_TRANSITION, delay: 0.36 } : undefined}
                     >
                         <Disclosure.Indicator />
                     </motion.span>

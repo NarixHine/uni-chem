@@ -71,7 +71,7 @@ export function Composer() {
                     onChange={e => setInput(e.target.value)}
                     onKeyDown={onKeyDown}
                     onPaste={onPaste}
-                    placeholder="What's the resonance theory?"
+                    placeholder="什么是 Claisen 缩合？"
                     disabled={!ready}
                     rows={3}
                     className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
