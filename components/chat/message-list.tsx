@@ -26,7 +26,9 @@ export function MessageList() {
                     }
                 />
             ))}
-            <div ref={endRef} className='mt-20' />
+        <div></div>
+        <div className='h-40' />
+            <div ref={endRef} className='-mb-30' />
         </div>
     )
 }
