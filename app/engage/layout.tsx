@@ -16,10 +16,10 @@ export default async function EngageLayout({ children }: { children: React.React
     }
 
     return (
-        <div className='mx-auto flex w-full max-w-6xl flex-col gap-2 px-5 md:flex-row md:gap-12'>
-            {/* Desktop sidebar */}
+        <div className='mx-auto flex w-full flex-col gap-2 px-5 pt-16 md:flex-row md:gap-8 md:pt-6'>
+            {/* Desktop sidebar — floats with breathing room */}
             <aside className='hidden w-64 shrink-0 md:block'>
-                <div className='sticky top-0 flex h-dvh w-full flex-col py-8 pb-24'>
+                <div className='sticky top-6 h-[calc(100dvh-3rem)] py-0'>
                     <Suspense fallback={<RailSkeleton />}>
                         <ConversationRailLoader userId={session.user.id} />
                     </Suspense>
@@ -45,12 +45,18 @@ async function ConversationRailLoader({ userId }: { userId: string }) {
 
 function RailSkeleton() {
     return (
-        <div className='flex h-full flex-col'>
-            <div className='mb-2 flex items-center justify-between px-1'>
+        <aside
+            className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface/70 backdrop-blur-xl'
+            style={{
+                boxShadow:
+                    'inset 0 0.5px 0.5px rgba(255,255,255,0.45), 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -10px rgba(0,0,0,0.10)',
+            }}
+        >
+            <div className='flex items-center justify-between px-4 pt-4 pb-2'>
                 <div className='h-3 w-10 animate-pulse rounded bg-default' />
-                <div className='h-3 w-4 animate-pulse rounded bg-default' />
+                <div className='h-4 w-4 animate-pulse rounded bg-default' />
             </div>
-            <div className='flex flex-col gap-1 px-1'>
+            <div className='flex flex-1 flex-col gap-1 px-2'>
                 {Array.from({ length: 6 }).map((_, i) => (
                     <div
                         key={i}
@@ -59,6 +65,9 @@ function RailSkeleton() {
                     />
                 ))}
             </div>
-        </div>
+            <div className='mt-2 border-t border-border/40 p-2'>
+                <div className='h-7 w-full animate-pulse rounded-lg bg-default' />
+            </div>
+        </aside>
     )
 }

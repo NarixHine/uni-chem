@@ -32,7 +32,7 @@ export function EngageHero() {
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
                 className='relative z-10 mt-4 max-w-md text-pretty text-base leading-relaxed text-muted'
             >
-              会在黑板上画图的 AI。
+              会在黑板上画分子结构图的 AI。
             </motion.p>
 
             <style>{`

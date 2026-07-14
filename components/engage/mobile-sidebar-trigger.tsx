@@ -1,39 +1,43 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Drawer, Button } from '@heroui/react'
 import { ListIcon } from '@phosphor-icons/react/ssr'
 
 /**
- * Fixed-position menu button visible only on mobile. Opens a left-side
- * Drawer containing the conversation sidebar.
+ * Floating menu button visible only on mobile. Opens an uncontrolled
+ * left-side Drawer whose dialog chrome is fully transparent — it only
+ * hosts the floating sidebar (which paints its own studio-lit panel),
+ * so the sidebar appears to float over the page just like on desktop.
+ * HeroUI manages open/close state internally; tapping the backdrop or
+ * pressing Escape dismisses it.
  */
 export function MobileSidebarTrigger({ children }: { children: ReactNode }) {
-    const [open, setOpen] = useState(false)
     return (
-        <div className='fixed left-4 top-4 z-50 md:hidden'>
-            <Drawer isOpen={open} onOpenChange={setOpen}>
-                <Drawer.Trigger>
-                    <Button
-                        isIconOnly
-                        variant='ghost'
-                        aria-label='打开对话列表'
-                        className='size-10 rounded-full border border-border bg-surface'
+        <div className='fixed left-3 top-3 z-40 md:hidden'>
+            <Drawer>
+                <Button
+                    isIconOnly
+                    variant='ghost'
+                    aria-label='打开对话列表'
+                    className='size-9 rounded-lg border border-border/60 bg-surface/70 backdrop-blur-xl'
+                    style={{
+                        boxShadow:
+                            'inset 0 0.5px 0.5px rgba(255,255,255,0.45), 0 1px 2px rgba(0,0,0,0.04), 0 8px 20px -10px rgba(0,0,0,0.10)',
+                    }}
+                >
+                    <ListIcon className='size-5' weight='regular' />
+                </Button>
+                <Drawer.Backdrop className={'bg-transparent'}>
+                    <Drawer.Content
+                        placement='left'
+                        className='bg-transparent shadow-none data-entering:shadow-none data-exiting:shadow-none'
                     >
-                        <ListIcon className='size-5' />
-                    </Button>
-                </Drawer.Trigger>
-                <Drawer.Backdrop />
-                <Drawer.Content placement='left'>
-                    <Drawer.Dialog>
-                        <Drawer.Header>
-                            <Drawer.Heading>对话</Drawer.Heading>
-                        </Drawer.Header>
-                        <Drawer.Body className='h-dvh pb-12'>
+                        <Drawer.Dialog className='bg-transparent p-3 shadow-none'>
                             {children}
-                        </Drawer.Body>
-                    </Drawer.Dialog>
-                </Drawer.Content>
+                        </Drawer.Dialog>
+                    </Drawer.Content>
+                </Drawer.Backdrop>
             </Drawer>
         </div>
     )

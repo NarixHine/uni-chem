@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, type KeyboardEvent } from 'react'
+import { useMemo, useState, type KeyboardEvent } from 'react'
 import { Button, Input, Tooltip, Popover } from '@heroui/react'
-import { PencilSimpleIcon, TrashIcon, TrashSimpleIcon } from '@phosphor-icons/react'
+import { PencilSimpleIcon, PlusIcon, TrashIcon, TrashSimpleIcon } from '@phosphor-icons/react'
 import { useAction } from 'next-safe-action/hooks'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import cn from 'cnfast'
 import { renameConversation, deleteConversation } from '@/service/conversations'
 
 export interface ConversationRef {
@@ -17,15 +18,24 @@ interface ConversationRailProps {
 }
 
 /**
- * Discrete conversation sidebar. Clicking an item opens it; rename and
- * delete actions appear on hover. Delete confirmation uses an inline
- * Popover rather than a modal dialog.
+ * Floating conversation sidebar. Rendered as a studio-lit panel with a
+ * subtle background and soft inset highlights (à la PostAvatar) so it
+ * reads as a discrete object floating over the canvas — present but
+ * never noisy. The active conversation is derived from the pathname so
+ * no server wiring is required. The same panel is embedded in the
+ * mobile drawer (which only provides a transparent host layer).
  */
 export function ConversationRail({ initial }: ConversationRailProps) {
     const router = useRouter()
+    const pathname = usePathname()
     const [conversations, setConversations] = useState(initial)
     const [renamingId, setRenamingId] = useState<string | null>(null)
     const [draft, setDraft] = useState('')
+
+    const activeId = useMemo(() => {
+        const match = pathname?.match(/^\/engage\/([^/]+)/)
+        return match?.[1] ?? null
+    }, [pathname])
 
     const { execute: execRename, isPending: renamingBusy } = useAction(renameConversation, {
         onSuccess: ({ data }) => {
@@ -48,6 +58,9 @@ export function ConversationRail({ initial }: ConversationRailProps) {
 
     const openConversation = (id: string) =>
         router.push(`/engage/${id}`, { transitionTypes: ['nav-forward'] })
+
+    const newConversation = () =>
+        router.push('/engage', { transitionTypes: ['nav-forward'] })
 
     const startRename = (id: string, title: string) => {
         setDraft(title)
@@ -78,36 +91,64 @@ export function ConversationRail({ initial }: ConversationRailProps) {
     }
 
     return (
-        <div className='flex h-full flex-col'>
-            <div className='mb-2 flex items-center justify-between px-1'>
-                <h2 className='text-xs uppercase tracking-widest text-muted'>对话</h2>
-                <span className='font-mono text-xs text-muted'>
-                    {conversations.length.toString().padStart(2, '0')}
-                </span>
+        <aside
+            aria-label='对话列表'
+            className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface/70 backdrop-blur-xl'
+            style={{
+                boxShadow:
+                    'inset 0 0.5px 0.5px rgba(255,255,255,0.45), inset 0 -0.5px 0.5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -10px rgba(0,0,0,0.10)',
+            }}
+        >
+            {/* Studio lighting overlay — soft top-light sheen + grounded bottom shade */}
+            <span
+                aria-hidden
+                className='pointer-events-none absolute inset-0 rounded-2xl'
+                style={{
+                    background:
+                        'linear-gradient(150deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 60%, rgba(0,0,0,0.05) 100%)',
+                }}
+            />
+
+            {/* Header */}
+            <div className='relative flex items-center justify-between px-5 pt-4 pb-2'>
+                <div className='flex items-baseline gap-2'>
+                    <h2 className='text-sm font-medium uppercase text-muted'>
+                        对话
+                    </h2>
+                    <span className='font-mono text-sm tabular-nums text-muted/70'>
+                        {conversations.length.toString().padStart(2, '0')}
+                    </span>
+                </div>
             </div>
 
-            <div className='scrollbar-none -mx-1 flex-1 overflow-y-auto'>
+            {/* List */}
+            <div className='scrollbar-none relative flex-1 overflow-y-auto px-2 pb-2'>
                 {conversations.length === 0 ? (
-                    <p className='px-1 py-8 text-center text-sm text-muted'>还没有对话。</p>
+                    <div className='flex h-full flex-col items-center justify-center gap-3 px-4 py-10 text-center'>
+                        <p className='text-sm text-muted'>还没有对话。</p>
+                    </div>
                 ) : (
-                    <ul className='flex flex-col gap-0.5 px-1'>
+                    <ul className='flex flex-col gap-px'>
                         {conversations.map(c => (
                             <li key={c.id}>
                                 {renamingId === c.id ? (
-                                    <Input
-                                        value={draft}
-                                        onChange={e => setDraft(e.target.value)}
-                                        onKeyDown={e => onRenameKey(e, c.id)}
-                                        onBlur={() => commitRename(c.id)}
-                                        disabled={renamingBusy}
-                                        autoFocus
-                                        maxLength={120}
-                                        aria-label='重命名对话'
-                                        className='w-full'
-                                    />
+                                    <div className='px-1 py-1'>
+                                        <Input
+                                            value={draft}
+                                            onChange={e => setDraft(e.target.value)}
+                                            onKeyDown={e => onRenameKey(e, c.id)}
+                                            onBlur={() => commitRename(c.id)}
+                                            disabled={renamingBusy}
+                                            autoFocus
+                                            maxLength={120}
+                                            aria-label='重命名对话'
+                                            className='w-full'
+                                        />
+                                    </div>
                                 ) : (
                                     <ConversationItem
                                         conversation={c}
+                                        active={c.id === activeId}
                                         onOpen={openConversation}
                                         onRename={() => startRename(c.id, c.title)}
                                         renamingBusy={renamingBusy}
@@ -121,12 +162,25 @@ export function ConversationRail({ initial }: ConversationRailProps) {
                     </ul>
                 )}
             </div>
-        </div>
+
+            {/* Footer — quiet new-conversation affordance balances the header */}
+            <div className='relative border-t border-border/40 p-2'>
+                <Button
+                    variant='ghost'
+                    onPress={newConversation}
+                    className='w-full justify-start rounded-lg px-2'
+                >
+                    <PlusIcon className='size-4' weight='regular' />
+                    新建对话
+                </Button>
+            </div>
+        </aside>
     )
 }
 
 function ConversationItem({
     conversation,
+    active,
     onOpen,
     onRename,
     renamingBusy,
@@ -135,6 +189,7 @@ function ConversationItem({
     onDeleted,
 }: {
     conversation: ConversationRef
+    active: boolean
     onOpen: (id: string) => void
     onRename: () => void
     renamingBusy: boolean
@@ -145,59 +200,88 @@ function ConversationItem({
     const [confirmOpen, setConfirmOpen] = useState(false)
 
     return (
-        <div className='group/item flex items-center gap-1 rounded-lg px-2 py-1.5 transition-colors hover:bg-default'>
+        <div
+            className={cn(
+                'group/item relative flex items-center gap-1 rounded-lg py-1.5 pl-3 pr-1.5 transition-colors duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                active ? 'bg-default/80' : 'hover:bg-default/50',
+            )}
+        >
+            {active && (
+                <span
+                    aria-hidden
+                    className='absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-foreground/70'
+                />
+            )}
             <button
                 type='button'
                 onClick={() => onOpen(conversation.id)}
-                className='flex-1 truncate text-left text-sm text-foreground/90'
+                className={cn(
+                    'flex-1 truncate text-left text-sm transition-colors',
+                    active ? 'text-foreground' : 'text-foreground/80',
+                )}
                 title={conversation.title}
             >
                 {conversation.title}
             </button>
-            <div className='flex shrink-0 items-center opacity-0 transition-opacity group-hover/item:opacity-100'>
-                <Tooltip>
-                    <Tooltip.Trigger>
-                        <Button
-                            isIconOnly
-                            variant='ghost'
-                            size='sm'
-                            onPress={onRename}
-                            isDisabled={renamingBusy}
-                            aria-label='重命名'
-                            className='size-7 rounded-md'
-                        >
-                            <PencilSimpleIcon className='size-3.5' />
-                        </Button>
-                    </Tooltip.Trigger>
+            <div
+                data-active={active}
+                className='flex shrink-0 items-center gap-0.5 opacity-0 transition-opacity duration-200 group-hover/item:opacity-100 group-focus-within/item:opacity-100 data-[active=true]:opacity-100'
+            >
+                <Tooltip delay={200} closeDelay={100}>
+                    <Button
+                        isIconOnly
+                        variant='ghost'
+                        size='sm'
+                        onPress={onRename}
+                        isDisabled={renamingBusy}
+                        aria-label='重命名'
+                        className='size-6 rounded-md text-muted hover:text-foreground'
+                    >
+                        <PencilSimpleIcon className='size-3.5' weight='regular' />
+                    </Button>
                     <Tooltip.Content>重命名</Tooltip.Content>
                 </Tooltip>
                 <Popover isOpen={confirmOpen} onOpenChange={setConfirmOpen}>
-                    <Popover.Trigger>
-                        <Button
-                            isIconOnly
-                            variant='ghost'
-                            size='sm'
-                            isDisabled={deletingBusy}
-                            aria-label='删除'
-                            className='size-7 rounded-md'
-                        >
-                            <TrashIcon className='size-3.5' />
-                        </Button>
-                    </Popover.Trigger>
-                    <Popover.Content placement='right' className={'p-0 bg-transparent'}>
-                        <Button
-                            variant='danger'
-                            size='sm'
-                            className={'rounded-xl'}
-                            isDisabled={deletingBusy}
-                            onPress={() => {
-                                onDelete()
-                                setConfirmOpen(false)
-                                onDeleted(conversation.id)
-                            }}
-                        >
-                            <TrashSimpleIcon /> 确认删除
-                        </Button>
+                    <Button
+                        isIconOnly
+                        variant='ghost'
+                        size='sm'
+                        isDisabled={deletingBusy}
+                        aria-label='删除'
+                        className='size-6 rounded-md text-muted hover:text-danger'
+                    >
+                        <TrashIcon className='size-3.5' weight='regular' />
+                    </Button>
+                    <Popover.Content placement='right' offset={8} className='w-44 p-0'>
+                        <Popover.Dialog>
+                            <div className='flex flex-col gap-3 p-3'>
+                                <p className='text-xs text-muted'>删除此对话？无法撤销。</p>
+                                <div className='flex justify-end gap-2'>
+                                    <Button
+                                        variant='tertiary'
+                                        size='sm'
+                                        onPress={() => setConfirmOpen(false)}
+                                        className='rounded-md'
+                                    >
+                                        取消
+                                    </Button>
+                                    <Button
+                                        variant='danger'
+                                        size='sm'
+                                        isDisabled={deletingBusy}
+                                        onPress={() => {
+                                            onDelete()
+                                            setConfirmOpen(false)
+                                            onDeleted(conversation.id)
+                                        }}
+                                        className='rounded-md'
+                                    >
+                                        <TrashSimpleIcon className='size-3.5' weight='fill' />
+                                        删除
+                                    </Button>
+                                </div>
+                            </div>
+                        </Popover.Dialog>
                     </Popover.Content>
                 </Popover>
             </div>

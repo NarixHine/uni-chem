@@ -54,7 +54,7 @@ export function EngageComposer() {
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     onKeyDown={onKeyDown}
-                    placeholder='问问反应、机理或概念…'
+                    placeholder='问问反应、机理、概念、理论、题目…'
                     disabled={isPending}
                     rows={3}
                     className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
