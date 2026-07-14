@@ -45,7 +45,7 @@ export function EngageComposer() {
     const submit = () => {
         const prompt = input.trim()
         if ((!prompt && attachments.length === 0) || isPending) return
-        execute({ prompt })
+        execute(prompt ? { prompt } : {})
     }
 
     const onSubmit = (e: FormEvent) => {
