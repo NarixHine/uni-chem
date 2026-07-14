@@ -5,6 +5,7 @@ import { useChat as useChatHook, type UseChatHelpers } from '@ai-sdk/react'
 import { DefaultChatTransport, type UIMessage } from 'ai'
 import { useAction } from 'next-safe-action/hooks'
 import { saveMessages } from '@/service/conversations'
+import { takePendingAttachments } from './attachments'
 
 type ChatContextValue = UseChatHelpers<UIMessage>
 
@@ -26,7 +27,17 @@ export interface ChatProviderProps {
  * the database via the `saveMessages` safe action.
  */
 export function ChatProvider({ id, initialPrompt, children }: ChatProviderProps) {
-    const { execute: execSave } = useAction(saveMessages)
+    const { execute: execSave } = useAction(saveMessages, {
+        onSuccess: ({ data }) => {
+            if (data?.title) {
+                window.dispatchEvent(
+                    new CustomEvent('conversation:renamed', {
+                        detail: { id: data.id, title: data.title },
+                    }),
+                )
+            }
+        },
+    })
 
     const chat = useChatHook({
         id,
@@ -37,14 +48,19 @@ export function ChatProvider({ id, initialPrompt, children }: ChatProviderProps)
         },
     })
 
-    // Fire an optional opening prompt exactly once after mount.
+    // Fire an optional opening prompt (and any attachments seeded from the
+    // Engage hub) exactly once after mount.
     const fired = useRef(false)
     useEffect(() => {
-        const prompt = initialPrompt?.trim()
-        if (!prompt || fired.current || chat.status !== 'ready') return
+        if (fired.current || chat.status !== 'ready') return
+        const text = initialPrompt?.trim()
+        const files = takePendingAttachments(id)
+        if (!text && !files?.length) return
         fired.current = true
-        chat.sendMessage({ text: prompt })
-    }, [chat, initialPrompt])
+        if (text && files?.length) chat.sendMessage({ text, files })
+        else if (text) chat.sendMessage({ text })
+        else chat.sendMessage({ files: files! })
+    }, [chat, id, initialPrompt])
 
     return <ChatContext.Provider value={chat}>{children}</ChatContext.Provider>
 }

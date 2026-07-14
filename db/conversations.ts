@@ -30,6 +30,22 @@ export async function createConversation(
 }
 
 /**
+ * Fetch the `content` + `title` of an owned conversation. Used by the service
+ * layer to detect whether a save is the first assistant turn (content still
+ * holds only the seeded user message).
+ */
+export async function getConversationMeta(
+    userId: string,
+    id: string,
+): Promise<{ title: string; content: unknown } | null> {
+    const row = await prisma.conversation.findFirst({
+        where: { id, creatorId: userId },
+        select: { title: true, content: true },
+    })
+    return row ?? null
+}
+
+/**
  * Rename a conversation, scoped to its owner. Returns `null` when the
  * conversation does not belong to the caller (avoids leaking existence).
  */

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, type KeyboardEvent } from 'react'
+import { useEffect, useMemo, useState, type KeyboardEvent } from 'react'
 import { Button, Input, Tooltip, Popover } from '@heroui/react'
 import { PencilSimpleIcon, PlusIcon, TrashIcon, TrashSimpleIcon } from '@phosphor-icons/react'
 import { useAction } from 'next-safe-action/hooks'
@@ -37,6 +37,18 @@ export function ConversationRail({ initial }: ConversationRailProps) {
         return match?.[1] ?? null
     }, [pathname])
 
+    // Reactively reflect AI-generated titles emitted by the chat after the
+    // first assistant turn (see saveMessages action) without a full reload.
+    useEffect(() => {
+        const onRename = (e: Event) => {
+            const { id, title } = (e as CustomEvent).detail ?? {}
+            if (!id || !title) return
+            setConversations(prev => prev.map(c => (c.id === id ? { ...c, title } : c)))
+        }
+        window.addEventListener('conversation:renamed', onRename)
+        return () => window.removeEventListener('conversation:renamed', onRename)
+    }, [])
+
     const { execute: execRename, isPending: renamingBusy } = useAction(renameConversation, {
         onSuccess: ({ data }) => {
             if (data) {
@@ -59,8 +71,7 @@ export function ConversationRail({ initial }: ConversationRailProps) {
     const openConversation = (id: string) =>
         router.push(`/engage/${id}`, { transitionTypes: ['nav-forward'] })
 
-    const newConversation = () =>
-        router.push('/engage', { transitionTypes: ['nav-forward'] })
+    const newConversation = () => router.push('/engage', { transitionTypes: ['nav-forward'] })
 
     const startRename = (id: string, title: string) => {
         setDraft(title)
@@ -112,9 +123,7 @@ export function ConversationRail({ initial }: ConversationRailProps) {
             {/* Header */}
             <div className='relative flex items-center justify-between px-5 pt-4 pb-2'>
                 <div className='flex items-baseline gap-2'>
-                    <h2 className='text-sm font-medium uppercase text-muted'>
-                        对话
-                    </h2>
+                    <h2 className='text-sm font-medium uppercase text-muted'>对话</h2>
                     <span className='font-mono text-sm tabular-nums text-muted/70'>
                         {conversations.length.toString().padStart(2, '0')}
                     </span>
@@ -202,16 +211,10 @@ function ConversationItem({
     return (
         <div
             className={cn(
-                'group/item relative flex items-center gap-1 rounded-lg py-1.5 pl-3 pr-1.5 transition-colors duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                'group/item relative flex items-center gap-1 rounded-lg py-1.5 pl-4 pr-1.5 transition-colors duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]',
                 active ? 'bg-default/80' : 'hover:bg-default/50',
             )}
         >
-            {active && (
-                <span
-                    aria-hidden
-                    className='absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-foreground/70'
-                />
-            )}
             <button
                 type='button'
                 onClick={() => onOpen(conversation.id)}
@@ -252,35 +255,22 @@ function ConversationItem({
                     >
                         <TrashIcon className='size-3.5' weight='regular' />
                     </Button>
-                    <Popover.Content placement='right' offset={8} className='w-44 p-0'>
-                        <Popover.Dialog>
-                            <div className='flex flex-col gap-3 p-3'>
-                                <p className='text-xs text-muted'>删除此对话？无法撤销。</p>
-                                <div className='flex justify-end gap-2'>
-                                    <Button
-                                        variant='tertiary'
-                                        size='sm'
-                                        onPress={() => setConfirmOpen(false)}
-                                        className='rounded-md'
-                                    >
-                                        取消
-                                    </Button>
-                                    <Button
-                                        variant='danger'
-                                        size='sm'
-                                        isDisabled={deletingBusy}
-                                        onPress={() => {
-                                            onDelete()
-                                            setConfirmOpen(false)
-                                            onDeleted(conversation.id)
-                                        }}
-                                        className='rounded-md'
-                                    >
-                                        <TrashSimpleIcon className='size-3.5' weight='fill' />
-                                        删除
-                                    </Button>
-                                </div>
-                            </div>
+                    <Popover.Content placement='right' offset={20}>
+                        <Popover.Dialog className='p-0 bg-transparent'>
+                            <Button
+                                variant='danger'
+                                size='sm'
+                                isDisabled={deletingBusy}
+                                onPress={() => {
+                                    onDelete()
+                                    setConfirmOpen(false)
+                                    onDeleted(conversation.id)
+                                }}
+                                className='rounded-xl'
+                            >
+                                <TrashSimpleIcon className='size-3.5' weight='fill' />
+                                确认删除
+                            </Button>
                         </Popover.Dialog>
                     </Popover.Content>
                 </Popover>

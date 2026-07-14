@@ -36,6 +36,24 @@ export interface AttachmentTrayProps {
     onRemove: (index: number) => void
 }
 
+/**
+ * In-memory handoff for opening attachments seeded from the Engage hub.
+ * Lives only for the current tab session (cleared on reload), which is fine
+ * since the opening turn fires once on mount. Avoids serializing large image
+ * data URLs through search params or sessionStorage.
+ */
+const pendingAttachments = new Map<string, FileUIPart[]>()
+
+export function setPendingAttachments(id: string, parts: FileUIPart[]) {
+    pendingAttachments.set(id, parts)
+}
+
+export function takePendingAttachments(id: string): FileUIPart[] | undefined {
+    const parts = pendingAttachments.get(id)
+    if (parts) pendingAttachments.delete(id)
+    return parts
+}
+
 /** Thumbnail strip of pending attachments, shown above the composer. */
 export function AttachmentTray({ parts, onRemove }: AttachmentTrayProps) {
     if (parts.length === 0) return null

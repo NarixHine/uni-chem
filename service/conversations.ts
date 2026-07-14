@@ -6,9 +6,11 @@ import { authActionClient } from './safe-action'
 import {
     createConversation as dbCreate,
     deleteConversation as dbDelete,
+    getConversationMeta as dbGetMeta,
     renameConversation as dbRename,
     saveMessages as dbSaveMessages,
 } from '@/db/conversations'
+import { generateConversationTitle } from '@/lib/chat/title'
 
 const idSchema = z.string().cuid()
 const titleSchema = z.string().trim().min(1, 'Title is required').max(120, 'Title is too long')
@@ -68,6 +70,11 @@ export const deleteConversation = authActionClient
 
 /**
  * Persist the full message transcript after a turn finishes streaming.
+ *
+ * On the first assistant turn, a concise title is generated with a small
+ * model and stored, replacing the truncated-prompt placeholder so the
+ * sidebar shows a meaningful label. The new title is returned so the
+ * client can update the rail reactively.
  */
 export const saveMessages = authActionClient
     .inputSchema(
@@ -77,6 +84,23 @@ export const saveMessages = authActionClient
         }),
     )
     .action(async ({ parsedInput, ctx }) => {
-        await dbSaveMessages(ctx.auth.user.id, parsedInput.id, parsedInput.messages)
-        return { id: parsedInput.id, saved: true }
+        const userId = ctx.auth.user.id
+        const { id, messages } = parsedInput
+
+        const meta = await dbGetMeta(userId, id)
+        const seedCount = Array.isArray(meta?.content) ? meta!.content.length : 0
+        const isFirstTurn = meta !== null && seedCount <= 1
+
+        await dbSaveMessages(userId, id, messages)
+
+        let title: string | undefined
+        if (isFirstTurn) {
+            const generated = await generateConversationTitle(messages as never)
+            if (generated) {
+                const renamed = await dbRename(userId, id, generated)
+                if (renamed) title = renamed.title
+            }
+        }
+
+        return { id, saved: true, title }
     })
