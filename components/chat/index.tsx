@@ -46,7 +46,7 @@ export function Chat({ dataPromise }: ChatProps) {
                     </div>
                 </div>
             </ViewTransition>
-            <Suspense fallback={null}>
+            <Suspense>
                 <ConversationHydrator id={id} dataPromise={dataPromise} />
             </Suspense>
         </ChatProvider>
