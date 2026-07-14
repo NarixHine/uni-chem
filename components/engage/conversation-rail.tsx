@@ -41,9 +41,15 @@ export function ConversationRail({ initial }: ConversationRailProps) {
     // first assistant turn (see saveMessages action) without a full reload.
     useEffect(() => {
         const onRename = (e: Event) => {
+            console.log('Renamed')
             const { id, title } = (e as CustomEvent).detail ?? {}
+            console.log({ id, title })
             if (!id || !title) return
-            setConversations(prev => prev.map(c => (c.id === id ? { ...c, title } : c)))
+            setConversations(prev =>
+                prev.some(c => c.id === id)
+                    ? prev.map(c => (c.id === id ? { ...c, title } : c))
+                    : [{ id, title }, ...prev],
+            )
         }
         window.addEventListener('conversation:renamed', onRename)
         return () => window.removeEventListener('conversation:renamed', onRename)
