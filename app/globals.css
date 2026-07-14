@@ -29,6 +29,17 @@
     animation: none;
 }
 
+/* Conversation rail: persistent sidebar — suppress view-transition flash */
+::view-transition-group(conversation-rail) {
+    animation: none;
+}
+::view-transition-old(conversation-rail) {
+    display: none;
+}
+::view-transition-new(conversation-rail) {
+    animation: none;
+}
+
 /* Hero / loading exit: fade + drift down quickly */
 ::view-transition-old(.content-exit) {
     animation:
