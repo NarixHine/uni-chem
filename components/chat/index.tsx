@@ -36,7 +36,7 @@ export function Chat({ dataPromise }: ChatProps) {
         <ChatProvider id={id}>
             <ViewTransition enter='content-enter' default='none'>
                 <div className='flex min-h-dvh flex-col pt-8'>
-                    <div className='flex flex-1 flex-col gap-12 pb-48'>
+                    <div className='flex flex-1 flex-col gap-12 pb-20'>
                         <MessageList />
                     </div>
                     <div className='pointer-events-none sticky bottom-24 z-40 flex justify-center px-1 pb-2'>
