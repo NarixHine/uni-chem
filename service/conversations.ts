@@ -16,8 +16,10 @@ const idSchema = z.string().cuid()
 const titleSchema = z.string().trim().min(1, 'Title is required').max(120, 'Title is too long')
 
 /**
- * Create a new conversation. The opening prompt seeds `content` and the title
- * defaults to a trimmed slice of that prompt.
+ * Create a new conversation. The opening prompt is **not** persisted here —
+ * it is carried via the `?prompt=` search param and fired by the chat
+ * hydrator so the AI stream starts. The first assistant turn is persisted
+ * later by `saveMessages` (which also generates the title).
  */
 export const createConversation = authActionClient
     .inputSchema(
@@ -33,7 +35,7 @@ export const createConversation = authActionClient
             parsedInput.title?.trim() ||
             (prompt ? (prompt.length > 48 ? prompt.slice(0, 45) + '…' : prompt) : 'New conversation')
 
-        const conversation = await dbCreate(userId, title, prompt ? [{ role: 'user', text: prompt }] : null)
+        const conversation = await dbCreate(userId, title)
 
         return { id: conversation.id, title: conversation.title }
     })

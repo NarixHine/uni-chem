@@ -1,11 +1,8 @@
-'use client'
-
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react'
+import { createContext, useContext, type ReactNode } from 'react'
 import { useChat as useChatHook, type UseChatHelpers } from '@ai-sdk/react'
 import { DefaultChatTransport, type UIMessage } from 'ai'
 import { useAction } from 'next-safe-action/hooks'
 import { saveMessages } from '@/service/conversations'
-import { takePendingAttachments } from './attachments'
 
 type ChatContextValue = UseChatHelpers<UIMessage>
 
@@ -13,8 +10,6 @@ const ChatContext = createContext<ChatContextValue | null>(null)
 
 export interface ChatProviderProps {
     id: string
-    /** Opening prompt to fire once, after mount. */
-    initialPrompt?: string
     children: ReactNode
 }
 
@@ -24,9 +19,12 @@ export interface ChatProviderProps {
  * without prop-drilling.
  *
  * After each assistant turn finishes, the full transcript is persisted to
- * the database via the `saveMessages` safe action.
+ * the database via the `saveMessages` safe action. Hydration of an existing
+ * transcript and firing of the opening prompt are handled by
+ * `<ConversationHydrator>`, which resolves the page's data promise before
+ * touching the chat.
  */
-export function ChatProvider({ id, initialPrompt, children }: ChatProviderProps) {
+export function ChatProvider({ id, children }: ChatProviderProps) {
     const { execute: execSave } = useAction(saveMessages, {
         onSuccess: ({ data }) => {
             if (data?.title) {
@@ -47,20 +45,6 @@ export function ChatProvider({ id, initialPrompt, children }: ChatProviderProps)
             execSave({ id, messages })
         },
     })
-
-    // Fire an optional opening prompt (and any attachments seeded from the
-    // Engage hub) exactly once after mount.
-    const fired = useRef(false)
-    useEffect(() => {
-        if (fired.current || chat.status !== 'ready') return
-        const text = initialPrompt?.trim()
-        const files = takePendingAttachments(id)
-        if (!text && !files?.length) return
-        fired.current = true
-        if (text && files?.length) chat.sendMessage({ text, files })
-        else if (text) chat.sendMessage({ text })
-        else chat.sendMessage({ files: files! })
-    }, [chat, id, initialPrompt])
 
     return <ChatContext.Provider value={chat}>{children}</ChatContext.Provider>
 }

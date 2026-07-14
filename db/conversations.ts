@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import type { Conversation } from '@/lib/generated/prisma/client'
+import type { UIMessage } from 'ai'
 
 export type ConversationSummary = Pick<
     Conversation,
@@ -31,8 +32,8 @@ export async function createConversation(
 
 /**
  * Fetch the `content` + `title` of an owned conversation. Used by the service
- * layer to detect whether a save is the first assistant turn (content still
- * holds only the seeded user message).
+ * layer to detect whether a save is the first assistant turn (content is
+ * still `null` or holds fewer than 2 messages).
  */
 export async function getConversationMeta(
     userId: string,
@@ -43,6 +44,55 @@ export async function getConversationMeta(
         select: { title: true, content: true },
     })
     return row ?? null
+}
+
+/**
+ * Load a conversation's message transcript as normalized `UIMessage[]`.
+ *
+ * The `content` column is written by `saveMessages` as full `UIMessage[]`.
+ * Returns `null` when the conversation is missing or has no messages yet
+ * (a freshly-created conversation has `content = null` — its opening prompt
+ * is fired client-side via the `?prompt=` search param).
+ */
+export async function getConversationMessages(
+    userId: string,
+    id: string,
+): Promise<UIMessage[] | null> {
+    const meta = await getConversationMeta(userId, id)
+    const content = meta?.content
+    if (!Array.isArray(content) || content.length === 0) return null
+    return content
+        .map(normalizeUIMessage)
+        .filter((m): m is UIMessage => m !== null)
+}
+
+type StoredMessage = {
+    id?: string
+    role?: string
+    text?: string
+    parts?: unknown[]
+}
+
+function normalizeUIMessage(raw: unknown): UIMessage | null {
+    if (typeof raw !== 'object' || raw === null) return null
+    const m = raw as StoredMessage
+    const role: UIMessage['role'] =
+        m.role === 'assistant' || m.role === 'system' ? m.role : 'user'
+    if (Array.isArray(m.parts) && m.parts.length > 0) {
+        return {
+            id: m.id ?? crypto.randomUUID(),
+            role,
+            parts: m.parts as UIMessage['parts'],
+        }
+    }
+    if (typeof m.text === 'string') {
+        return {
+            id: m.id ?? crypto.randomUUID(),
+            role,
+            parts: [{ type: 'text', text: m.text }],
+        }
+    }
+    return null
 }
 
 /**

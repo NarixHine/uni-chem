@@ -70,6 +70,9 @@ export function ConversationRail({ initial }: ConversationRailProps) {
         onSuccess: ({ input }) => {
             if (input?.id) {
                 setConversations(prev => prev.filter(c => c.id !== input.id))
+                if (input.id === activeId) {
+                    router.push('/engage', { transitionTypes: ['nav-forward'] })
+                }
             }
         },
     })
