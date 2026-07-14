@@ -16,7 +16,7 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
-  name          String?
+  name          String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
@@ -26,7 +26,10 @@ model User {
 
 model Session {
   id        String   @id @default(cuid())
+  token     String   @unique
   expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
   userId    String

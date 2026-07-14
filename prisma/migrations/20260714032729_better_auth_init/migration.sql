@@ -4,7 +4,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
     "image" TEXT,
-    "name" TEXT,
+    "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -14,7 +14,10 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Session" (
     "id" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "ipAddress" TEXT,
     "userAgent" TEXT,
     "userId" TEXT NOT NULL,
@@ -66,6 +69,9 @@ CREATE TABLE "Post" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Session_token_key" ON "Session"("token");
 
 -- CreateIndex
 CREATE INDEX "Session_userId_idx" ON "Session"("userId");

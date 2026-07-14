@@ -15,6 +15,7 @@ export const CONVERSE_SYSTEM_PROMPT = `
   5. 禁止显摆英文术语
   6. 善用行内KaTeX语法表示化学式（如\`$\\text{H}_2\\text{SO}_4$\`，总是使用\`\\text\`而非\`\\mathrm\`）和符号；化学键应单独用\`{-}\` \`{=}\`表示，如\`$\\text{C}{=}\\text{O}$\`，不应与元素符号合并
   7. 善用Markdown语法，但只允许用粗体，尽可能用语意简明的短小段落
+  8. 永远不要在输出中提及“ChemDoodle”
 
   ---
 
