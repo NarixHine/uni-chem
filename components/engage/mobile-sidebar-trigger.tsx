@@ -1,21 +1,28 @@
 'use client'
 
-import { type ReactNode } from 'react'
-import { Drawer, Button } from '@heroui/react'
+import { type ReactNode, useEffect } from 'react'
+import { Drawer, Button, useOverlayState } from '@heroui/react'
 import { ListIcon } from '@phosphor-icons/react/ssr'
+import { usePathname } from 'next/navigation'
 
 /**
- * Floating menu button visible only on mobile. Opens an uncontrolled
- * left-side Drawer whose dialog chrome is fully transparent — it only
- * hosts the floating sidebar (which paints its own studio-lit panel),
- * so the sidebar appears to float over the page just like on desktop.
- * HeroUI manages open/close state internally; tapping the backdrop or
- * pressing Escape dismisses it.
+ * Floating menu button visible only below the rail breakpoint (60rem).
+ * The drawer is controlled via useOverlayState and auto-dismisses whenever
+ * the route changes so selecting a conversation closes the panel.
  */
 export function MobileSidebarTrigger({ children }: { children: ReactNode }) {
+    const state = useOverlayState()
+    const { close } = state
+    const pathname = usePathname()
+
+    // Dismiss the drawer on navigation (e.g. opening/creating a conversation).
+    useEffect(() => {
+        close()
+    }, [pathname, close])
+
     return (
-        <div className='fixed left-3 top-3 z-40 md:hidden'>
-            <Drawer>
+        <div className='fixed left-3 top-3 z-40 rail:hidden'>
+            <Drawer state={state}>
                 <Button
                     isIconOnly
                     variant='ghost'

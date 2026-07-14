@@ -9,6 +9,7 @@ import { useChat } from './chat-provider'
 import { MessageList } from './message-list'
 import { Composer } from './composer'
 import { takePendingAttachments } from './attachments'
+import { Spinner } from '@heroui/react'
 
 /** Data resolved from the server-side conversation fetch. */
 export interface ConversationData {
@@ -35,10 +36,19 @@ export function Chat({ dataPromise }: ChatProps) {
     return (
         <ChatProvider id={id}>
             <ViewTransition enter='content-enter' default='none'>
-                <div className='flex min-h-dvh flex-col pt-8'>
-                    <div className='flex flex-1 flex-col gap-12 pb-20'>
-                        <MessageList />
-                    </div>
+                <div className='flex min-h-dvh flex-col pt-8 w-full'>
+                    <Suspense
+                        fallback={
+                            <div className='w-full flex flex-1 justify-center items-center'>
+                                <Spinner />
+                            </div>
+                        }
+                    >
+                        <div className='flex flex-1 flex-col gap-12'>
+                            <MessageList />
+                        </div>
+                        <ConversationHydrator id={id} dataPromise={dataPromise} />
+                    </Suspense>
                     <div className='pointer-events-none sticky bottom-24 z-40 flex justify-center px-1 pb-2'>
                         <ViewTransition name='engage-composer' share='morph' default='none'>
                             <Composer />
@@ -46,9 +56,6 @@ export function Chat({ dataPromise }: ChatProps) {
                     </div>
                 </div>
             </ViewTransition>
-            <Suspense>
-                <ConversationHydrator id={id} dataPromise={dataPromise} />
-            </Suspense>
         </ChatProvider>
     )
 }

@@ -16,9 +16,9 @@ export default async function EngageLayout({ children }: { children: React.React
     }
 
     return (
-        <div className='mx-auto flex w-full flex-col gap-2 px-5 pt-16 md:flex-row md:gap-8 md:pt-6'>
+        <div className='mx-auto flex w-full flex-col gap-2 px-5 rail:flex-row rail:gap-8 rail:pt-0'>
             {/* Desktop sidebar — floats with breathing room */}
-            <aside className='hidden w-64 shrink-0 md:block'>
+            <aside className='hidden w-64 shrink-0 rail:block'>
                 <div className='sticky top-6 h-[calc(100dvh-3rem)] py-0'>
                     <Suspense fallback={<RailSkeleton />}>
                         <ConversationRailLoader userId={session.user.id} />
@@ -33,7 +33,7 @@ export default async function EngageLayout({ children }: { children: React.React
                 </Suspense>
             </MobileSidebarTrigger>
 
-            <div className='min-h-dvh flex-1'>{children}</div>
+            <div className='flex-1'>{children}</div>
         </div>
     )
 }
@@ -46,7 +46,7 @@ async function ConversationRailLoader({ userId }: { userId: string }) {
 function RailSkeleton() {
     return (
         <aside
-            className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface/70 backdrop-blur-xl'
+                    className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface rail:bg-surface/70'
             style={{
                 boxShadow:
                     'inset 0 0.5px 0.5px rgba(255,255,255,0.45), 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -10px rgba(0,0,0,0.10)',

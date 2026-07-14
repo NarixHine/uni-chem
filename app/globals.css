@@ -29,17 +29,6 @@
     animation: none;
 }
 
-/* Conversation rail: persistent sidebar — suppress view-transition flash */
-::view-transition-group(conversation-rail) {
-    animation: none;
-}
-::view-transition-old(conversation-rail) {
-    display: none;
-}
-::view-transition-new(conversation-rail) {
-    animation: none;
-}
-
 /* Hero / loading exit: fade + drift down quickly */
 ::view-transition-old(.content-exit) {
     animation:
@@ -114,6 +103,15 @@
     --font-sans: var(--font-en-sans), var(--font-noto-sans);
     --font-mono: var(--font-geist-mono);
     --font-serif: var(--font-newsreader), var(--font-songti);
+}
+
+/* ---------------------------------------------------------------------------
+   Custom breakpoint — conversation rail switches from floating drawer to
+   static sidebar at 60rem (955px). Replaces the default `md` (48rem) cutoff
+   in the engage layout so the desktop sidebar has room to breathe.
+   --------------------------------------------------------------------------- */
+@theme {
+    --breakpoint-rail: 60rem;
 }
 
 .katex {
