@@ -113,11 +113,7 @@ export function ConversationRail({ initial }: ConversationRailProps) {
     return (
         <aside
             aria-label='对话列表'
-            className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface rail:bg-surface/70'
-            style={{
-                boxShadow:
-                    'inset 0 0.5px 0.5px rgba(255,255,255,0.45), inset 0 -0.5px 0.5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -10px rgba(0,0,0,0.10)',
-            }}
+            className='relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface rail:bg-surface/70 shadow-xs'
         >
             {/* Studio lighting overlay — soft top-light sheen + grounded bottom shade */}
             <span
@@ -131,7 +127,7 @@ export function ConversationRail({ initial }: ConversationRailProps) {
 
             {/* Header */}
             <div className='relative flex items-center justify-between px-5 pt-4 pb-2'>
-                <div className='flex items-baseline gap-2'>
+                <div className='flex items-baseline justify-between w-full gap-2'>
                     <h2 className='text-sm font-medium uppercase text-muted'>对话</h2>
                     <span className='font-mono text-sm tabular-nums text-muted/70'>
                         {conversations.length.toString().padStart(2, '0')}

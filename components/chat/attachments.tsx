@@ -1,5 +1,7 @@
 'use client'
 
+import type { ClipboardEvent } from 'react'
+import { toast } from '@heroui/react'
 import type { FileUIPart, UIMessage } from 'ai'
 import { XIcon } from '@phosphor-icons/react/ssr'
 
@@ -29,6 +31,34 @@ export function imageFileParts(message: UIMessage): FileUIPart[] {
     return message.parts.filter(
         (p): p is FileUIPart => p.type === 'file' && p.mediaType.startsWith('image/'),
     )
+}
+
+/**
+ * Handle image paste from a clipboard event. Image files are converted to
+ * attachment parts and handed to `onAdd`; any pasted file that isn't an
+ * image triggers a warning toast. Returns `true` when the event was
+ * consumed (images captured or unsupported files blocked), `false` when
+ * there were no files at all — so the caller can fall back to text handling.
+ */
+export function captureImagePaste<T extends HTMLElement>(
+    e: ClipboardEvent<T>,
+    onAdd: (parts: FileUIPart[]) => void,
+): boolean {
+    const fileItems = Array.from(e.clipboardData.items).filter(item => item.kind === 'file')
+    if (fileItems.length === 0) return false
+
+    const imageFiles = fileItems
+        .map(item => item.getAsFile())
+        .filter((f): f is File => f !== null && f.type.startsWith('image/'))
+
+    if (imageFiles.length < fileItems.length) toast.warning('仅支持粘贴图片')
+    if (imageFiles.length === 0) {
+        e.preventDefault()
+        return true
+    }
+    e.preventDefault()
+    void filesToParts(imageFiles).then(onAdd)
+    return true
 }
 
 export interface AttachmentTrayProps {

@@ -1,16 +1,19 @@
 'use client'
 
-import { useRef, useState, type ClipboardEvent, type FormEvent, type KeyboardEvent } from 'react'
-import { TextArea, Button } from '@heroui/react'
+import {
+    useEffect,
+    useRef,
+    useState,
+    type ClipboardEvent,
+    type FormEvent,
+    type KeyboardEvent,
+} from 'react'
+import { Input, TextArea, Button } from '@heroui/react'
 import { ArrowUpIcon, ImageIcon } from '@phosphor-icons/react/ssr'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 import { createConversation } from '@/service/conversations'
-import {
-    AttachmentTray,
-    filesToParts,
-    setPendingAttachments,
-} from '@/components/chat/attachments'
+import { AttachmentTray, captureImagePaste, filesToParts, setPendingAttachments } from '@/components/chat/attachments'
 import type { FileUIPart } from 'ai'
 
 /**
@@ -27,6 +30,8 @@ export function EngageComposer() {
     const [input, setInput] = useState('')
     const [attachments, setAttachments] = useState<FileUIPart[]>([])
     const fileInputRef = useRef<HTMLInputElement>(null)
+    const lineInputRef = useRef<HTMLInputElement>(null)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const { execute, isPending } = useAction(createConversation, {
         onSuccess: ({ data }) => {
             if (!data) return
@@ -42,6 +47,18 @@ export function EngageComposer() {
         },
     })
 
+    const expanded = input.includes('\n')
+
+    const prevExpanded = useRef(expanded)
+    useEffect(() => {
+        if (prevExpanded.current === expanded) return
+        prevExpanded.current = expanded
+        const el = expanded ? textAreaRef.current : lineInputRef.current
+        el?.focus()
+        const len = el?.value.length ?? 0
+        el?.setSelectionRange(len, len)
+    }, [expanded])
+
     const submit = () => {
         const prompt = input.trim()
         if ((!prompt && attachments.length === 0) || isPending) return
@@ -53,8 +70,20 @@ export function EngageComposer() {
         submit()
     }
 
-    const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    const onTextAreaKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault()
+            submit()
+        }
+    }
+
+    const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && e.shiftKey) {
+            e.preventDefault()
+            setInput(prev => `${prev}\n`)
+            return
+        }
+        if (e.key === 'Enter') {
             e.preventDefault()
             submit()
         }
@@ -70,60 +99,91 @@ export function EngageComposer() {
     const removeAttachment = (index: number) =>
         setAttachments(prev => prev.filter((_, i) => i !== index))
 
-    const onPaste = async (e: ClipboardEvent<HTMLTextAreaElement>) => {
-        const files = Array.from(e.clipboardData.items)
-            .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
-            .map(item => item.getAsFile())
-            .filter((f): f is File => f !== null)
-        if (files.length === 0) return
-        e.preventDefault()
-        const parts = await filesToParts(files)
-        setAttachments(prev => [...prev, ...parts])
+    const onTextAreaPaste = (e: ClipboardEvent<HTMLTextAreaElement>) => {
+        captureImagePaste(e, parts => setAttachments(prev => [...prev, ...parts]))
+    }
+
+    const onInputPaste = (e: ClipboardEvent<HTMLInputElement>) => {
+        if (captureImagePaste(e, parts => setAttachments(prev => [...prev, ...parts]))) return
+        const text = e.clipboardData.getData('text')
+        if (text.includes('\n')) {
+            e.preventDefault()
+            setInput(prev => prev + text)
+        }
     }
 
     const canSend = input.trim().length > 0 || attachments.length > 0
 
+    const attachButton = (
+        <Button
+            type='button'
+            isIconOnly
+            isDisabled={isPending}
+            variant='ghost'
+            aria-label='添加图片'
+            size='lg'
+            onPress={() => fileInputRef.current?.click()}
+            className='size-9 rounded-full'
+        >
+            <ImageIcon className='size-5' />
+        </Button>
+    )
+
+    const submitButton = (
+        <Button
+            type='submit'
+            isIconOnly
+            isDisabled={!canSend || isPending}
+            size='lg'
+            variant='primary'
+            aria-label='开始对话'
+            className='size-9 rounded-full'
+        >
+            <ArrowUpIcon className='size-4' weight='bold' />
+        </Button>
+    )
+
     return (
         <form onSubmit={onSubmit} className='mx-auto w-full max-w-xl'>
             <AttachmentTray parts={attachments} onRemove={removeAttachment} />
-            <div className='flex flex-col rounded-3xl border border-border bg-surface'>
-                <TextArea
-                    aria-label='开始对话'
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={onKeyDown}
-                    onPaste={onPaste}
-                    placeholder='问问反应、机理、概念、理论、题目…'
-                    disabled={isPending}
-                    rows={3}
-                    className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
-                />
-                <div className='flex items-center justify-end gap-2 px-3 pb-3 pt-1'>
-                    <Button
-                        type='button'
-                        isIconOnly
-                        isDisabled={isPending}
-                        variant='ghost'
-                        aria-label='添加图片'
-                        size='lg'
-                        onPress={() => fileInputRef.current?.click()}
-                        className='size-9 rounded-full'
-                    >
-                        <ImageIcon className='size-5' />
-                    </Button>
-                    <Button
-                        type='submit'
-                        isIconOnly
-                        isDisabled={!canSend || isPending}
-                        size='lg'
-                        variant='primary'
+            {expanded ? (
+                <div className='flex flex-col rounded-3xl border border-border bg-surface'>
+                    <TextArea
+                        ref={textAreaRef}
                         aria-label='开始对话'
-                        className='size-9 rounded-full'
-                    >
-                        <ArrowUpIcon className='size-4' weight='bold' />
-                    </Button>
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyDown={onTextAreaKeyDown}
+                        onPaste={onTextAreaPaste}
+                        placeholder='问问反应、机理、概念、理论、题目…'
+                        disabled={isPending}
+                        rows={2}
+                        className='flex-1 resize-none border-0 bg-transparent px-5 pt-3.5 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
+                    />
+                    <div className='flex items-center justify-end gap-2 px-3 pb-3 pt-1'>
+                        {attachButton}
+                        {submitButton}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className='flex items-center gap-2 rounded-full border border-border bg-surface py-1.5 pl-5 pr-2'>
+                    <Input
+                        ref={lineInputRef}
+                        aria-label='开始对话'
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyDown={onInputKeyDown}
+                        onPaste={onInputPaste}
+                        placeholder='问问反应、机理、概念、理论、题目…'
+                        disabled={isPending}
+                        className='h-9 min-w-0 flex-1 border-0 bg-transparent px-0 py-0 leading-9 text-base shadow-none focus-visible:ring-0 focus-visible:outline-none disabled:opacity-60'
+                    />
+                    <div className='flex items-center gap-2'>
+                        {attachButton}
+                        {submitButton}
+                    </div>
+                </div>
+            )}
             <input
                 ref={fileInputRef}
                 type='file'
