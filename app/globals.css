@@ -326,3 +326,9 @@
         --field-shadow: 0 0 0 0 transparent inset; /* Transparent shadow to allow ring utilities to work */
     }
 }
+
+@layer components {
+    .toast {
+        @apply rounded-xl shadow-sm;
+    }
+}
