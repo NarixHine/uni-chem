@@ -4,6 +4,7 @@ import { DM_Sans, Geist_Mono, Newsreader, Noto_Sans_SC } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { NavDock } from './components/dock'
+import { ImpersonationBanner } from '@/components/impersonation-banner'
 
 const dmSans = DM_Sans({
     variable: '--font-en-sans',
@@ -48,6 +49,7 @@ export default function RootLayout({
         >
             <body className='bg-background text-foreground min-h-full flex flex-col'>
                 <Providers>{children}</Providers>
+                <ImpersonationBanner />
                 <NavDock />
             </body>
         </html>

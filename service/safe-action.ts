@@ -1,6 +1,7 @@
 import { createSafeActionClient } from 'next-safe-action'
 import { betterAuth } from '@next-safe-action/adapter-better-auth'
 import { DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
+import { forbidden } from 'next/navigation'
 import { auth } from '@/lib/auth'
 
 /**
@@ -20,3 +21,13 @@ export const actionClient = createSafeActionClient({
  * Context: `ctx.auth.user` and `ctx.auth.session`.
  */
 export const authActionClient = actionClient.use(betterAuth(auth))
+
+/**
+ * Admin client — layered on `authActionClient`; rejects authenticated
+ * non-admin users via `forbidden()` (requires `experimental.authInterrupts`).
+ * Context unchanged: `ctx.auth.user`, `ctx.auth.session`.
+ */
+export const adminActionClient = authActionClient.use(async ({ ctx, next }) => {
+    if (ctx.auth.user.role !== 'admin') forbidden()
+    return next({ ctx })
+})

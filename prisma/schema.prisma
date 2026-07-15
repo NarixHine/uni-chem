@@ -23,6 +23,12 @@ model User {
   accounts      Account[]
   posts         Post[]
   conversations Conversation[]
+
+  // Better Auth admin plugin
+  role        String    @default("user")
+  banned      Boolean   @default(false)
+  banReason   String?
+  banExpires  DateTime?
 }
 
 model Session {
@@ -35,6 +41,9 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Better Auth admin plugin — the admin userId that opened this session.
+  impersonatedBy String?
 
   @@index([userId])
 }
