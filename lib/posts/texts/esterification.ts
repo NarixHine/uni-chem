@@ -47,7 +47,7 @@ export const ESTERIFICATION_TEXT = `
   }
   :::
 
-  <n class="color" style="color:var(--chem-green)">$\\text{CH}_3\\text{OH}$ 的氧原子</n>作为亲核试剂，以孤对电子进攻活化的<n class="color" style="color:var(--chem-rust)">羰基碳</n>，促使 <n class="color" style="color:var(--chem-indigo)">$\\text{C}{=}\\text{O}$ 的 $π$ 键</n>断裂，形成四面体中间体。
+  由于氧的电负性较大，<n class="color" style="color:var(--chem-rust)">羰基碳</n>带部分正电荷；氧成三根键时总是不稳定的，使<n class="color" style="color:var(--chem-rust)">羰基碳</n>更易与带部分负电荷的氧反应。<n class="color" style="color:var(--chem-green)">$\\text{CH}_3\\text{OH}$ 的氧原子</n>作为亲核试剂，以孤对电子进攻活化的<n class="color" style="color:var(--chem-rust)">羰基碳</n>，促使 <n class="color" style="color:var(--chem-indigo)">$\\text{C}{=}\\text{O}$ 的 $π$ 键</n>断裂，形成四面体中间体。
 
   :::
   {

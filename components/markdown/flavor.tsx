@@ -40,7 +40,10 @@ function MarkdownLink({ children, href, className, ...rest }: AnchorProps) {
 /** Overrides shared wherever flavored Markdown is rendered (no Glance). */
 export const FLAVOR_OVERRIDES = {
     a: { component: MarkdownLink },
-    Visualizer: { component: Visualizer },
+    Visualizer: {
+        component: Visualizer,
+        props: { canvasStyle: { backgroundColor: 'transparent' } },
+    },
     inlinemath: { component: Math },
     blockmath: { component: Math, props: { block: true } },
     Quiz: { component: Quiz },
