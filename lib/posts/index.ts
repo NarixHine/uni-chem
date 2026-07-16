@@ -15,7 +15,7 @@ export interface Post {
 const POSTS_LEVEL_EXAM: Post[] = [
     {
         slug: 'resonance',
-        title: '共振理论',
+        title: '电子离域与共振理论',
         excerpt:
             '为什么苯环可以画成单双键交替的凯库勒式，也可以画成一个圈？重新建构对电子云和共价键的认知。',
     },

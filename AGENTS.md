@@ -8,7 +8,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 <!-- BEGIN:project-agent-rules -->
 - Always use bun as the package manager.
-- Always use HeroUI v3 components where possible instead of HTML primitives.
+- Always use (already-styled) HeroUI v3 components where possible instead of HTML primitives.
 - Always write quality, clean, modular (but don't over do it, so always inline Tailwind), maintainable code.
 - Always place direct database access code in `/db`, and place service layer (`next-safe-actions`) in `/service`
 <!-- END:project-agent-rules -->
