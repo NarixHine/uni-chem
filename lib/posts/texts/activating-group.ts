@@ -1,5 +1,5 @@
 export const ACTIVATING_GROUP = `
-  苯环亲电取代反应（$\text{S}_\text{E}\text{Ar}$）的活性由苯环电子云密度决定。取代基通过**诱导效应**和**共振效应**影响电子分布，从而活化或钝化苯环。
+  苯环亲电取代反应（$\text{S}_\text{E}\text{Ar}$）的活性由苯环电子云密度决定。取代基通过**诱导效应**和**共轭效应**影响电子分布，从而活化或钝化苯环。
 
   在甲苯中，<ce style="color: var(--chem-amber);">$-\text{CH}_3$</ce> 仅具有给电子诱导效应（$+I$），它将电子推向苯环来活化苯环。
 
@@ -28,7 +28,7 @@ export const ACTIVATING_GROUP = `
   }
   :::
 
-  在硝基苯中，$-\text{NO}_2$ 具有强吸电子诱导效应（$-I$）和共振吸电子效应（$-M$），两效应方向一致。诱导效应下，苯环 $\\sigma$ 电子云被吸向硝基。共振效应下，苯环中的 $π$ 电子向 <ce style="color: var(--chem-indigo);">$\text{C}{-}\text{N}$</ce> 键和 <ce style="color: var(--chem-amber);">$\text{N}{=}\text{O}$</ce> 键转移，大幅降低环上的电子云密度，且使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带正电（正电荷在邻、对位间离域），因而钝化了苯环。
+  在硝基苯中，$-\text{NO}_2$ 具有强吸电子诱导效应（$-I$）和共轭吸电子效应（$-M$），两效应方向一致。诱导效应下，苯环 $\\sigma$ 电子云被吸向硝基。共轭效应下，苯环中的 $π$ 电子向 <ce style="color: var(--chem-indigo);">$\text{C}{-}\text{N}$</ce> 键和 <ce style="color: var(--chem-amber);">$\text{N}{=}\text{O}$</ce> 键转移，大幅降低环上的电子云密度，且使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带正电（正电荷在邻、对位间离域），因而钝化了苯环。
 
   :::
   {
@@ -92,7 +92,7 @@ export const ACTIVATING_GROUP = `
   }
   :::
 
-  在氯代苯中，$-\text{Cl}$ 存在诱导与共振的竞争。它通过 <ce style="color: var(--chem-green);">$\text{C}{-}\text{Cl}$</ce> 键表现出强烈的吸电子诱导效应（$-I$）。同时，<ce style="color: var(--chem-green);">氯原子的孤对电子</ce>微弱地共轭给电子（$+M$），使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带部分负电荷。由于氯的电负性极强，吸电子诱导效应强于共振给电子效应（$-I > +M$），整体表现为弱钝化。
+  在氯代苯中，$-\text{Cl}$ 存在诱导与共轭的竞争。它通过 <ce style="color: var(--chem-green);">$\text{C}{-}\text{Cl}$</ce> 键表现出强烈的吸电子诱导效应（$-I$）。同时，<ce style="color: var(--chem-green);">氯原子的孤对电子</ce>微弱地共轭给电子（$+M$），使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带部分负电荷。由于氯的电负性极强，吸电子诱导效应强于共轭给电子效应（$-I > +M$），整体表现为弱钝化。
 
   :::
   {
@@ -148,7 +148,7 @@ export const ACTIVATING_GROUP = `
   }
   :::
 
-  在苯酚中，虽然氧原子的电负性产生吸电子诱导效应，但其共振给电子效应极大。<ce style="color: var(--chem-amber);">氧原子的孤对电子</ce>能通过 <ce style="color: var(--chem-amber);">$\text{C}{-}\text{O}$</ce> 键与苯环强烈共振。由于共振效应远强于吸电子诱导效应（$+M > -I$），大量的电子云离域进入苯环，使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带上显著的负电荷，表现为强活化。
+  在苯酚中，虽然氧原子的电负性产生吸电子诱导效应，但其共轭给电子效应极大。<ce style="color: var(--chem-amber);">氧原子的孤对电子</ce>能通过 <ce style="color: var(--chem-amber);">$\text{C}{-}\text{O}$</ce> 键与苯环强烈共轭。由于共轭效应远强于吸电子诱导效应（$+M > -I$），大量的电子云离域进入苯环，使<ce style="color: var(--chem-blue);">邻位碳原子</ce>带上显著的负电荷，表现为强活化。
 
   :::
   {
@@ -204,7 +204,7 @@ export const ACTIVATING_GROUP = `
   }
   :::
 
-  简而言之，判断苯环活化与钝化需考虑主导效应。仅有 $+I$ 效应的烷基活化苯环。协同吸电子的硝基强钝化苯环。而对于诱导和共振相反的竞争型基团，由于氮、氧原子的共振给电子能力极强，使 $-\text{OH}$、$-\text{NH}_2$ 成为强活化基团；卤素的电负性极大且共振微弱，诱导占主导，使卤素成为弱钝化基团。苯环活性强弱顺序为：$-\text{NH}_2 > -\text{OH} > -\text{OR} > -\text{NHCOCH}_3 > -\text{R} > \text{H} > -\text{F} > -\text{Cl} > -\text{Br} > -\text{I} > -\text{COCH}_3 > -\text{CN} > -\text{NO}_2$。
+  简而言之，判断苯环活化与钝化需考虑主导效应。仅有 $+I$ 效应的烷基活化苯环。协同吸电子的硝基强钝化苯环。而对于诱导和共轭相反的竞争型基团，由于氮、氧原子的共轭给电子能力极强，使 $-\text{OH}$、$-\text{NH}_2$ 成为强活化基团；卤素的电负性极大且共轭微弱，诱导占主导，使卤素成为弱钝化基团。苯环活性强弱顺序为：$-\text{NH}_2 > -\text{OH} > -\text{OR} > -\text{NHCOCH}_3 > -\text{R} > \text{H} > -\text{F} > -\text{Cl} > -\text{Br} > -\text{I} > -\text{COCH}_3 > -\text{CN} > -\text{NO}_2$。
 
   ||| one A
   Q

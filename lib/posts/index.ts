@@ -27,13 +27,13 @@ const POSTS_LEVEL_EXAM: Post[] = [
     {
         slug: 'inductive-effect',
         title: '诱导效应',
-        excerpt: '除共振外，电负性差异是显著驱动电子偏移的另一重要因素。',
+        excerpt: '除共轭效应外，诱导效应是显著驱动电子偏移的另一重要因素。',
         text: INDUCTIVE_EFFECT_TEXT,
     },
     {
         slug: 'activating-group',
         title: '苯环取代基活化、钝化效应',
-        excerpt: '苯环取代基的诱导效应及共振效应影响苯环电子云密度，进而改变苯环发生反应的活性。',
+        excerpt: '苯环取代基的诱导效应及共轭效应影响苯环电子云密度，进而改变苯环发生反应的活性。',
         text: ACTIVATING_GROUP,
     },
     {
@@ -82,10 +82,15 @@ const POSTS_LEVEL_EXAM: Post[] = [
 ]
 
 const POSTS_BEYOND_GAOKAO: Post[] = [
+  {
+      slug: 'conjugation',
+      title: '共轭效应',
+      excerpt: '$π$ 电子或孤对电子可以与相邻 $p$ 轨道或 $π$ 键平行重叠，离域到体系中，使体系能量降低。',
+  },
     {
         slug: 'hyperconjugation',
         title: '超共轭效应',
-        excerpt: '$σ$ 键电子与相邻的空 $p$ 轨道或 $π$ 键发生部分重叠，使体系能量降低。',
+        excerpt: '$σ$ 键电子与相邻的空 $p$ 轨道、单电子 $p$ 轨道或 $π$ 键发生部分重叠，产生类似共轭效应的稳定效果。',
     },
     {
         slug: 'chair-conformation',
@@ -111,7 +116,7 @@ const POSTS_BEYOND_GAOKAO: Post[] = [
     {
         slug: 'carbanion-carbocation-stability',
         title: '碳正离子与碳负离子的稳定性',
-        excerpt: '碳正离子与碳负离子的稳定性受取代基的诱导效应与共振效应共同影响。',
+        excerpt: '碳正离子与碳负离子的稳定性受取代基的诱导效应与共轭效应共同影响。',
     },
     {
         slug: 'acidity-basicity',
