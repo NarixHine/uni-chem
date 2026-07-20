@@ -4,10 +4,11 @@ import { cn } from 'cnfast'
 import { Button } from '@heroui/react'
 import { Dock, DockIcon } from '@/components/ui/dock'
 import { useRouter } from 'next/navigation'
-import { ChatTeardropIcon, HouseSimpleIcon } from '@phosphor-icons/react'
+import { ChatTeardropIcon, HouseSimpleIcon, TriangleIcon } from '@phosphor-icons/react'
 
 const DOCK_ITEMS = [
     { label: 'Home', icon: HouseSimpleIcon, href: '/' },
+    { label: 'Solve', icon: TriangleIcon, href: '/solve' },
     { label: 'Ask', icon: ChatTeardropIcon, href: '/engage' },
 ]
 
