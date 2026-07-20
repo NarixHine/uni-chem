@@ -20,13 +20,13 @@ export const PROBLEMS: Problem[] = [
     因此，不属于 Lewis 碱的是 **A** 和 **B**。
 
     A
-    $\text{H}_2$
+    $\\text{H}_2$
     B
-    $\text{Ca}^{2+}$
+    $\\text{Ca}^{2+}$
     C
-    $\text{NH}_3$
+    $\\text{NH}_3$
     D
-    $\text{CN}^-$
+    $\\text{CN}^-$
     |||`,
     },
 ]

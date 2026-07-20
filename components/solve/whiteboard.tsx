@@ -148,6 +148,27 @@ export function Whiteboard({ className }: WhiteboardProps) {
         }
     }, [])
 
+    // Block iOS touch bleed (text selection, button taps) while a stroke is
+    // active. Pointer capture is unreliable on Safari; a document-level
+    // non-passive listener is the only reliable gate.
+    const drawingActiveRef = useRef(false)
+    useEffect(() => {
+        const prevent = (e: TouchEvent) => {
+            if (drawingActiveRef.current) e.preventDefault()
+        }
+        const gestureStart = (e: Event) => {
+            if (drawingActiveRef.current) e.preventDefault()
+        }
+        document.addEventListener('touchmove', prevent, { passive: false })
+        document.addEventListener('touchstart', prevent, { passive: false })
+        document.addEventListener('gesturestart', gestureStart)
+        return () => {
+            document.removeEventListener('touchmove', prevent)
+            document.removeEventListener('touchstart', prevent)
+            document.removeEventListener('gesturestart', gestureStart)
+        }
+    }, [])
+
     const toWorld = (e: React.PointerEvent): Point => {
         const rect = canvasRef.current!.getBoundingClientRect()
         const { x, y } = offsetRef.current
@@ -167,6 +188,7 @@ export function Whiteboard({ className }: WhiteboardProps) {
             const c = centroid(pointersRef.current)
             panRef.current = { x: c.x, y: c.y, kind: 'touch' }
             drawingRef.current = null
+            drawingActiveRef.current = false
             setPanning(true)
             return
         }
@@ -174,11 +196,13 @@ export function Whiteboard({ className }: WhiteboardProps) {
             e.preventDefault()
             panRef.current = { x: e.clientX, y: e.clientY, kind: 'middle' }
             drawingRef.current = null
+            drawingActiveRef.current = false
             setPanning(true)
             return
         }
         if (e.button !== 0 && e.pointerType === 'mouse') return
         e.preventDefault()
+        drawingActiveRef.current = true
         drawingRef.current = {
             points: [toWorld(e)],
             color: ink,
@@ -247,6 +271,7 @@ export function Whiteboard({ className }: WhiteboardProps) {
 
         const done = drawingRef.current
         drawingRef.current = null
+        drawingActiveRef.current = false
         if (done && done.points.length > 0) {
             const next = [...committedRef.current, done]
             committedRef.current = next

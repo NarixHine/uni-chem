@@ -23,7 +23,7 @@ export function SolveClient({ initialIndex }: { initialIndex: number }) {
     }
 
     return (
-        <div className='mx-auto flex h-svh w-full max-w-7xl flex-col-reverse overflow-hidden lg:flex-row'>
+        <div className='mx-auto flex h-svh w-full max-w-7xl select-none flex-col-reverse overflow-hidden lg:flex-row'>
             <section className='flex max-h-[55%] w-full shrink-0 flex-col overflow-y-auto lg:max-h-none lg:w-104 lg:shrink-0'>
                 <div className='mx-auto w-full max-w-xl px-5 pt-6 pb-24 lg:pt-10 lg:pb-10'>
                     <AnimatePresence mode='wait'>
