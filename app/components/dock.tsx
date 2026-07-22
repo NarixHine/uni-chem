@@ -8,7 +8,7 @@ import { ChatTeardropIcon, HouseSimpleIcon, TriangleIcon } from '@phosphor-icons
 
 const DOCK_ITEMS = [
     { label: 'Home', icon: HouseSimpleIcon, href: '/' },
-    { label: 'Solve', icon: TriangleIcon, href: '/solve' },
+    // { label: 'Solve', icon: TriangleIcon, href: '/solve' },
     { label: 'Ask', icon: ChatTeardropIcon, href: '/engage' },
 ]
 

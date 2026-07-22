@@ -4,6 +4,7 @@ import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
 import { INDUCTIVE_EFFECT_TEXT } from './texts/inductive-effect'
 import { LEWIS_THEORY } from './texts/lewis-theory'
+import { RESONANCE_TEXT } from './texts/resonance'
 
 export interface Post {
     slug: string
@@ -18,6 +19,7 @@ const POSTS_LEVEL_EXAM: Post[] = [
         title: '电子离域与共振理论',
         excerpt:
             '为什么苯环可以画成单双键交替的凯库勒式，也可以画成一个圈？重新建构对电子云和共价键的认知。',
+        text: RESONANCE_TEXT,
     },
     {
         slug: 'directing-group',
@@ -82,15 +84,17 @@ const POSTS_LEVEL_EXAM: Post[] = [
 ]
 
 const POSTS_BEYOND_GAOKAO: Post[] = [
-  {
-      slug: 'conjugation',
-      title: '共轭效应',
-      excerpt: '$π$ 电子或孤对电子可以与相邻 $p$ 轨道或 $π$ 键平行重叠，离域到体系中，使体系能量降低。',
-  },
+    {
+        slug: 'conjugation',
+        title: '共轭效应',
+        excerpt:
+            '$π$ 电子或孤对电子可以与相邻 $p$ 轨道或 $π$ 键平行重叠，离域到体系中，使体系能量降低。',
+    },
     {
         slug: 'hyperconjugation',
         title: '超共轭效应',
-        excerpt: '$σ$ 键电子与相邻的空 $p$ 轨道、单电子 $p$ 轨道或 $π$ 键发生部分重叠，产生类似共轭效应的稳定效果。',
+        excerpt:
+            '$σ$ 键电子与相邻的空 $p$ 轨道、单电子 $p$ 轨道或 $π$ 键发生部分重叠，产生类似共轭效应的稳定效果。',
     },
     {
         slug: 'chair-conformation',
