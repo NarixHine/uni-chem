@@ -5,6 +5,7 @@ import { PostAvatar } from '@/components/post-avatar'
 import { posts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
+import { EditPostButton } from '@/components/post-editor/edit-post-button'
 
 type LearnPageParams = Promise<{ slug: string }>
 
@@ -39,6 +40,9 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                     <h1 className='font-serif -mb-4 font-medium text-balance'>{title}</h1>
                 </div>
             </div>
+            <Suspense>
+                <EditPostButton slug={post.slug} />
+            </Suspense>
             <Markdown>{text}</Markdown>
             {next && <NextArticleButton href={`/learn/${next.slug}`} title={next.title} />}
         </article>
