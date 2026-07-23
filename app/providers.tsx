@@ -8,7 +8,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <NextThemesProvider attribute='class' enableSystem enableColorScheme>
             {children}
-            <Toast.Provider />
+            <Toast.Provider placement='top' />
         </NextThemesProvider>
     )
 }
