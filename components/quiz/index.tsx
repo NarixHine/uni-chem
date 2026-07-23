@@ -94,7 +94,7 @@ export function Quiz({ data, className }: QuizProps) {
             </Card.Header>
 
             <Card.Content>
-                <div className='dark:prose-invert prose prose-p:not-last:mb-2 prose-p:mt-0 prose-ol:px-4 prose-ol:my-0 prose-li:my-0 max-w-none'>
+                <div className='dark:prose-invert prose prose-p:not-last:mb-2 prose-p:mt-0 prose-ol:px-5 prose-ol:my-0 prose-li:my-0 max-w-none'>
                     <MiniMarkdown>{quiz.question}</MiniMarkdown>
                 </div>
             </Card.Content>
