@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
     return (
         <html
-            lang='en'
+            lang='zh-CN'
             className={`${dmSans.variable} ${songti.variable} ${geistMono.variable} ${newsreader.variable} ${heiti.variable} h-full antialiased`}
         >
             <body className='bg-background text-foreground min-h-full flex flex-col'>

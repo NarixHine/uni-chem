@@ -154,6 +154,17 @@
     overflow-wrap: anywhere;
 }
 
+/*
+  Restoring `display: inline` rejoins the Glance trigger to the
+  paragraph's inline flow: the trigger wraps between its inline children, and
+  CJK line-breaking rules apply across it again. Scoped to `.prose` so we only
+  affect Glance triggers rendered inside article Markdown.
+*/
+.prose .tooltip__trigger,
+.prose .popover__trigger {
+    display: inline !important;
+}
+
 @layer base {
     /* HeroUI Default Theme */
     :root {
