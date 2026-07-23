@@ -86,18 +86,15 @@ export function Quiz({ data, className }: QuizProps) {
     }
 
     return (
-        <Card
-            variant='transparent'
-            className={cn('not-prose my-8 rounded-lg p-0 shadow-none', className)}
-        >
+        <Card variant='transparent' className={cn('my-8 rounded-lg p-0 shadow-none', className)}>
             <Card.Header className='flex-row items-center gap-2'>
                 <Chip variant='secondary' className='rounded-lg'>
-                    {quiz.mode === 'one' ? '单选题' : '不定项（至少一个正确）'}
+                    {quiz.mode === 'one' ? '单选题' : `不定项（1~${quiz.options.length} 个正确）`}
                 </Chip>
             </Card.Header>
 
             <Card.Content>
-                <div className='dark:prose-invert prose max-w-none'>
+                <div className='dark:prose-invert prose prose-p:not-last:mb-2 prose-p:mt-0 prose-ol:px-4 prose-ol:my-0 prose-li:my-0 max-w-none'>
                     <MiniMarkdown>{quiz.question}</MiniMarkdown>
                 </div>
             </Card.Content>
@@ -146,7 +143,7 @@ export function Quiz({ data, className }: QuizProps) {
                             >
                                 {showMissed ? '漏' : opt.letter}
                             </span>
-                            <div className='prose dark:prose-invert text-wrap prose-sm max-w-none flex-1 text-left'>
+                            <div className='text-wrap not-prose max-w-none flex-1 text-left'>
                                 <OptionMarkdown>{opt.content}</OptionMarkdown>
                             </div>
                         </Button>
@@ -172,7 +169,7 @@ export function Quiz({ data, className }: QuizProps) {
                                 <span className='text-sm font-bold tracking-wider text-muted'>
                                     解析
                                 </span>
-                                <div className='prose dark:prose-invert max-w-none'>
+                                <div className='prose dark:prose-invert prose-p:not-last:mb-2 prose-p:mt-0 prose-ol:px-4 prose-ol:my-0 prose-li:my-0 max-w-none'>
                                     <MiniMarkdown>{quiz.explanation}</MiniMarkdown>
                                 </div>
                             </div>
