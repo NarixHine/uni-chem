@@ -45,8 +45,7 @@ export function TiptapEditor({ initialMarkdown, onMarkdown }: TiptapEditorProps)
         content: initialMarkdown,
         editorProps: {
             attributes: {
-                class:
-                    'prose dark:prose-invert prose-lg max-w-none min-h-[65vh] focus:outline-none',
+                class: 'prose dark:prose-invert prose-lg max-w-none min-h-[65vh] focus:outline-none',
             },
         },
         onUpdate({ editor }) {
@@ -58,9 +57,7 @@ export function TiptapEditor({ initialMarkdown, onMarkdown }: TiptapEditorProps)
     return (
         <div className='relative flex min-h-0 flex-1 flex-col'>
             <EditorBubbleMenu editor={editor} />
-            <div className='flex-1 py-8'>
-                <EditorContent editor={editor} />
-            </div>
+            <EditorContent editor={editor} />
         </div>
     )
 }

@@ -100,7 +100,13 @@ const BlockMath = Node.create({
 
     addAttributes() {
         return {
-            expr: { default: '', parseHTML: el => el.textContent ?? '' },
+            expr: {
+                default: '',
+                parseHTML: el => el.getAttribute('data-expr') ?? el.textContent ?? '',
+                renderHTML: attrs => ({
+                    'data-expr': (attrs as { expr?: string }).expr ?? '',
+                }),
+            },
         }
     },
 
@@ -200,7 +206,13 @@ const InlineMath = Node.create({
 
     addAttributes() {
         return {
-            expr: { default: '', parseHTML: el => el.textContent ?? '' },
+            expr: {
+                default: '',
+                parseHTML: el => el.getAttribute('data-expr') ?? el.textContent ?? '',
+                renderHTML: attrs => ({
+                    'data-expr': (attrs as { expr?: string }).expr ?? '',
+                }),
+            },
         }
     },
 
