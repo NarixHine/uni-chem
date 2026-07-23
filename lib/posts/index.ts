@@ -148,5 +148,5 @@ export interface PostSection {
 
 export const postSections: PostSection[] = [
     { subtitle: '等级考探微', posts: POSTS_LEVEL_EXAM },
-    { subtitle: '走向大学', posts: POSTS_BEYOND_GAOKAO },
+    { subtitle: '走向强基', posts: POSTS_BEYOND_GAOKAO },
 ]
