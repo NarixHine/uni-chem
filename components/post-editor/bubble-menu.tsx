@@ -13,15 +13,18 @@ import {
     DropIcon,
 } from '@phosphor-icons/react'
 import cn from 'cnfast'
+import { useRef } from 'react'
 
-// Chemistry palette — mirrors --chem-* tokens in globals.css.
+// Chemistry palette — mirrors --chem-* tokens in globals.css. The `value`
+// is the full inline-style declaration (`color:var(--chem-*)`) so it matches
+// the flavored source's `<ce style="…">` format byte-for-byte.
 const COLORS: Array<{ label: string; value: string; swatch: string }> = [
-    { label: 'Blue', value: 'var(--chem-blue)', swatch: '#0077b6' },
-    { label: 'Rust', value: 'var(--chem-rust)', swatch: '#c63a00' },
-    { label: 'Green', value: 'var(--chem-green)', swatch: '#548c2f' },
-    { label: 'Amber', value: 'var(--chem-amber)', swatch: '#fa7800' },
-    { label: 'Crimson', value: 'var(--chem-crimson)', swatch: '#dd2d4a' },
-    { label: 'Indigo', value: 'var(--chem-indigo)', swatch: '#4300fb' },
+    { label: 'Blue', value: 'color:var(--chem-blue)', swatch: '#0077b6' },
+    { label: 'Rust', value: 'color:var(--chem-rust)', swatch: '#c63a00' },
+    { label: 'Green', value: 'color:var(--chem-green)', swatch: '#548c2f' },
+    { label: 'Amber', value: 'color:var(--chem-amber)', swatch: '#fa7800' },
+    { label: 'Crimson', value: 'color:var(--chem-crimson)', swatch: '#dd2d4a' },
+    { label: 'Indigo', value: 'color:var(--chem-indigo)', swatch: '#4300fb' },
 ]
 
 function IconBtn({
@@ -51,6 +54,11 @@ function IconBtn({
 }
 
 export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
+    // Snapshot the editor's text selection before the Dropdown popover captures
+    // focus. Must be declared before the early `return null` so hook order is
+    // stable across renders.
+    const selRef = useRef<{ from: number; to: number } | null>(null)
+
     if (!editor) return null
 
     const setLink = () => {
@@ -59,6 +67,27 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
         if (url === null) return
         if (url === '') editor.chain().focus().unsetLink().run()
         else editor.chain().focus().setLink({ href: url }).run()
+    }
+
+    // The Dropdown popover captures focus while open, which collapses the
+    // editor's text selection by the time `onAction` fires — so `setMark`
+    // would only set a pending mark (no visible color). Snapshot the range on
+    // trigger press and restore it before applying the color.
+    const snapshotSel = () => {
+        const { from, to, empty } = editor.state.selection
+        if (!empty) selRef.current = { from, to }
+    }
+    const applyCe = (value: string) => {
+        const sel = selRef.current
+        const chain = editor.chain().focus()
+        if (sel) chain.setTextSelection(sel)
+        chain.setCe(value).run()
+    }
+    const clearCe = () => {
+        const sel = selRef.current
+        const chain = editor.chain().focus()
+        if (sel) chain.setTextSelection(sel)
+        chain.unsetCe().run()
     }
 
     return (
@@ -134,6 +163,7 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
                     size='sm'
                     variant='outline'
                     aria-label='Color'
+                    onPress={snapshotSel}
                     className={cn(
                         editor.isActive('ce') ? 'text-accent' : 'text-default-400',
                         'backdrop-blur bg-background/50',
@@ -143,10 +173,9 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
                 </Button>
                 <Dropdown.Popover placement='bottom'>
                     <Dropdown.Menu
-                        selectionMode='single'
-                        selectedKeys={[editor.getAttributes('ce').style]}
                         onAction={key => {
-                            editor.chain().focus().setCe(String(key)).run()
+                            if (key === '__unset__') clearCe()
+                            else applyCe(String(key))
                         }}
                     >
                         {COLORS.map(c => (
@@ -160,12 +189,7 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
                                 </span>
                             </Dropdown.Item>
                         ))}
-                        <Dropdown.Item
-                            id='__unset__'
-                            textValue='Remove color'
-                            variant='danger'
-                            onAction={() => editor.chain().focus().unsetCe().run()}
-                        >
+                        <Dropdown.Item id='__unset__' textValue='Remove color' variant='danger'>
                             Remove color
                         </Dropdown.Item>
                     </Dropdown.Menu>
