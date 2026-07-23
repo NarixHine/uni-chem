@@ -4,24 +4,87 @@ import { Node, mergeAttributes } from '@tiptap/core'
 import { NodeViewWrapper, ReactNodeViewRenderer, type ReactNodeViewProps } from '@tiptap/react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
+import { useRef, useState } from 'react'
 import type MarkdownIt from 'markdown-it'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline'
 import type Token from 'markdown-it/lib/token'
 import type { MarkdownSerializerState } from 'prosemirror-markdown'
 import type { Node as PMNode } from 'prosemirror-model'
 
+declare module '@tiptap/core' {
+    interface Commands<ReturnType> {
+        math: {
+            /** Insert an inline math node (`$…$`) with an optional seed expr. */
+            insertInlineMath: (expr?: string) => ReturnType
+            /** Insert a block math node (`$$…$$`) with an optional seed expr. */
+            insertBlockMath: (expr?: string) => ReturnType
+        }
+    }
+}
+
 // -- KaTeX NodeView (shared by inline + block) --------------------------------
 
-function MathView({ node, extension }: ReactNodeViewProps) {
+function MathView({ node, extension, updateAttributes, selected }: ReactNodeViewProps) {
     const expr = (node.attrs.expr as string) ?? ''
     const block = extension.name === 'blockmath'
+    const [editing, setEditing] = useState(false)
+    const inputRef = useRef<HTMLTextAreaElement>(null)
+
     const html = katex.renderToString(expr.replaceAll('\\\\', '\\'), {
         displayMode: block,
         throwOnError: false,
     })
+
+    const commit = () => {
+        const next = inputRef.current?.value ?? ''
+        updateAttributes({ expr: next })
+        setEditing(false)
+    }
+
     return (
         <NodeViewWrapper as={block ? 'div' : 'span'} className={block ? 'my-4' : ''}>
-            <span dangerouslySetInnerHTML={{ __html: html }} />
+            {editing ? (
+                <textarea
+                    ref={inputRef}
+                    defaultValue={expr}
+                    onBlur={commit}
+                    onKeyDown={e => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault()
+                            commit()
+                        }
+                        if (e.key === 'Escape') {
+                            e.preventDefault()
+                            setEditing(false)
+                        }
+                    }}
+                    autoFocus
+                    rows={block ? 2 : 1}
+                    className={
+                        'w-full resize-none rounded-[4px] border border-border bg-background px-2 py-1 font-mono text-sm focus:outline-none ' +
+                        (block ? '' : 'inline-block w-auto min-w-32')
+                    }
+                />
+            ) : (
+                <span
+                    onClick={() => {
+                        setEditing(true)
+                    }}
+                    className={
+                        'inline-block cursor-text rounded-[2px] ' +
+                        (selected ? 'ring-1 ring-foreground/30' : '')
+                    }
+                    title='Click to edit math'
+                >
+                    {expr ? (
+                        <span dangerouslySetInnerHTML={{ __html: html }} />
+                    ) : (
+                        <span className='font-mono text-sm text-default-400'>
+                            {block ? 'block math' : 'math'}
+                        </span>
+                    )}
+                </span>
+            )}
         </NodeViewWrapper>
     )
 }
@@ -51,6 +114,15 @@ const BlockMath = Node.create({
 
     addNodeView() {
         return ReactNodeViewRenderer(MathView)
+    },
+
+    addCommands() {
+        return {
+            insertBlockMath:
+                (expr = '') =>
+                ({ commands }) =>
+                    commands.insertContent({ type: this.name, attrs: { expr } }),
+        }
     },
 
     addStorage() {
@@ -142,6 +214,15 @@ const InlineMath = Node.create({
 
     addNodeView() {
         return ReactNodeViewRenderer(MathView)
+    },
+
+    addCommands() {
+        return {
+            insertInlineMath:
+                (expr = '') =>
+                ({ commands }) =>
+                    commands.insertContent({ type: this.name, attrs: { expr } }),
+        }
     },
 
     addStorage() {

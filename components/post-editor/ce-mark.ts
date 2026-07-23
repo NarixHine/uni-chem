@@ -11,6 +11,19 @@ import type { Mark as PMMark } from 'prosemirror-model'
 // inline style. Serialization emits the original <ce style="…">…</ce> wrapper
 // so the copy output is byte-identical to the flavored source.
 
+declare module '@tiptap/core' {
+    interface Commands<ReturnType> {
+        ce: {
+            /** Wrap the current selection in a <ce> tag with the given style. */
+            setCe: (style: string) => ReturnType
+            /** Remove any <ce> wrapper from the current selection. */
+            unsetCe: () => ReturnType
+            /** Toggle a <ce> wrapper of the given style on the selection. */
+            toggleCe: (style: string) => ReturnType
+        }
+    }
+}
+
 export const CeMark = Mark.create({
     name: 'ce',
     inclusive: true,
@@ -32,6 +45,23 @@ export const CeMark = Mark.create({
 
     renderHTML({ HTMLAttributes }) {
         return ['ce', mergeAttributes(HTMLAttributes)]
+    },
+
+    addCommands() {
+        return {
+            setCe:
+                (style: string) =>
+                ({ commands }) =>
+                    commands.setMark(this.name, { style }),
+            unsetCe:
+                () =>
+                ({ commands }) =>
+                    commands.unsetMark(this.name),
+            toggleCe:
+                (style: string) =>
+                ({ commands }) =>
+                    commands.toggleMark(this.name, { style }),
+        }
     },
 
     addStorage() {

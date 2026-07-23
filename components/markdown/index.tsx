@@ -25,7 +25,14 @@ export function Markdown({
     result = preprocessFlavor(result)
 
     return (
-        <div className={cn('prose dark:prose-invert prose-lg', className)} {...props}>
+        <div
+            className={cn(
+                'prose dark:prose-invert prose-lg',
+                'prose-blockquote:prose-p:before:content-none prose-blockquote:prose-p:after:content-none prose-blockquote:not-italic',
+                className,
+            )}
+            {...props}
+        >
             <MarkdownToJSX
                 options={{
                     overrides: {

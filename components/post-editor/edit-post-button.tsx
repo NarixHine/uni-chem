@@ -9,19 +9,15 @@ export function EditPostButton({ slug }: { slug: string }) {
     const { data: session } = authClient.useSession()
     if (session?.user?.role !== 'admin') return null
     return (
-        <div className='prose dark:prose-invert pb-3 -ml-2'>
-            <div className='flex justify-start'>
-                <Button
-                    render={props => (
-                        <Link href={`/admin/editor/${slug}`} {...(props as object)} />
-                    )}
-                    variant='ghost'
-                    size='sm'
-                >
-                    <PencilSimpleIcon className='size-4' weight='bold' />
-                    Open in editor
-                </Button>
-            </div>
+        <div className='flex justify-start -ml-2'>
+            <Button
+                render={props => <Link href={`/admin/editor/${slug}`} {...(props as object)} />}
+                variant='ghost'
+                size='sm'
+            >
+                <PencilSimpleIcon className='size-4' weight='bold' />
+                Open in editor
+            </Button>
         </div>
     )
 }
