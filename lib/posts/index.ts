@@ -1,6 +1,7 @@
 import { ACTIVATING_GROUP } from './texts/activating-group'
 import { ALDOL_CONDENSATION_TEXT } from './texts/aldol-condensation'
 import { CLAISEN_CONDENSATION_TEXT } from './texts/claisen-condensation'
+import { DIRECTING_GROUP_TEXT } from './texts/directing-group'
 import { ESTERIFICATION_TEXT } from './texts/esterification'
 import { INDUCTIVE_EFFECT_TEXT } from './texts/inductive-effect'
 import { LEWIS_THEORY } from './texts/lewis-theory'
@@ -25,6 +26,7 @@ const POSTS_LEVEL_EXAM: Post[] = [
         slug: 'directing-group',
         title: '苯环取代基定位效应',
         excerpt: '用共振理论解释高中阶段常见取代基的定位效应。',
+        text: DIRECTING_GROUP_TEXT,
     },
     {
         slug: 'inductive-effect',
