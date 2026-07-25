@@ -1,5 +1,5 @@
 export const DIRECTING_GROUP_TEXT = `
-我们在课内学习过苯酚与浓溴水反应生成 $2,4,6\\text{-}$三溴苯酚的实验：
+我们在课内学习过苯酚与浓溴水反应生成 $2,4,6\text{-}$三溴苯酚的实验：
 
 :::
 {
@@ -51,9 +51,9 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-对比苯与 $\\text{Br}_2$ 在 $\\text{Fe}\\text{Br}_3$ 催化下生成一溴代苯，苯酚在常温下就能发生三取代，且溴原子只取代于羟基的<ce style="color: var(--chem-rust);">邻位</ce>和<ce style="color: var(--chem-amber);">对位</ce>。这表明侧链取代基会影响苯环性质。取代基影响后续取代反应发生位置的规律，被称为**定位效应**。
+对比苯与 $\text{Br}_2$ 在 $\text{Fe}\text{Br}_3$ 催化下生成一溴代苯，苯酚在常温下就能发生三取代，且溴原子只取代于羟基的<ce style="color: var(--chem-rust);">邻位</ce>和<ce style="color: var(--chem-amber);">对位</ce>。这表明侧链取代基会影响苯环性质。取代基影响后续取代反应发生位置的规律，被称为**定位效应**。
 
-为了分析定位效应的机理，我们先介绍大多数苯环发生的反应的实质。我们已经在课内学过，苯环上的每个碳都是 $sp^2$ 杂化。苯环中所有碳原子共面，且都有一个垂直于六元环平面、含一个电子的 $p$ 轨道，六个 $p$ 电子形成了大 $\\pi$ 键，也就是我们常画的六元环里的“圆圈”。
+为了分析定位效应的机理，我们先介绍大多数苯环发生的反应的实质。我们已经在课内学过，苯环上的每个碳都是 $sp^2$ 杂化。苯环中所有碳原子共面，且都有一个垂直于六元环平面、含一个电子的 $p$ 轨道，六个 $p$ 电子形成了大 $\pi$ 键，也就是我们常画的六元环里的“圆圈”。
 
 苯环富含电子，有吸引带正电、缺电子试剂而排斥带负电、富电子试剂的倾向。因此，我们学习的芳香反应中，与苯环反应的基本都是亲电试剂。芳香亲电反应的实质是**亲电试剂进攻苯环电子云密集区域的反应**。
 
@@ -61,7 +61,7 @@ export const DIRECTING_GROUP_TEXT = `
 
 那么，定位基是如何改变特定位置电子云密度的？为什么邻位定位效应和对位定位效应总是合在一起说？我们可以用共振理论来解答这些问题。
 
-下面先以邻对位定位基 $ {-}\\text{OH}$ 为例讲解。
+下面先以邻对位定位基 $ {-}\text{OH}$ 为例讲解。
 
 :::
 {
@@ -113,7 +113,7 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-苯酚中，<ce style="color: var(--chem-blue);">氧原子</ce>上带有两对孤对电子，其中一对可以向 $\\text{C}{-}\\text{O}$ 键离域。为了维持与氧相连的碳原子满足八隅体规则，苯环内的 $\\pi$ 电子转移到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上，形成<ce style="color: var(--chem-rust);">邻位碳原子</ce>带有负电荷的共振结构。
+苯酚中，<ce style="color: var(--chem-blue);">氧原子</ce>上带有两对孤对电子，其中一对可以向 $\text{C}{-}\text{O}$ 键离域。为了维持与氧相连的碳原子满足八隅体规则，苯环内的 $\pi$ 电子转移到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上，形成<ce style="color: var(--chem-rust);">邻位碳原子</ce>带有负电荷的共振结构。
 
 这就是羟基的邻位定位机理。
 
@@ -169,7 +169,7 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-<ce style="color: var(--chem-rust);">邻位碳原子</ce>的孤对电子转移到如图所示共价键上，另一成键的碳原子为了维持八隅体，$\\pi$ 键电子转移到了<ce style="color: var(--chem-amber);">对位碳原子</ce>上，成为其孤对电子。
+<ce style="color: var(--chem-rust);">邻位碳原子</ce>的孤对电子转移到如图所示共价键上，另一成键的碳原子为了维持八隅体，$\pi$ 键电子转移到了<ce style="color: var(--chem-amber);">对位碳原子</ce>上，成为其孤对电子。
 
 在实际的共振杂化体中，<ce style="color: var(--chem-rust);">邻位</ce>与<ce style="color: var(--chem-amber);">对位</ce>积累了额外的电子云密度。因此，试剂主要进攻这两个带部分负电荷的位置。
 
@@ -225,7 +225,7 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-氯苯 $\\text{C}_6\\text{H}_5\\text{Cl}$ 中的<ce style="color: var(--chem-green);">氯原子</ce>拥有三对孤对电子。其中一对孤对电子可以向 $\\text{C}{-}\\text{Cl}$ 键方向离域。与氯相连的碳原子需要保持八隅体，于是苯环电子发生转移，使负电荷落到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上。
+氯苯 $\text{C}_6\text{H}_5\text{Cl}$ 中的<ce style="color: var(--chem-green);">氯原子</ce>拥有三对孤对电子。其中一对孤对电子可以向 $\text{C}{-}\text{Cl}$ 键方向离域。与氯相连的碳原子需要保持八隅体，于是苯环电子发生转移，使负电荷落到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上。
 
 :::
 {
@@ -277,11 +277,15 @@ export const DIRECTING_GROUP_TEXT = `
 
 因此，在氯苯的共振结构中，<ce style="color: var(--chem-rust);">邻位</ce>与<ce style="color: var(--chem-amber);">对位</ce>同样积累了较高的电子云密度，取代反应容易在这两个位置发生。
 
-当与苯环直接相连的原子上没有孤对电子，而带有正电荷或部分正电荷时，电子流动方向会发生逆转：苯环内部的电子会被拉向取代基方向。这样的取代基为间位取代基。
+类似地，甲基、乙基等烷基也表现为邻对位定位效应，只是负电荷在邻位堆积的原因是超共轭效应而非共轭效应，详见[「超共轭效应」](/learn/hyperconjugation)。
 
-先以苯甲酸 $\\text{C}_6\\text{H}_5\\text{COOH}$ 为例。
+现在我们讨论间位取代基。
 
-由于<ce style="color:var(--chem-crimson)">氧原子</ce>电负性大，$\\text{C}{=}\\text{O}$ 共用电子对偏向<ce style="color:var(--chem-crimson)">氧</ce>，使碳原子带有部分正电荷，可以吸引电子。
+当与苯环直接相连的原子上没有孤对电子，而带有正电荷或部分正电荷时，电子流动方向会发生逆转：苯环内部的电子会被拉向取代基方向。
+
+先以苯甲酸 $\text{C}_6\text{H}_5\text{COOH}$ 为例。
+
+由于<ce style="color:var(--chem-crimson)">氧原子</ce>电负性大，$\text{C}{=}\text{O}$ 共用电子对偏向<ce style="color:var(--chem-crimson)">氧</ce>，使碳原子带有部分正电荷，可以吸引电子。
 
 :::
 {
@@ -341,7 +345,7 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-<ce style="color: var(--chem-crimson);">羰基</ce>将苯环的电子拉出，苯环上的双键转移为羰基碳与苯环间的双键，导致<ce style="color: var(--chem-rust);">邻位碳原子</ce>失去电子而带上 $+1$ 的形式电荷。$\\text{C}{=}\\text{O}$ 的 $\\pi$ 键电子转移为氧的孤对电子。
+<ce style="color: var(--chem-crimson);">羰基</ce>将苯环的电子拉出，苯环上的双键转移为羰基碳与苯环间的双键，导致<ce style="color: var(--chem-rust);">邻位碳原子</ce>失去电子而带上 $+1$ 的形式电荷。$\text{C}{=}\text{O}$ 的 $\pi$ 键电子转移为氧的孤对电子。
 
 <ce style="color: var(--chem-rust);">邻位碳原子</ce>上的正电荷继续离域。
 
@@ -402,23 +406,11 @@ export const DIRECTING_GROUP_TEXT = `
 }
 :::
 
-<ce style="color: var(--chem-amber);">对位碳</ce>的 $\\pi$ 键转移为<ce style="color: var(--chem-rust);">邻位</ce>与间位之间，抵消了<ce style="color: var(--chem-rust);">邻位碳</ce>的形式电荷，使得<ce style="color: var(--chem-amber);">对位碳原子</ce>带上 $+1$ 的形式电荷。
+<ce style="color: var(--chem-amber);">对位碳</ce>的 $\pi$ 键转移为<ce style="color: var(--chem-rust);">邻位</ce>与间位之间，抵消了<ce style="color: var(--chem-rust);">邻位碳</ce>的形式电荷，使得<ce style="color: var(--chem-amber);">对位碳原子</ce>带上 $+1$ 的形式电荷。
 
 故而共振杂化体<ce style="color: var(--chem-rust);">邻位</ce>和<ce style="color: var(--chem-amber);">对位</ce>均表现为带部分正电荷，而<ce style="color: var(--chem-indigo);">间位碳原子</ce>相对电子云密度更高，因而取代反应主要发生在<ce style="color: var(--chem-indigo);">间位</ce>。
 
-硝基苯中的<ce style="color: var(--chem-crimson);">硝基</ce>也是间位定位基。$\\text{N}$ 原子带 $+1$ 的形式电荷。
-
-<ce style="color: var(--chem-indigo);">氧原子</ce>强烈吸引电子，驱动
-
-        
-N=O
-N=O
-
-      
-
-双键的电子向<ce style="color: var(--chem-indigo);">氧原子</ce>转移，同时将苯环内部的电子向外拉扯至<ce style="color: var(--chem-crimson);">氮原子</ce>处。
-
-苯环电子被向外抽取后，<ce style="color: var(--chem-rust);">邻位碳原子</ce>失去部分电子，带上正电荷。
+硝基苯中的<ce style="color: var(--chem-crimson);">硝基</ce>也是间位定位基。$\text{N}$ 原子带 $+1$ 的形式电荷。
 
 :::
 {
@@ -474,7 +466,7 @@ N=O
 }
 :::
 
-紧接着，<ce style="color: var(--chem-rust);">邻位碳原子</ce>上的正电荷通过苯环双键的重新排列继续离域，转移到<ce style="color: var(--chem-amber);">对位碳原子</ce>上。
+<ce style="color: var(--chem-indigo);">氧原子</ce>吸引电子，驱动双键的电子转移为<ce style="color: var(--chem-indigo);">氧原子</ce>孤对电子，同时将苯环内部的电子牵引至<ce style="color: var(--chem-crimson);">氮原子</ce>处。<ce style="color: var(--chem-rust);">邻位碳原子</ce>失去部分电子，带上正电荷。
 
 :::
 {
@@ -529,10 +521,12 @@ N=O
 }
 :::
 
-这样一来，硝基苯的<ce style="color: var(--chem-rust);">邻位</ce>与<ce style="color: var(--chem-amber);">对位</ce>均处于带正电荷的缺电子状态。相比之下，未出现正电荷的<ce style="color: var(--chem-green);">间位碳原子</ce>电子云密度相对更高，促使新的取代反应主要发生在<ce style="color: var(--chem-green);">间位</ce>。
-甲苯（$\\text{C}_6\\text{H}_5\\text{-CH}_3$）、乙苯（$\\text{C}_6\\text{H}_5\\text{-C}_2\\text{H}_5$）等烷基苯也同样表现为邻对位定位效应。
+<ce style="color: var(--chem-rust);">邻位碳原子</ce>上的正电荷通过苯环双键的重新排列继续离域，转移到<ce style="color: var(--chem-amber);">对位碳原子</ce>上。
 
-但是，甲基（$\\text{-CH}_3$）既无孤对电子，也无不饱和键，因此无法按照经典共振理论写出带电荷的苯环共振结构。
+这样一来，硝基苯的<ce style="color: var(--chem-rust);">邻位</ce>与<ce style="color: var(--chem-amber);">对位</ce>均处于带正电荷的缺电子状态。相比之下，间位碳原子电子云密度更高，促使新的取代反应主要发生在间位。
 
-烷基影响苯环电子分布的原因，涉及单键之间的电子相互作用机制，我们将在下一节进行专门剖析。
+下面列出常见取代基的定位效应。
+
+* 邻对位取代基：$-\\text{NH}_2$，$-\\text{OH}$，$-\\text{NHCOR}$，$-\\text{CH}_3$，$-\\text{X}$
+* 间位取代基：$-\\text{NO}_2$，$-\\text{CN}$，$-\\text{CHO}$，$-\\text{COOH}$，$-\\text{CONR}_2$，$-\\text{NH}_3^+$
 `
