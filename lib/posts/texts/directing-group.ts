@@ -54,9 +54,7 @@ export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水�
 
 高中化学教科书中介绍了上述现象，即**取代基定位效应**。
 
-![取代基定位效应](/assets/directing-group.webp)
-
-教科书仅仅指出了这一现象，并直接给出了羟基、卤原子等为邻对位取代基而羧基、硝基等为间位取代基，本文则试图为其提供浅易的解释。
+![取代基定位效应](/assets/directing-group.webp)教科书仅仅指出了这一现象，并直接给出了羟基、卤原子等为邻对位取代基而羧基、硝基等为间位取代基，本文则试图为其提供浅易的解释。
 
 为了分析定位效应的机理，我们先介绍大多数苯环发生的反应的实质。我们已经在课内学过，苯环上的每个碳都是 $sp^2$ 杂化。苯环中所有碳原子共面，且都有一个垂直于六元环平面、含一个电子的 $p$ 轨道，六个 $p$ 电子形成了大 $\\pi$ 键，也就是我们画的六元环里的“圆圈”。
 
@@ -118,7 +116,7 @@ export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水�
 }
 :::
 
-苯酚中，<ce style="color: var(--chem-blue);">氧原子</ce>上带有两对孤对电子，其中一对可以向 $\\text{C}{-}\\text{O}$ 键离域。为了维持与氧相连的碳原子满足八隅体规则，苯环内的 $\\pi$ 电子转移到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上，形成<ce style="color: var(--chem-rust);">邻位碳原子</ce>带有负电荷的共振结构。
+苯酚中，<ce style="color: var(--chem-blue);">氧原子</ce>上带有两对孤对电子，其中一对可以向 $\\text{C}{-}\\text{O}$ 键离域。为了维持与氧相连的碳原子满足八隅体规则，苯环内的 $\\pi$ 电子转移到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上，形成<ce style="color: var(--chem-rust);">邻位碳原子</ce>带有 $-1$ 形式电荷的共振结构，<ce style="color: var(--chem-rust);">邻位</ce>成为亲电取代位点。
 
 这就是羟基的邻位定位机理。
 
@@ -230,7 +228,7 @@ export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水�
 }
 :::
 
-氯苯 $\\text{C}_6\\text{H}_5\\text{Cl}$ 中的<ce style="color: var(--chem-green);">氯原子</ce>拥有三对孤对电子。其中一对孤对电子可以向 $\\text{C}{-}\\text{Cl}$ 键方向离域。与氯相连的碳原子需要保持八隅体，于是苯环电子发生转移，使负电荷落到<ce style="color: var(--chem-rust);">邻位碳原子</ce>上。
+氯苯 $\\text{C}_6\\text{H}_5\\text{Cl}$ 中的<ce style="color: var(--chem-green);">氯原子</ce>拥有三对孤对电子。其中一对孤对电子可以向 $\\text{C}{-}\\text{Cl}$ 键方向离域。与氯相连的碳原子需要保持八隅体，于是苯环电子发生转移，成为<ce style="color: var(--chem-rust);">邻位碳原子</ce>上的孤对电子，形成<ce style="color: var(--chem-rust);">邻位</ce>带有 $-1$ 的形式电荷的极限结构。
 
 :::
 {
@@ -540,6 +538,7 @@ export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水�
 定位效应主要是**电子效应**，所以通常给（吸）电子能力强的基团定位效应更强。带负电荷的取代基，如 \${-}\\text{O}^-$，具有很强的邻对位定位效应。类似地，带正电荷的 $-\\text{NH}_3^+$ 具有很强的间位定位效应。除了电子效应，有时**空间位阻**也会影响取代位点。读者可以思考：原子电负性又会对取代基定位效应强弱有怎样的影响？
 
 以下是一些例题。
+
 
 ||| one C
 Q
@@ -883,6 +882,6 @@ C
     ]
   }]
 }
-::: 
+:::
 |||
 `

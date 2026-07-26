@@ -10,6 +10,7 @@ import { Chemdoodle } from './chemdoodle-node'
 import { MathExtensions } from './math-node'
 import { CeMark } from './ce-mark'
 import { ImageNode } from './image-node'
+import { QuizNode } from './quiz-node'
 
 // The `Markdown` extension augments `editor.storage` with a `markdown` slot,
 // but the runtime types don't carry it — declare a minimal view here so the
@@ -47,6 +48,7 @@ export function TiptapEditor({ initialMarkdown, onMarkdown }: TiptapEditorProps)
             CeMark,
             ...MathExtensions,
             Chemdoodle,
+            QuizNode,
         ],
         content: initialMarkdown,
         editorProps: {

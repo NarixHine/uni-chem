@@ -12,6 +12,7 @@ import {
     FunctionIcon,
     DropIcon,
     ImageIcon,
+    ListChecksIcon,
 } from '@phosphor-icons/react'
 import cn from 'cnfast'
 import { useRef } from 'react'
@@ -103,7 +104,7 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
         <BubbleMenu
             editor={editor}
             shouldShow={({ editor: ed, state, from, to }) =>
-                from !== to && !ed.isActive('chemdoodle') && !state.selection.empty
+                from !== to && !ed.isActive('chemdoodle') && !ed.isActive('quiz') && !state.selection.empty
             }
             options={{ offset: 8, placement: 'top' }}
             className='flex items-center gap-0.5'
@@ -150,6 +151,12 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
             <div className='mx-0.5 h-5 w-px bg-border' />
 
             <ButtonGroup size='sm' variant='outline' className={'backdrop-blur rounded-full bg-background/50'}>
+                <IconBtn
+                    active={editor.isActive('quiz')}
+                    Icon={ListChecksIcon}
+                    onClick={() => editor.chain().focus().insertQuiz().run()}
+                    label='Insert quiz'
+                />
                 <IconBtn
                     active={editor.isActive('inlinemath')}
                     Icon={FunctionIcon}
