@@ -30,7 +30,10 @@ const overrides = {
 const optionOverrides = {
     Visualizer: {
         component: Visualizer,
-        props: { canvasStyle: { backgroundColor: 'transparent' } },
+        props: {
+            canvasStyle: { backgroundColor: 'transparent' },
+            fitPadding: 6,
+        },
     },
     inlinemath: { component: Math },
     blockmath: { component: Math, props: { block: true } },

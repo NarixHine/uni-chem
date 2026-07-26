@@ -2,7 +2,7 @@
 
 import 'katex/dist/katex.min.css'
 import cn from 'cnfast'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 export interface VisualizerProps {
     mol: CDContent
@@ -14,6 +14,13 @@ export interface VisualizerProps {
     moleculeStyle?: Record<string, unknown>
     scriptSrc?: string
     bridgeSrc?: string
+    /**
+     * Padding (CSS px) between the structure bounding box and the canvas edge.
+     * Defaults to a safe margin (40px) so arrow notation labels/arrowheads that
+     * fall outside `getContentBounds` don't clip. Pass a smaller value for
+     * contexts that only render bare molecules, e.g. quiz options.
+     */
+    fitPadding?: number
 }
 
 type ChemDoodleGlobal = typeof ChemDoodle
@@ -26,11 +33,12 @@ interface ChemDoodleViewer {
     shapes: unknown[]
     getContentBounds(): { minX: number; minY: number; maxX: number; maxY: number }
     loadContent(molecules: unknown[], shapes: unknown[]): void
+    resize(width: number, height: number): void
     repaint(): void
     clearCanvas(): void
 }
 
-const DEFAULT_SCRIPT_SRC = '/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js'
+export const DEFAULT_SCRIPT_SRC = '/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js'
 const DEFAULT_BRIDGE_SRC = '/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
 
 /**
@@ -55,8 +63,23 @@ const MIN_PIXEL_RATIO = 2
  */
 const MAX_FIT_SCALE = 4
 
-/** Padding (CSS px) between the structure bounding box and the canvas edge. */
-const FIT_PADDING = 20
+/**
+ * Padding (CSS px) between the structure bounding box and the canvas edge.
+ * ChemDoodle's `getContentBounds` only accounts for shape control points, not
+ * visual extents like arrowheads or text labels on reaction arrows, so a
+ * generous default margin keeps those from clipping at the viewport edge.
+ */
+const DEFAULT_FIT_PADDING = 30
+
+/** Safety timeout for the ChemDoodle script to load before rejecting. */
+const SCRIPT_LOAD_TIMEOUT = 10_000
+
+/**
+ * Shell layout shared by the canvas and its loading placeholder: a full-width
+ * strip capped at 200px (`max-h-50`) tall. Keeping the placeholder in sync
+ * with this prevents layout shift when the client-only canvas mounts.
+ */
+export const VISUALIZER_SHELL_CLASS = 'w-full max-h-50'
 
 /**
  * Compute a uniform scale that fits the canvas content (atoms, bonds, shapes,
@@ -66,30 +89,22 @@ const FIT_PADDING = 20
  * content has no extent (degenerate/empty).
  */
 function computeFitScale(
-    canvas: ChemDoodleViewer,
+    canvasWidth: number,
+    canvasHeight: number,
     bounds: { minX: number; minY: number; maxX: number; maxY: number },
+    padding: number,
 ): number | undefined {
     const cw = bounds.maxX - bounds.minX
     const ch = bounds.maxY - bounds.minY
     if (cw <= 0 && ch <= 0) return undefined
-    const availW = canvas.width - 2 * FIT_PADDING
-    const availH = canvas.height - 2 * FIT_PADDING
+    const availW = canvasWidth - 2 * padding
+    const availH = canvasHeight - 2 * padding
     let s: number
     if (cw > 0 && ch > 0) s = Math.min(availW / cw, availH / ch)
     else if (cw > 0) s = availW / cw
     else s = availH / ch
     return Math.min(s, MAX_FIT_SCALE)
 }
-
-/**
- * Shell layout shared by the canvas and its loading placeholder: a
- * full-bleed strip that extends past the prose gutters (negative margins
- * matched to the positive width calc), capped at 200px (`max-h-50`) tall.
- * Keeping the placeholder in sync with this prevents layout shift when the
- * client-only canvas mounts.
- */
-export const VISUALIZER_SHELL_CLASS =
-    'w-[calc(100%+2*clamp(1.25rem,calc(1.25rem+100vw-580px),4rem))] max-h-50 -mx-[clamp(1.25rem,calc(1.25rem+100vw-580px),4rem)]'
 
 const chemPromises = new Map<string, Promise<ChemDoodleGlobal>>()
 
@@ -186,6 +201,13 @@ function ensureScript(src: string): HTMLScriptElement {
     return el
 }
 
+/**
+ * Load the ChemDoodle library exactly once per `src`. The main script declares
+ * a top-level `let ChemDoodle` (not on `window`); the tiny bridge script
+ * assigns it to `window.ChemDoodle`. Both load with `async=false`, so they
+ * execute in order — when the bridge script's `load` event fires the global
+ * is guaranteed to be set. Listening to that event avoids polling entirely.
+ */
 function ensureChemDoodle(src: string, bridgeSrc: string): Promise<ChemDoodleGlobal> {
     const existing = getChemDoodle()
     if (existing) return Promise.resolve(existing)
@@ -194,33 +216,37 @@ function ensureChemDoodle(src: string, bridgeSrc: string): Promise<ChemDoodleGlo
 
     const promise = new Promise<ChemDoodleGlobal>((resolve, reject) => {
         let settled = false
-
         const finish = (chem: ChemDoodleGlobal | undefined, err?: Error) => {
             if (settled) return
             settled = true
-            clearInterval(pollHandle)
+            clearTimeout(timer)
             if (chem) resolve(chem)
             else reject(err ?? new Error('ChemDoodle failed to load'))
         }
 
         const cwcScript = ensureScript(src)
-        ensureScript(bridgeSrc)
+        const bridgeScript = ensureScript(bridgeSrc)
 
-        cwcScript.addEventListener('error', () => {
-            finish(undefined, new Error(`Failed to load script from ${src}`))
-        })
+        // Already loaded (e.g. served from preload cache and executed)?
+        const chem = getChemDoodle()
+        if (chem) {
+            finish(chem)
+            return
+        }
 
-        const start = Date.now()
-        const pollHandle = setInterval(() => {
-            const chem = getChemDoodle()
-            if (chem) {
-                finish(chem)
-                return
-            }
-            if (Date.now() - start > 15_000) {
-                finish(undefined, new Error(`ChemDoodle not available after 15s (src=${src})`))
-            }
-        }, 100)
+        cwcScript.addEventListener('error', () =>
+            finish(undefined, new Error(`Failed to load script from ${src}`)),
+        )
+        bridgeScript.addEventListener('error', () =>
+            finish(undefined, new Error(`Failed to load bridge from ${bridgeSrc}`)),
+        )
+        // Bridge runs last (ordered), so its `load` => global is ready.
+        bridgeScript.addEventListener('load', () => finish(getChemDoodle()))
+
+        const timer = setTimeout(
+            () => finish(undefined, new Error(`ChemDoodle not available after ${SCRIPT_LOAD_TIMEOUT}ms`)),
+            SCRIPT_LOAD_TIMEOUT,
+        )
     })
     chemPromises.set(src, promise)
     return promise
@@ -244,6 +270,12 @@ function toIndexContent(content: CDContent): Record<string, unknown> {
     return { m, s: content.s }
 }
 
+/** Apply the fit scale (up- and down-scaling) to a ready canvas. */
+function refit(canvas: ChemDoodleViewer, padding: number) {
+    const scale = computeFitScale(canvas.width, canvas.height, canvas.getContentBounds(), padding)
+    if (scale !== undefined) canvas.styles.scale = scale
+}
+
 export default function Visualizer({
     mol,
     id,
@@ -254,6 +286,7 @@ export default function Visualizer({
     moleculeStyle,
     scriptSrc = DEFAULT_SCRIPT_SRC,
     bridgeSrc = DEFAULT_BRIDGE_SRC,
+    fitPadding = DEFAULT_FIT_PADDING,
 }: VisualizerProps) {
     const autoId = useId()
     const canvasId = id ?? `cd-${autoId.replace(/[:]/g, '')}`
@@ -262,6 +295,16 @@ export default function Visualizer({
     const [size, setSize] = useState({ width, height })
     const theme = useThemeColors()
 
+    // `mol` arrives as a fresh object each render (re-parsed from markdown), so
+    // identity comparison would rebuild the canvas on every parent render.
+    // Serialise → re-parse into a stable reference keyed on content, so the
+    // load effect only re-runs when the structure genuinely changes.
+    const molKey = JSON.stringify(mol)
+    const stableMol = useMemo(() => JSON.parse(molKey) as CDContent, [molKey])
+
+    // Measure the container; track width so viewport shrink/grow resizes the
+    // canvas, and height so parent `[&_canvas]` overrides (e.g. quiz `h-32`)
+    // are honoured.
     useEffect(() => {
         const el = containerRef.current
         if (!el) return
@@ -281,6 +324,21 @@ export default function Visualizer({
         return () => observer.disconnect()
     }, [height])
 
+    // Resize an existing canvas when the viewport/container dimensions change.
+    // Uses `useLayoutEffect` so the canvas is re-rendered before the browser
+    // paints the cleared backing store (no flash). Cheap: just recenter + refit
+    // + repaint, no JSON re-parse, no canvas recreation.
+    useLayoutEffect(() => {
+        const canvas = canvasRef.current
+        if (!canvas) return
+        canvas.resize(size.width, size.height)
+        refit(canvas, fitPadding)
+        canvas.repaint()
+    }, [size.width, size.height, fitPadding])
+
+    // Build the canvas + load content once per molecule/theme/style. Does NOT
+    // depend on `size` (read via `sizeRef`), so viewport changes are handled by
+    // the cheap resize effect above instead of rebuilding here.
     useEffect(() => {
         let cancelled = false
 
@@ -288,19 +346,18 @@ export default function Visualizer({
             .then(chem => {
                 if (cancelled) return
 
-                const canvas = new chem.ViewerCanvas(
-                    canvasId,
-                    size.width,
-                    size.height,
-                ) as unknown as ChemDoodleViewer
-                // Boost backing-store resolution on low-DPI screens so the
-                // serif atom labels stay crisp. Must be set before the first
-                // repaint (which happens inside loadContent) so the pixelRatio
-                // block in repaint() resizes the backing store once.
-                if (typeof window !== 'undefined') {
-                    const dpr = window.devicePixelRatio || 1
-                    canvas.pixelRatio = Math.max(dpr, MIN_PIXEL_RATIO)
-                }
+                // Read live container dimensions at resolution time so a viewport
+                // change during script loading isn't lost (the effect closure
+                // doesn't depend on `size`).
+                const rect = containerRef.current?.getBoundingClientRect()
+                const w = rect && rect.width > 0 ? Math.floor(rect.width) : width
+                const h = rect && rect.height > 0 ? Math.floor(rect.height) : height
+                const canvas = new chem.ViewerCanvas(canvasId, w, h) as unknown as ChemDoodleViewer
+                // Boost backing-store resolution on low-DPI screens so the serif
+                // atom labels stay crisp. Must be set before the first repaint
+                // (which happens inside loadContent) so the pixelRatio block in
+                // repaint() resizes the backing store once.
+                canvas.pixelRatio = Math.max(window.devicePixelRatio || 1, MIN_PIXEL_RATIO)
 
                 const themeDefaults: Record<string, unknown> = {
                     atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -317,12 +374,12 @@ export default function Visualizer({
 
                 canvas.styles = { ...canvas.styles, ...themeDefaults, ...canvasStyle }
 
-                const indexed = toIndexContent(mol)
+                const indexed = toIndexContent(stableMol)
                 const { molecules, shapes } = new chem.io.JSONInterpreter().contentFrom(indexed)
 
-                if (mol.m) {
-                    for (let i = 0; i < mol.m.length && i < molecules.length; i++) {
-                        const src = mol.m[i]
+                if (stableMol.m) {
+                    for (let i = 0; i < stableMol.m.length && i < molecules.length; i++) {
+                        const src = stableMol.m[i]
                         const target = molecules[i] as {
                             atoms: Array<{ styles?: Record<string, unknown> }>
                             bonds: Array<{ styles?: Record<string, unknown> }>
@@ -332,10 +389,7 @@ export default function Visualizer({
                             const clr = src.a[j].clr
                             if (clr) {
                                 target.atoms[j].styles = Object.assign(
-                                    new (chem.structures.Styles as new () => Record<
-                                        string,
-                                        unknown
-                                    >)(),
+                                    new (chem.structures.Styles as new () => Record<string, unknown>)(),
                                     {
                                         atoms_color: resolveCanvasColor(clr),
                                         atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -348,10 +402,7 @@ export default function Visualizer({
                                 const clr = src.b[j].clr
                                 if (clr) {
                                     target.bonds[j].styles = Object.assign(
-                                        new (chem.structures.Styles as new () => Record<
-                                            string,
-                                            unknown
-                                        >)(),
+                                        new (chem.structures.Styles as new () => Record<string, unknown>)(),
                                         {
                                             bonds_color: resolveCanvasColor(clr),
                                             atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -376,35 +427,20 @@ export default function Visualizer({
                         }
                     }
                     canvas.loadContent(molecules, shapes)
-                    // ChemDoodle's center() (called by loadContent) only scales
-                    // DOWN large content; small molecules stay at scale 1 and
-                    // render as a tiny speck. Recompute a fit scale that also
-                    // upscales small structures, keeping them centered and
-                    // within the padded viewport.
-                    const fitScale = computeFitScale(
-                        canvas,
-                        canvas.getContentBounds() as {
-                            minX: number
-                            minY: number
-                            maxX: number
-                            maxY: number
-                        },
-                    )
-                    if (fitScale !== undefined) canvas.styles.scale = fitScale
-                    // Canvas 2D only picks up web fonts once they're loaded;
-                    // wait for KaTeX_Main to be ready before the first paint
-                    // so atom labels render in the correct face.
-                    const paint = () => {
-                        if (cancelled) return
-                        canvas.repaint()
-                        canvasRef.current = canvas
-                    }
-                    if (typeof document !== 'undefined' && 'fonts' in document) {
+                    refit(canvas, fitPadding)
+                    // Paint immediately so content is visible ASAP, even if the
+                    // web font hasn't finished loading (brief fallback font).
+                    canvas.repaint()
+                    canvasRef.current = canvas
+                    // Canvas 2D only resolves web fonts once they're loaded;
+                    // repaint again when KaTeX_Main is ready so labels switch to
+                    // the correct serif face.
+                    if ('fonts' in document) {
                         document.fonts
                             .load(`12px ${CANVAS_FONT_FAMILIES.join(',')}`)
-                            .then(paint, paint)
-                    } else {
-                        paint()
+                            .then(() => {
+                                if (!cancelled) canvas.repaint()
+                            })
                     }
                 } else {
                     canvasRef.current = canvas
@@ -425,18 +461,18 @@ export default function Visualizer({
         }
     }, [
         canvasId,
-        size.width,
-        size.height,
+        stableMol,
         canvasStyle,
-        mol,
         moleculeStyle,
         scriptSrc,
         bridgeSrc,
+        fitPadding,
+        width,
+        height,
         theme.background,
         theme.foreground,
         theme.token,
     ])
-
     return (
         <div ref={containerRef} className={cn(VISUALIZER_SHELL_CLASS, className)}>
             <canvas
