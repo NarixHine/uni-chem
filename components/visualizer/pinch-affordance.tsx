@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@heroui/react'
 import { XIcon } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
@@ -52,8 +51,9 @@ export function PinchAffordance() {
                             cy='17'
                             r='2'
                             fill='currentColor'
+                            style={{ x: 0 }}
                             initial={false}
-                            animate={{ cx: [5, 9, 5], opacity: [0.5, 1, 0.5] }}
+                            animate={{ x: [0, 4, 0], opacity: [0.5, 1, 0.5] }}
                             transition={{
                                 duration: 1.6,
                                 repeat: 2,
@@ -67,8 +67,9 @@ export function PinchAffordance() {
                             cy='5'
                             r='2'
                             fill='currentColor'
+                            style={{ x: 0 }}
                             initial={false}
-                            animate={{ cx: [17, 13, 17], opacity: [0.5, 1, 0.5] }}
+                            animate={{ x: [0, -4, 0], opacity: [0.5, 1, 0.5] }}
                             transition={{
                                 duration: 1.6,
                                 repeat: 2,
@@ -80,12 +81,11 @@ export function PinchAffordance() {
                         <motion.circle
                             cx='11'
                             cy='11'
-                            r='0'
+                            r='2'
                             fill='currentColor'
-                            animate={{
-                                r: [0, 4, 0],
-                                opacity: [0, 0.4, 0],
-                            }}
+                            style={{ scale: 0 }}
+                            initial={false}
+                            animate={{ scale: [0, 2, 0], opacity: [0, 0.4, 0] }}
                             transition={{
                                 duration: 1.6,
                                 repeat: 2,
@@ -94,16 +94,14 @@ export function PinchAffordance() {
                             }}
                         />
                     </svg>
-                    <Button
-                        isIconOnly
-                        size='sm'
-                        variant='ghost'
-                        className='text-foreground/40 hover:text-foreground/70 size-4 p-0!'
-                        onPress={() => setDismissed(true)}
+                    <button
+                        type='button'
+                        onClick={() => setDismissed(true)}
                         aria-label='不再显示'
+                        className='text-foreground/40 hover:text-foreground/70 grid size-4 shrink-0 place-items-center rounded-md transition-colors'
                     >
-                        <XIcon />
-                    </Button>
+                        <XIcon className='size-3' />
+                    </button>
                 </motion.div>
             )}
         </AnimatePresence>
