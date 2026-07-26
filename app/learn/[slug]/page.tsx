@@ -4,8 +4,10 @@ import { NextArticleButton } from '@/components/next-article-button'
 import { PostAvatar } from '@/components/post-avatar'
 import { posts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
+import { ComponentProps, Suspense } from 'react'
 import { EditPostButton } from '@/components/post-editor/edit-post-button'
+import { auth, verifyAdmin } from '@/lib/auth'
+import { headers } from 'next/headers'
 
 type LearnPageParams = Promise<{ slug: string }>
 
@@ -41,10 +43,19 @@ async function ArticleSection({ params }: { params: LearnPageParams }) {
                 </div>
             </div>
             <Suspense>
-                <EditPostButton slug={post.slug} />
+                <EditPostServer slug={post.slug} />
             </Suspense>
             <Markdown>{text}</Markdown>
             {next && <NextArticleButton href={`/learn/${next.slug}`} title={next.title} />}
         </article>
     )
+}
+
+async function EditPostServer(props: ComponentProps<typeof EditPostButton>) {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+    const isAdmin = verifyAdmin(session)
+    if (isAdmin) return <EditPostButton {...props} />
+    else return null
 }

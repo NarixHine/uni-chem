@@ -27,3 +27,11 @@ export const auth = betterAuth({
 })
 
 export type Session = typeof auth.$Infer.Session
+
+export function verifyAdmin(
+    sessionOrUser: Session | Session['user'] | null | undefined,
+): boolean {
+    if (!sessionOrUser) return false
+    const user = 'user' in sessionOrUser ? sessionOrUser.user : sessionOrUser
+    return user?.role === 'admin'
+}

@@ -2,7 +2,7 @@ import { createSafeActionClient } from 'next-safe-action'
 import { betterAuth } from '@next-safe-action/adapter-better-auth'
 import { DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
 import { forbidden } from 'next/navigation'
-import { auth } from '@/lib/auth'
+import { auth, verifyAdmin } from '@/lib/auth'
 
 /**
  * Base client — public actions. Server errors are surfaced as a plain string
@@ -28,6 +28,6 @@ export const authActionClient = actionClient.use(betterAuth(auth))
  * Context unchanged: `ctx.auth.user`, `ctx.auth.session`.
  */
 export const adminActionClient = authActionClient.use(async ({ ctx, next }) => {
-    if (ctx.auth.user.role !== 'admin') forbidden()
+    if (!verifyAdmin(ctx.auth.user)) forbidden()
     return next({ ctx })
 })

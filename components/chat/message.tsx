@@ -9,6 +9,7 @@ import { authClient } from '@/lib/auth-client'
 import { StreamMarkdown } from './stream-markdown'
 import { Reasoning, isReasoningStreaming } from './reasoning'
 import { MessageImages, imageFileParts } from './attachments'
+import { verifyAdmin } from '@/lib/auth'
 
 export interface ChatMessageProps {
     message: UIMessage
@@ -37,7 +38,7 @@ export function ChatMessage({ message, streaming }: ChatMessageProps) {
     const [copied, setCopied] = useState(false)
     const images = imageFileParts(message)
     const text = textOf(message)
-    const isAdmin = session?.user?.role === 'admin'
+    const isAdmin = verifyAdmin(session)
 
     const onCopy = async () => {
         try {

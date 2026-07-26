@@ -1,8 +1,11 @@
 'use client'
 
 import 'katex/dist/katex.min.css'
+import PinchZoom, { make2dTransformValue } from 'react-quick-pinch-zoom'
+import type { UpdateAction } from 'react-quick-pinch-zoom'
 import cn from 'cnfast'
-import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { PinchAffordance } from './pinch-affordance'
 
 export interface VisualizerProps {
     mol: CDContent
@@ -473,14 +476,33 @@ export default function Visualizer({
         theme.foreground,
         theme.token,
     ])
+    const zoomChildRef = useRef<HTMLDivElement>(null)
+
+    const handleZoomUpdate = useCallback(({ x, y, scale }: UpdateAction) => {
+        const el = zoomChildRef.current
+        if (el) el.style.transform = make2dTransformValue({ x, y, scale })
+    }, [])
+
     return (
-        <div ref={containerRef} className={cn(VISUALIZER_SHELL_CLASS, className)}>
-            <canvas
-                id={canvasId}
-                width={size.width}
-                height={size.height}
-                className='block h-full w-full'
-            />
+        <div ref={containerRef} className={cn(VISUALIZER_SHELL_CLASS, className, 'relative')}>
+            <PinchAffordance />
+            <PinchZoom
+                onUpdate={handleZoomUpdate}
+                maxZoom={5}
+                minZoom={0.8}
+                doubleTapToggleZoom
+                tapZoomFactor={2}
+                containerProps={{ className: 'w-full h-full touch-none' }}
+            >
+                <div ref={zoomChildRef} className='w-full h-full'>
+                    <canvas
+                        id={canvasId}
+                        width={size.width}
+                        height={size.height}
+                        className='block h-full w-full'
+                    />
+                </div>
+            </PinchZoom>
         </div>
     )
 }
