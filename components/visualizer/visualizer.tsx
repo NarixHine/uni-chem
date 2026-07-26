@@ -1,5 +1,6 @@
 'use client'
 
+import 'katex/dist/katex.min.css'
 import cn from 'cnfast'
 import { useEffect, useId, useRef, useState } from 'react'
 
@@ -20,6 +21,13 @@ type ChemDoodleViewer = InstanceType<typeof ChemDoodle.ViewerCanvas>
 
 const DEFAULT_SCRIPT_SRC = '/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js'
 const DEFAULT_BRIDGE_SRC = '/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
+
+/**
+ * Font family used by ChemDoodle for atom labels and text shapes. KaTeX_Main
+ * is declared by `katex.min.css` (imported above) and ships a serif math-style
+ * face that pairs well with chemistry notation.
+ */
+const CANVAS_FONT_FAMILIES = ['KaTeX_Main']
 
 /**
  * Shell layout shared by the canvas and its loading placeholder: a
@@ -230,7 +238,10 @@ export default function Visualizer({
 
                 const canvas = new chem.ViewerCanvas(canvasId, size.width, size.height)
 
-                const themeDefaults: Record<string, unknown> = {}
+                const themeDefaults: Record<string, unknown> = {
+                    atoms_font_families_2D: CANVAS_FONT_FAMILIES,
+                    text_font_families: CANVAS_FONT_FAMILIES,
+                }
                 if (theme.background) themeDefaults.backgroundColor = theme.background
                 if (theme.foreground) {
                     themeDefaults.atoms_color = theme.foreground
@@ -261,7 +272,10 @@ export default function Visualizer({
                                         string,
                                         unknown
                                     >)(),
-                                    { atoms_color: resolveCanvasColor(clr) },
+                                    {
+                                        atoms_color: resolveCanvasColor(clr),
+                                        atoms_font_families_2D: CANVAS_FONT_FAMILIES,
+                                    },
                                 )
                             }
                         }
@@ -274,7 +288,10 @@ export default function Visualizer({
                                             string,
                                             unknown
                                         >)(),
-                                        { bonds_color: resolveCanvasColor(clr) },
+                                        {
+                                            bonds_color: resolveCanvasColor(clr),
+                                            atoms_font_families_2D: CANVAS_FONT_FAMILIES,
+                                        },
                                     )
                                 }
                             }
@@ -295,10 +312,24 @@ export default function Visualizer({
                         }
                     }
                     canvas.loadContent(molecules, shapes)
-                    canvas.repaint()
+                    // Canvas 2D only picks up web fonts once they're loaded;
+                    // wait for KaTeX_Main to be ready before the first paint
+                    // so atom labels render in the correct face.
+                    const paint = () => {
+                        if (cancelled) return
+                        canvas.repaint()
+                        canvasRef.current = canvas
+                    }
+                    if (typeof document !== 'undefined' && 'fonts' in document) {
+                        document.fonts
+                            .load(`12px ${CANVAS_FONT_FAMILIES.join(',')}`)
+                            .then(paint, paint)
+                    } else {
+                        paint()
+                    }
+                } else {
+                    canvasRef.current = canvas
                 }
-
-                canvasRef.current = canvas
             })
             .catch((err: unknown) => {
                 if (!cancelled) console.error('[Visualizer] error:', err)
