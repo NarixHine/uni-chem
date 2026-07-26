@@ -19,7 +19,7 @@ export function PinchAffordance() {
     const [visible, setVisible] = useState(!dismissed)
     useEffect(() => {
         if (dismissed) return
-        const t = setTimeout(() => setVisible(false), 5200)
+        const t = setTimeout(() => setVisible(false), 3000)
         return () => clearTimeout(t)
     }, [dismissed])
 
@@ -46,53 +46,68 @@ export function PinchAffordance() {
                         className='text-foreground/60 shrink-0'
                     >
                         {/* thumb — travels right toward center */}
-                        <motion.circle
-                            cx='5'
-                            cy='17'
-                            r='2'
-                            fill='currentColor'
-                            style={{ x: 0 }}
-                            initial={false}
-                            animate={{ x: [0, 4, 0], opacity: [0.5, 1, 0.5] }}
-                            transition={{
-                                duration: 1.6,
-                                repeat: 2,
-                                ease: 'easeInOut',
-                                times: [0, 0.5, 1],
-                            }}
-                        />
+                        <circle cx='5' cy='17' r='2' fill='currentColor' opacity='0.5'>
+                            <animate
+                                attributeName='cx'
+                                values='5;9;5'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                            <animate
+                                attributeName='opacity'
+                                values='0.5;1;0.5'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                        </circle>
                         {/* index finger — travels left toward center */}
-                        <motion.circle
-                            cx='17'
-                            cy='5'
-                            r='2'
-                            fill='currentColor'
-                            style={{ x: 0 }}
-                            initial={false}
-                            animate={{ x: [0, -4, 0], opacity: [0.5, 1, 0.5] }}
-                            transition={{
-                                duration: 1.6,
-                                repeat: 2,
-                                ease: 'easeInOut',
-                                times: [0, 0.5, 1],
-                            }}
-                        />
+                        <circle cx='17' cy='5' r='2' fill='currentColor' opacity='0.5'>
+                            <animate
+                                attributeName='cx'
+                                values='17;13;17'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                            <animate
+                                attributeName='opacity'
+                                values='0.5;1;0.5'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                        </circle>
                         {/* convergence pulse at the meeting point */}
-                        <motion.circle
-                            cx='11'
-                            cy='11'
-                            r='2'
-                            fill='currentColor'
-                            style={{ scale: 0 }}
-                            initial={false}
-                            animate={{ scale: [0, 2, 0], opacity: [0, 0.4, 0] }}
-                            transition={{
-                                duration: 1.6,
-                                repeat: 2,
-                                ease: 'easeInOut',
-                                times: [0, 0.5, 1],
-                            }}
-                        />
+                        <circle cx='11' cy='11' r='0' fill='currentColor' opacity='0'>
+                            <animate
+                                attributeName='r'
+                                values='0;4;0'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                            <animate
+                                attributeName='opacity'
+                                values='0;0.4;0'
+                                keyTimes='0;0.5;1'
+                                dur='1.6s'
+                                repeatCount='2'
+                                calcMode='spline'
+                                keySplines='0.42 0 0.58 1;0.42 0 0.58 1'
+                            />
+                        </circle>
                     </svg>
                     <button
                         type='button'
