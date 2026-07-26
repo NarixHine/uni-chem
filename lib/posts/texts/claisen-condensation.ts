@@ -336,7 +336,7 @@ export const CLAISEN_CONDENSATION_TEXT = `
 
   ||| one B
   Q
-  $2\\text{ mol}$ $\\text{CH}_3\\text{COOC}_2\\text{H}_5$ 发生 $\\text{Claisen}$ 缩合反应（乙醇钠催化）生成 $\\text{CH}_3\\text{COCH}_2\\text{COOC}_2\\text{H}_5$ 需要加入（ &nbsp; &nbsp; ）$\\text{C}_2\\text{H}_5\\text{ONa}$。
+  $2\\text{ mol}$ $\\text{CH}_3\\text{COOC}_2\\text{H}_5$ 发生 $\\text{Claisen}$ 缩合反应（乙醇钠催化）生成 $\\text{CH}_3\\text{COCH}_2\\text{COOC}_2\\text{H}_5$ 需要加入（&nbsp;&nbsp;）$\\text{C}_2\\text{H}_5\\text{ONa}$。
 
   Sol
   在碱性介质中，生成的 $1\\text{ mol}$ $\\text{CH}_3\\text{COCH}_2\\text{COOC}_2\\text{H}_5$ 会立即夺取 $1\\text{ mol}$ $\\text{C}_2\\text{H}_5\\text{ONa}$ 的质子。这一强放热步骤是推动平衡右移的主要因素。

@@ -18,7 +18,7 @@ export const CONVERSE_SYSTEM_PROMPT = `
   6. 善用行内KaTeX语法表示化学式（如$\\text{H}_2\\text{SO}_4$，总是使用\`\\text\`而非\`\\mathrm\`）和符号；化学键应单独用\`{-}\` \`{=}\`表示，如$\\text{C}{=}\\text{O}$，不应与元素符号合并
   7. 善用Markdown语法，但只允许用粗体，尽可能用语意简明的短小段落
   8. 永远不要在输出中提及“ChemDoodle”
-  9. 当用户要求时，出一道选择题巩固掌握。
+  9. 当用户要求时，出一道选择题巩固掌握。禁止在选项的图中上色，而是在解答中重新画一副上色的图。
 
   ---
 
@@ -34,9 +34,7 @@ export const CONVERSE_SYSTEM_PROMPT = `
   ### 2. Explicit Hydrogens in Mechanisms
 
   * When a hydrogen must be explicitly drawn for a mechanism (e.g., deprotonation):
-      * Extend the $\\text{C-H}$ bond outward from the vertex, preserving the molecule's overall tetrahedral shape.
-      * Ensure the $\\text{H}$ label does not overlap with adjacent functional groups or lone pairs.
-      * Always use the existing hydrogen syntax of ChemDoodle instead of adding H manually as text
+      * Always use the existing hydrogen syntax of ChemDoodle. NEVER add H manually as an atom
 
   ### 3. Lewis/Formal Charges & Lone Pairs
 
@@ -85,7 +83,7 @@ export const CONVERSE_SYSTEM_PROMPT = `
   | \`p\`   | Integer | \`0\`          | **Number of lone pairs.** \`2\` for a neutral O with two lone pairs; \`3\` for O⁻. |      |                      |
   | \`r\`   | Integer | \`0\`          | Number of radical electrons (unpaired).                                        |      |                      |
   | \`m\`   | Integer | \`-1\`         | Isotope mass. \`-1\` = natural abundance.                                        |      |                      |
-  | \`h\`   | Integer | \`-1\`         | Implicit hydrogen count override. \`-1\` = auto-detect.                          |      |                      |
+  | \`h\`   | Integer | \`-1\`         | Hydrogen count override. \`-1\` = auto-detect.                          |      |                      |
   | \`i\`   | String  | —            | **Unique ID.** Required if the atom is referenced by a Pusher or VAP shape.    |      |                      |
   | \`s2\`  | Object  | —            | Enhanced stereochemistry designation (\`{"t":"abs"                              | "or" | "&", "g":<group>}\`). |
   | \`q\`   | Object  | —            | Query object for substructure searching.                                       |      |                      |

@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import type { UIMessage } from 'ai'
 import { motion } from 'motion/react'
-import { Spinner } from '@heroui/react'
+import { Button, Spinner, toast } from '@heroui/react'
+import { CopyIcon, ChecksIcon } from '@phosphor-icons/react'
+import { authClient } from '@/lib/auth-client'
 import { StreamMarkdown } from './stream-markdown'
 import { Reasoning, isReasoningStreaming } from './reasoning'
 import { MessageImages, imageFileParts } from './attachments'
@@ -30,8 +33,22 @@ function reasoningText(message: UIMessage): string {
 }
 
 export function ChatMessage({ message, streaming }: ChatMessageProps) {
+    const { data: session } = authClient.useSession()
+    const [copied, setCopied] = useState(false)
     const images = imageFileParts(message)
     const text = textOf(message)
+    const isAdmin = session?.user?.role === 'admin'
+
+    const onCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(text)
+            toast.success('Message copied')
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1400)
+        } catch {
+            toast.danger('Clipboard unavailable')
+        }
+    }
 
     if (message.role === 'user') {
         return (
@@ -78,6 +95,18 @@ export function ChatMessage({ message, streaming }: ChatMessageProps) {
                     aria-hidden
                     className='ml-0.5 inline-block h-4 w-0.5 translate-y-0.5 animate-pulse bg-foreground/60'
                 />
+            )}
+            {isAdmin && !streaming && text.length > 0 && (
+                <div className='-ml-2 flex justify-start'>
+                    <Button variant='ghost' size='sm' onPress={onCopy}>
+                        {copied ? (
+                            <ChecksIcon className='size-4' weight='bold' />
+                        ) : (
+                            <CopyIcon className='size-4' weight='bold' />
+                        )}
+                        {copied ? 'Copied' : 'Copy'}
+                    </Button>
+                </div>
             )}
         </div>
     )
