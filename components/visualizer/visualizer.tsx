@@ -17,7 +17,18 @@ export interface VisualizerProps {
 }
 
 type ChemDoodleGlobal = typeof ChemDoodle
-type ChemDoodleViewer = InstanceType<typeof ChemDoodle.ViewerCanvas>
+interface ChemDoodleViewer {
+    width: number
+    height: number
+    pixelRatio: number
+    styles: Record<string, unknown> & { scale: number }
+    molecules: unknown[]
+    shapes: unknown[]
+    getContentBounds(): { minX: number; minY: number; maxX: number; maxY: number }
+    loadContent(molecules: unknown[], shapes: unknown[]): void
+    repaint(): void
+    clearCanvas(): void
+}
 
 const DEFAULT_SCRIPT_SRC = '/ChemDoodleWeb-11.0.0/ChemDoodleWeb.js'
 const DEFAULT_BRIDGE_SRC = '/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
@@ -28,6 +39,47 @@ const DEFAULT_BRIDGE_SRC = '/ChemDoodleWeb-11.0.0/chemdoodle-bridge.js'
  * face that pairs well with chemistry notation.
  */
 const CANVAS_FONT_FAMILIES = ['KaTeX_Main']
+
+/**
+ * Minimum backing-store pixel ratio. ChemDoodle already multiplies the canvas
+ * backing store by `devicePixelRatio`, but on low-DPI screens that is 1, which
+ * leaves the serif KaTeX_Main glyphs looking soft. Force at least 2x sampling
+ * so strokes and text stay crisp.
+ */
+const MIN_PIXEL_RATIO = 2
+
+/**
+ * Cap on the uniform fit scale. Without it a single tiny atom would be blown
+ * up to fill the viewport; 4x keeps simple molecules readable without
+ * distorting atom/bond proportions.
+ */
+const MAX_FIT_SCALE = 4
+
+/** Padding (CSS px) between the structure bounding box and the canvas edge. */
+const FIT_PADDING = 20
+
+/**
+ * Compute a uniform scale that fits the canvas content (atoms, bonds, shapes,
+ * including atom label text bounds) inside the viewport with `FIT_PADDING`
+ * margin on each side. Unlike ChemDoodle's `center()` this scales UP small
+ * structures too, capped at `MAX_FIT_SCALE`. Returns `undefined` when the
+ * content has no extent (degenerate/empty).
+ */
+function computeFitScale(
+    canvas: ChemDoodleViewer,
+    bounds: { minX: number; minY: number; maxX: number; maxY: number },
+): number | undefined {
+    const cw = bounds.maxX - bounds.minX
+    const ch = bounds.maxY - bounds.minY
+    if (cw <= 0 && ch <= 0) return undefined
+    const availW = canvas.width - 2 * FIT_PADDING
+    const availH = canvas.height - 2 * FIT_PADDING
+    let s: number
+    if (cw > 0 && ch > 0) s = Math.min(availW / cw, availH / ch)
+    else if (cw > 0) s = availW / cw
+    else s = availH / ch
+    return Math.min(s, MAX_FIT_SCALE)
+}
 
 /**
  * Shell layout shared by the canvas and its loading placeholder: a
@@ -236,7 +288,19 @@ export default function Visualizer({
             .then(chem => {
                 if (cancelled) return
 
-                const canvas = new chem.ViewerCanvas(canvasId, size.width, size.height)
+                const canvas = new chem.ViewerCanvas(
+                    canvasId,
+                    size.width,
+                    size.height,
+                ) as unknown as ChemDoodleViewer
+                // Boost backing-store resolution on low-DPI screens so the
+                // serif atom labels stay crisp. Must be set before the first
+                // repaint (which happens inside loadContent) so the pixelRatio
+                // block in repaint() resizes the backing store once.
+                if (typeof window !== 'undefined') {
+                    const dpr = window.devicePixelRatio || 1
+                    canvas.pixelRatio = Math.max(dpr, MIN_PIXEL_RATIO)
+                }
 
                 const themeDefaults: Record<string, unknown> = {
                     atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -312,6 +376,21 @@ export default function Visualizer({
                         }
                     }
                     canvas.loadContent(molecules, shapes)
+                    // ChemDoodle's center() (called by loadContent) only scales
+                    // DOWN large content; small molecules stay at scale 1 and
+                    // render as a tiny speck. Recompute a fit scale that also
+                    // upscales small structures, keeping them centered and
+                    // within the padded viewport.
+                    const fitScale = computeFitScale(
+                        canvas,
+                        canvas.getContentBounds() as {
+                            minX: number
+                            minY: number
+                            maxX: number
+                            maxY: number
+                        },
+                    )
+                    if (fitScale !== undefined) canvas.styles.scale = fitScale
                     // Canvas 2D only picks up web fonts once they're loaded;
                     // wait for KaTeX_Main to be ready before the first paint
                     // so atom labels render in the correct face.
