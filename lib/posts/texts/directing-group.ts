@@ -537,22 +537,18 @@ export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水�
 
 各取代基定位效应有强弱之分。
 
-定位效应主要是电子效应，所以通常给（吸）电子能力大的基团定位效应更强。带负电荷的取代基，如 \${-}\\text{O}^{-}$，具有很强的邻对位定位效应。类似地，带正电荷的 $-\\text{NH}_3^+$ 具有很强的间位定位效应。除了电子效应，有时空间位阻也会影响取代位点。
-
-思考题：原子电负性又会对定位效应强弱有怎样的影响？
+定位效应主要是**电子效应**，所以通常给（吸）电子能力强的基团定位效应更强。带负电荷的取代基，如 \${-}\\text{O}^-$，具有很强的邻对位定位效应。类似地，带正电荷的 $-\\text{NH}_3^+$ 具有很强的间位定位效应。除了电子效应，有时**空间位阻**也会影响取代位点。读者可以思考：原子电负性又会对取代基定位效应强弱有怎样的影响？
 
 以下是一些例题。
 
 ||| one C
 Q
-以甲苯为主要有机原料合成 $3\\text{-}$溴苯甲酸，最合理的反应步骤顺序是（&nbsp;&nbsp;）。
+以甲苯为有机原料合成 $3\\text{-}$溴苯甲酸，最合理的反应步骤是（&nbsp;&nbsp;）。
 
 Sol
 本题改编自教科书，见本文开头。
 
-目标产物中的 <ce style="color: var(--chem-blue);">$-\\text{COOH}$</ce> 与 <ce style="color: var(--chem-crimson);">$-\\text{Br}$</ce> 处于**间位**。
-
-原料甲苯中的 <ce style="color: var(--chem-rust);">$-\\text{CH}_3$</ce> 为**邻对位定位基**。若直接发生溴代，产物为对溴甲苯和邻溴甲苯；若先将 <ce style="color: var(--chem-rust);">$-\\text{CH}_3$</ce> 氧化为**间位定位基** <ce style="color: var(--chem-blue);">$-\\text{COOH}$</ce>，才可在间位引入 <ce style="color: var(--chem-crimson);">$-\\text{Br}$</ce>。
+目标产物中的 <ce style="color: var(--chem-crimson);">$-\\text{Br}$</ce> 处于 <ce style="color: var(--chem-blue);">$-\\text{COOH}$</ce> 的**间位**。原料甲苯中的 <ce style="color: var(--chem-rust);">$-\\text{CH}_3$</ce> 为**邻对位定位基**。若直接发生溴代，产物为对溴甲苯和邻溴甲苯；先将 <ce style="color: var(--chem-rust);">$-\\text{CH}_3$</ce> 氧化为**间位定位基** <ce style="color: var(--chem-blue);">$-\\text{COOH}$</ce>，才可在间位引入 <ce style="color: var(--chem-crimson);">$-\\text{Br}$</ce>。
 
 :::
 {
@@ -626,7 +622,7 @@ Q
 $3\\text{-}$甲基苯酚在 $\\text{HNO}_3/\\text{H}_2\\text{SO}_4$ 作用下发生一硝化反应，其主要产物是（&nbsp;&nbsp;）。
 
 Sol
-<ce style="color: var(--chem-blue);">酚羟基（$-\\text{OH}$）</ce>与<ce style="color: var(--chem-rust);">甲基（$-\\text{CH}_3$）</ce>均为邻对位定位基。但<ce style="color: var(--chem-blue);">酚羟基</ce>给电子的共轭效应强于<ce style="color: var(--chem-rust);">甲基</ce>的超共轭效应，定位受<ce style="color: var(--chem-blue);">酚羟基</ce>支配。
+<ce style="color: var(--chem-blue);">酚羟基（$-\\text{OH}$）</ce>与<ce style="color: var(--chem-rust);">甲基（$-\\text{CH}_3$）</ce>均为邻对位定位基。但<ce style="color: var(--chem-blue);">酚羟基</ce>有两对孤对电子，给电子的共轭效应强于<ce style="color: var(--chem-rust);">甲基</ce>的超共轭效应，定位受<ce style="color: var(--chem-blue);">酚羟基</ce>支配。
 
 <ce style="color: var(--chem-blue);">酚羟基</ce>共有两个邻位和一个对位：其中夹在两个取代基之间的邻位受两旁基团的强空间位阻挤压，难以进攻；而处于<ce style="color: var(--chem-blue);">酚羟基</ce>对位空间较空旷，因此<ce style="color: var(--chem-green);">硝基</ce>主要进攻该对位。
 
@@ -771,7 +767,7 @@ Q
 在强酸性介质 $\\text{HNO}_3/\\text{H}_2\\text{SO}_4$ 中对苯胺进行一硝化反应，得到的主要产物是（&nbsp;&nbsp;）。
 
 Sol
-通常情况下 <ce style="color: var(--chem-blue);">$-\\text{NH}_2$</ce> 为邻对位定位基。但在酸体系中，<ce style="color: var(--chem-blue);">$-\\text{NH}_2$</ce> 转化为带正电荷的 <ce style="color: var(--chem-amber);">$-\\text{NH}_3^+$</ce>，转变为**间位定位基**，使<ce style="color: var(--chem-green);">硝基</ce>主要进攻间位。
+通常情况下 <ce style="color: var(--chem-blue);">$-\\text{NH}_2$</ce> 为邻对位定位基。但在酸体系中，<ce style="color: var(--chem-blue);">$-\\text{NH}_2$</ce> 与 $\\text{H}^+$ 反应而转化为带正电荷的 <ce style="color: var(--chem-amber);">$-\\text{NH}_3^+$</ce>，变成**间位定位基**，使<ce style="color: var(--chem-green);">硝基</ce>主要进攻间位。
 
 :::
 {
