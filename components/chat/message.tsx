@@ -9,7 +9,7 @@ import { authClient } from '@/lib/auth-client'
 import { StreamMarkdown } from './stream-markdown'
 import { Reasoning, isReasoningStreaming } from './reasoning'
 import { MessageImages, imageFileParts } from './attachments'
-import { verifyAdmin } from '@/lib/auth'
+import { verifyAdmin } from '@/lib/utils'
 
 export interface ChatMessageProps {
     message: UIMessage

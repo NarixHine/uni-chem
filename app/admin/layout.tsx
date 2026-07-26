@@ -1,6 +1,7 @@
 import { headers } from 'next/headers'
 import { forbidden, redirect } from 'next/navigation'
-import { auth, verifyAdmin } from '@/lib/auth'
+import { auth } from '@/lib/auth'
+import { verifyAdmin } from '@/lib/utils'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     const session = await auth.api.getSession({ headers: await headers() })

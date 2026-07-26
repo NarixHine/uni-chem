@@ -6,7 +6,8 @@ import { posts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { ComponentProps, Suspense } from 'react'
 import { EditPostButton } from '@/components/post-editor/edit-post-button'
-import { auth, verifyAdmin } from '@/lib/auth'
+import { auth } from '@/lib/auth'
+import { verifyAdmin } from '@/lib/utils'
 import { headers } from 'next/headers'
 
 type LearnPageParams = Promise<{ slug: string }>

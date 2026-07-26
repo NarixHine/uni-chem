@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@heroui/react'
 import { PencilSimpleIcon } from '@phosphor-icons/react'
 import { authClient } from '@/lib/auth-client'
-import { verifyAdmin } from '@/lib/auth'
+import { verifyAdmin } from '@/lib/utils'
 
 export function EditPostButton({ slug }: { slug: string }) {
     const { data: session } = authClient.useSession()
