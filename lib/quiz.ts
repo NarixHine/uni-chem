@@ -80,13 +80,13 @@ export function parseQuizBody(body: string): ParsedQuizBody {
 export function serializeQuizBody(data: QuizData): string {
     const lines: string[] = ['Q']
     if (data.question.trim()) lines.push(data.question.trim())
-    for (const opt of data.options) {
-        lines.push(opt.letter)
-        if (opt.content.trim()) lines.push(opt.content.trim())
-    }
     if (data.explanation?.trim()) {
         lines.push('Sol')
         lines.push(data.explanation.trim())
+    }
+    for (const opt of data.options) {
+        lines.push(opt.letter)
+        if (opt.content.trim()) lines.push(opt.content.trim())
     }
     return lines.join('\n')
 }
