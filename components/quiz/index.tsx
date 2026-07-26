@@ -33,6 +33,7 @@ const optionOverrides = {
         props: {
             canvasStyle: { backgroundColor: 'transparent' },
             fitPadding: 6,
+            autoFit: false,
         },
     },
     inlinemath: { component: Math },

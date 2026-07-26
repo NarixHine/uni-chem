@@ -24,6 +24,13 @@ export interface VisualizerProps {
      * contexts that only render bare molecules, e.g. quiz options.
      */
     fitPadding?: number
+    /**
+     * When `true` (default), the structure is uniformly scaled to fit the
+     * canvas (up- and down-scaling, capped at `MAX_FIT_SCALE`). Set to `false`
+     * to render at the molecule's native scale — useful in quiz options where
+     * a consistent atom/bond size matters more than fitting the viewport.
+     */
+    autoFit?: boolean
 }
 
 type ChemDoodleGlobal = typeof ChemDoodle
@@ -290,6 +297,7 @@ export default function Visualizer({
     scriptSrc = DEFAULT_SCRIPT_SRC,
     bridgeSrc = DEFAULT_BRIDGE_SRC,
     fitPadding = DEFAULT_FIT_PADDING,
+    autoFit = true,
 }: VisualizerProps) {
     const autoId = useId()
     const canvasId = id ?? `cd-${autoId.replace(/[:]/g, '')}`
@@ -335,9 +343,9 @@ export default function Visualizer({
         const canvas = canvasRef.current
         if (!canvas) return
         canvas.resize(size.width, size.height)
-        refit(canvas, fitPadding)
+        if (autoFit) refit(canvas, fitPadding)
         canvas.repaint()
-    }, [size.width, size.height, fitPadding])
+    }, [size.width, size.height, fitPadding, autoFit])
 
     // Build the canvas + load content once per molecule/theme/style. Does NOT
     // depend on `size` (read via `sizeRef`), so viewport changes are handled by
@@ -430,7 +438,7 @@ export default function Visualizer({
                         }
                     }
                     canvas.loadContent(molecules, shapes)
-                    refit(canvas, fitPadding)
+                    if (autoFit) refit(canvas, fitPadding)
                     // Paint immediately so content is visible ASAP, even if the
                     // web font hasn't finished loading (brief fallback font).
                     canvas.repaint()
@@ -470,6 +478,7 @@ export default function Visualizer({
         scriptSrc,
         bridgeSrc,
         fitPadding,
+        autoFit,
         width,
         height,
         theme.background,
@@ -492,7 +501,7 @@ export default function Visualizer({
                 minZoom={0.8}
                 doubleTapToggleZoom
                 tapZoomFactor={2}
-                containerProps={{ className: 'w-full h-full touch-none' }}
+                containerProps={{ className: 'w-full h-full touch-pinch-zoom cursor-zoom-in' }}
             >
                 <div ref={zoomChildRef} className='w-full h-full'>
                     <canvas
