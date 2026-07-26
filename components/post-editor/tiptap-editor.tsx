@@ -9,6 +9,7 @@ import { EditorBubbleMenu } from './bubble-menu'
 import { Chemdoodle } from './chemdoodle-node'
 import { MathExtensions } from './math-node'
 import { CeMark } from './ce-mark'
+import { ImageNode } from './image-node'
 
 // The `Markdown` extension augments `editor.storage` with a `markdown` slot,
 // but the runtime types don't carry it — declare a minimal view here so the
@@ -29,6 +30,11 @@ export function TiptapEditor({ initialMarkdown, onMarkdown }: TiptapEditorProps)
         extensions: [
             StarterKit.configure({
                 heading: { levels: [1, 2, 3] },
+            }),
+            ImageNode.configure({
+                inline: false,
+                allowBase64: true,
+                HTMLAttributes: { class: 'rounded-lg' },
             }),
             Typography,
             Placeholder.configure({ placeholder: 'Begin writing…' }),

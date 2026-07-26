@@ -19,6 +19,7 @@
         "@prisma/adapter-pg": "^7.8.0",
         "@prisma/client": "^7.8.0",
         "@tailwindcss/typography": "^0.5.20",
+        "@tiptap/extension-image": "^3.28.0",
         "@tiptap/extension-placeholder": "^3.28.0",
         "@tiptap/extension-typography": "^3.28.0",
         "@tiptap/pm": "^3.28.0",

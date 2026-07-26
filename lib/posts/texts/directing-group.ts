@@ -1,4 +1,4 @@
-export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水反应生成 $2,4,6\\text{-}$三溴苯酚的实验：
+export const DIRECTING_GROUP_TEXT = `我们在课内学习过苯酚与浓溴水生成 $2,4,6\\text{-}$三溴苯酚的反应：
 
 :::
 {

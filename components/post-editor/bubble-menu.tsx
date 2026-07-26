@@ -11,6 +11,7 @@ import {
     ArrowSquareOutIcon,
     FunctionIcon,
     DropIcon,
+    ImageIcon,
 } from '@phosphor-icons/react'
 import cn from 'cnfast'
 import { useRef } from 'react'
@@ -67,6 +68,14 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
         if (url === null) return
         if (url === '') editor.chain().focus().unsetLink().run()
         else editor.chain().focus().setLink({ href: url }).run()
+    }
+
+    const setImage = () => {
+        const prev = editor.getAttributes('image').src
+        const src = window.prompt('Image URL', prev ?? 'https://')
+        if (src === null || src === '') return
+        const alt = window.prompt('Alt text', '') ?? ''
+        editor.chain().focus().setImage({ src, alt }).run()
     }
 
     // The Dropdown popover captures focus while open, which collapses the
@@ -129,6 +138,12 @@ export function EditorBubbleMenu({ editor }: { editor: Editor | null }) {
                     Icon={ArrowSquareOutIcon}
                     onClick={setLink}
                     label='Link'
+                />
+                <IconBtn
+                    active={editor.isActive('image')}
+                    Icon={ImageIcon}
+                    onClick={setImage}
+                    label='Image'
                 />
             </ButtonGroup>
 

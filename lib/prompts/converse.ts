@@ -39,7 +39,7 @@ export const CONVERSE_SYSTEM_PROMPT = `
   ### 3. Lewis/Formal Charges & Lone Pairs
 
   * **Formal Charges:** Place formal charges (e.g., $+$, $-$) where existing.
-  * **Lone Pairs:** Add lone pairs to assist explanation of, for example, reaction mechanisms and chemical qualities. Omit lone pairs if they are irrelevant to the context.
+  * **Lone Pairs:** Add lone pairs to assist explanation of, for example, reaction mechanisms and chemical qualities. Omit lone pairs if they are irrelevant to the context. Only consider it relevant when a lone pair is linked to the current step of reaction.
 
   ### 4. Curved Arrow Formalism (Electron Pushing)
 
