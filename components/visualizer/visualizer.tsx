@@ -68,10 +68,10 @@ const MIN_PIXEL_RATIO = 2
 
 /**
  * Cap on the uniform fit scale. Without it a single tiny atom would be blown
- * up to fill the viewport; 4x keeps simple molecules readable without
+ * up to fill the viewport; 1.5x keeps simple molecules readable without
  * distorting atom/bond proportions.
  */
-const MAX_FIT_SCALE = 4
+const MAX_FIT_SCALE = 1.5
 
 /**
  * Padding (CSS px) between the structure bounding box and the canvas edge.
@@ -254,7 +254,11 @@ function ensureChemDoodle(src: string, bridgeSrc: string): Promise<ChemDoodleGlo
         bridgeScript.addEventListener('load', () => finish(getChemDoodle()))
 
         const timer = setTimeout(
-            () => finish(undefined, new Error(`ChemDoodle not available after ${SCRIPT_LOAD_TIMEOUT}ms`)),
+            () =>
+                finish(
+                    undefined,
+                    new Error(`ChemDoodle not available after ${SCRIPT_LOAD_TIMEOUT}ms`),
+                ),
             SCRIPT_LOAD_TIMEOUT,
         )
     })
@@ -400,7 +404,10 @@ export default function Visualizer({
                             const clr = src.a[j].clr
                             if (clr) {
                                 target.atoms[j].styles = Object.assign(
-                                    new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                    new (chem.structures.Styles as new () => Record<
+                                        string,
+                                        unknown
+                                    >)(),
                                     {
                                         atoms_color: resolveCanvasColor(clr),
                                         atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -413,7 +420,10 @@ export default function Visualizer({
                                 const clr = src.b[j].clr
                                 if (clr) {
                                     target.bonds[j].styles = Object.assign(
-                                        new (chem.structures.Styles as new () => Record<string, unknown>)(),
+                                        new (chem.structures.Styles as new () => Record<
+                                            string,
+                                            unknown
+                                        >)(),
                                         {
                                             bonds_color: resolveCanvasColor(clr),
                                             atoms_font_families_2D: CANVAS_FONT_FAMILIES,
@@ -447,11 +457,9 @@ export default function Visualizer({
                     // repaint again when KaTeX_Main is ready so labels switch to
                     // the correct serif face.
                     if ('fonts' in document) {
-                        document.fonts
-                            .load(`12px ${CANVAS_FONT_FAMILIES.join(',')}`)
-                            .then(() => {
-                                if (!cancelled) canvas.repaint()
-                            })
+                        document.fonts.load(`12px ${CANVAS_FONT_FAMILIES.join(',')}`).then(() => {
+                            if (!cancelled) canvas.repaint()
+                        })
                     }
                 } else {
                     canvasRef.current = canvas
