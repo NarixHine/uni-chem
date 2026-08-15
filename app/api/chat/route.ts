@@ -26,9 +26,13 @@ export async function POST(req: Request) {
         model: CHAT_MODEL,
         instructions: CONVERSE_SYSTEM_PROMPT,
         messages: await convertToModelMessages(messages),
-        reasoning: 'medium',
+        reasoning: 'high',
         providerOptions: {
-            google: { thinkingConfig: { includeThoughts: true } },
+            google: {
+                thinkingConfig: {
+                    includeThoughts: true,
+                },
+            },
         },
     })
 
