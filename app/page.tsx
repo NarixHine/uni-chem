@@ -15,8 +15,8 @@ export default function Home() {
             </p>
             <p className='text-[clamp(0.9rem,2.4vw,1.2rem)] tracking-tight px-2 leading-snug text-balance font-serif'>
                 本站为<span className='font-semibold'>面向普通高中生的强基化学学习</span>网站，由
-                <span className='text-blue-400'>教程</span>
-                <small>（未完善，慎用）</small>和
+                <span className='text-blue-400'>教程与例题</span>
+                <small>（未完善，慎读）</small>和
                 <Link
                     className='text-blue-400 underline underline-offset-4 decoration-1'
                     href={'/engage'}
@@ -24,7 +24,8 @@ export default function Home() {
                     {' '}
                     AI 助教
                 </Link>
-                两部分组成。本站 AI 助教搭载绘制化学图示以讲解化学原理和反应机理的独特功能。
+                两部分组成。本站 AI
+                助教搭载绘制化学图示以讲解化学原理和反应机理的独特功能。
             </p>
             <div className='max-w-xl px-2 mx-auto pt-4 md:pt-6'>
                 <PostList sections={postSections} />

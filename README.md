@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 亲民化学
 
-## Getting Started
+本站为**面向普通高中生的强基化学学习网站**，由**教程和典型例题**（不完善，慎读！）和 **AI 助教**两部分组成。本站 AI 助教搭载绘制化学图示以讲解化学原理和反应机理的独特功能。
 
-First, run the development server:
+本站最初只是想要利用化学结构渲染库为化学学习体验（尤其是 AI 问答）的改善贡献绵薄之力。迫于知识水准和时间成本，本项目维护很可能极为有限。
+
+### 本地开发
+
+补充以下环境变量：
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Vercel AI Gateway
+AI_GATEWAY_API_KEY=
+
+# Prisma Postgres, Neon Postgres, etc.
+DATABASE_URL=
+
+# Better Auth
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+然后运行：
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+bun i
+bunx prisma migrate dev
+bun dev
+```
